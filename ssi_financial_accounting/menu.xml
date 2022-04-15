@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<menuitem
+        id="menu_root_financial_accounting"
+        name="Financial Accounting"
+        web_icon="ssi_financial_accounting,static/description/icon.png"
+    />
+
+<menuitem
+        id="menu_account_receivable"
+        name="Account Receivable"
+        parent="menu_root_financial_accounting"
+        sequence="10"
+    />
+
+<menuitem
+        id="menu_account_payable"
+        name="Account Payable"
+        parent="menu_root_financial_accounting"
+        sequence="20"
+    />
+
+<menuitem
+        id="menu_bank_cash"
+        name="Bank &amp; Cash"
+        parent="menu_root_financial_accounting"
+        sequence="30"
+    />
+
+<menuitem
+        id="menu_accounting_entry"
+        name="Accounting Entry"
+        parent="menu_root_financial_accounting"
+        sequence="90"
+    />
+
+<menuitem
+        id="account_move_menu"
+        name="Journal Entries"
+        parent="menu_accounting_entry"
+        groups="journal_entry_user_group"
+        action="account.action_move_journal_line"
+        sequence="10"
+    />
+
+<menuitem
+        id="account_move_line_menu"
+        name="Journal Items"
+        parent="menu_accounting_entry"
+        groups="journal_entry_user_group"
+        action="account.action_account_moves_all"
+        sequence="10"
+    />
+
+<menuitem
+        id="menu_financial_accounting_report"
+        name="Report"
+        parent="menu_root_financial_accounting"
+        sequence="98"
+    />
+<menuitem
+        id="menu_financial_accounting_configuration"
+        name="Configuration"
+        parent="menu_root_financial_accounting"
+        sequence="99"
+    />
+
+<menuitem
+        id="menu_account_configuration"
+        name="Account"
+        parent="menu_financial_accounting_configuration"
+        sequence="10"
+    />
+
+<menuitem
+        id="account_account_type_menu"
+        name="Account Types"
+        parent="menu_account_configuration"
+        groups="account_account_type_group"
+        action="account.action_account_type_form"
+        sequence="10"
+    />
+
+<record id="account_tag_action" model="ir.actions.act_window">
+    <field name="name">Account Tags</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.account.tag</field>
+    <field name="view_mode">tree,form</field>
+    <field name="search_view_id" ref="account.account_tag_view_search" />
+</record>
+
+<menuitem
+        id="account_account_tag_menu"
+        name="Account Tags"
+        parent="menu_account_configuration"
+        groups="account_account_tag_group"
+        action="account_tag_action"
+        sequence="20"
+    />
+
+<menuitem
+        id="account_account_menu"
+        name="Accounts"
+        parent="menu_account_configuration"
+        groups="account_account_group"
+        action="account.action_account_form"
+        sequence="30"
+    />
+
+<menuitem
+        id="menu_journal_configuration"
+        name="Journal"
+        parent="menu_financial_accounting_configuration"
+        sequence="20"
+    />
+
+<menuitem
+        id="account_journal_group_menu"
+        name="Journal Groups"
+        parent="menu_journal_configuration"
+        groups="account_journal_group_group"
+        action="account.action_account_journal_group_list"
+        sequence="10"
+    />
+
+<menuitem
+        id="account_journal_menu"
+        name="Journals"
+        parent="menu_journal_configuration"
+        groups="account_journal_group"
+        action="account.action_account_journal_form"
+        sequence="20"
+    />
+
+<menuitem
+        id="menu_tax_configuration"
+        name="Tax"
+        parent="menu_financial_accounting_configuration"
+        sequence="30"
+    />
+
+<menuitem
+        id="account_tax_menu"
+        name="Taxes"
+        parent="menu_tax_configuration"
+        groups="account_tax_group"
+        action="account.action_tax_form"
+        sequence="10"
+    />
+
+<menuitem
+        id="account_fiscal_position_menu"
+        name="Fiscal Positions"
+        parent="menu_tax_configuration"
+        groups="account_fiscal_position_group"
+        action="account.action_account_fiscal_position_form"
+        sequence="20"
+    />
+
+
+</odoo>

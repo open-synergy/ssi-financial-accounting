@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="financial_accounting_module_category" model="ir.module.category">
+    <field name="name">Financial Accounting</field>
+</record>
+
+<record
+        id="financial_accounting_configurator_module_category"
+        model="ir.module.category"
+    >
+    <field name="name">Financial Accounting Configurator</field>
+    <field name="parent_id" ref="financial_accounting_module_category" />
+</record>
+
+<record id="journal_entry_module_category" model="ir.module.category">
+    <field name="name">Journal Entry</field>
+    <field name="parent_id" ref="financial_accounting_module_category" />
+</record>
+
+</odoo>
