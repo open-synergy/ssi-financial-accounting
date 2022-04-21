@@ -17,6 +17,24 @@
     />
 
 <menuitem
+        id="customer_invoice_menu"
+        name="Invoices"
+        parent="menu_account_receivable"
+        action="account.action_move_out_invoice_type"
+        groups="ssi_financial_accounting.invoice_user_group"
+        sequence="1"
+    />
+
+<menuitem
+        id="credit_note_menu"
+        name="Credit Notes"
+        parent="menu_account_receivable"
+        action="account.action_move_out_refund_type"
+        groups="ssi_financial_accounting.credit_note_user_group"
+        sequence="2"
+    />
+
+<menuitem
         id="menu_account_payable"
         name="Account Payable"
         parent="menu_root_financial_accounting"
@@ -24,10 +42,46 @@
     />
 
 <menuitem
+        id="vendor_bill_menu"
+        name="Bills"
+        parent="menu_account_payable"
+        action="account.action_move_in_invoice_type"
+        groups="ssi_financial_accounting.bill_user_group"
+        sequence="1"
+    />
+
+<menuitem
+        id="refund_bill_menu"
+        name="Refunds"
+        parent="menu_account_payable"
+        action="account.action_move_in_refund_type"
+        groups="ssi_financial_accounting.refund_user_group"
+        sequence="2"
+    />
+
+<menuitem
         id="menu_bank_cash"
         name="Bank &amp; Cash"
         parent="menu_root_financial_accounting"
         sequence="30"
+    />
+
+<menuitem
+        id="account_bank_statement_menu"
+        name="Bank Statements"
+        parent="menu_bank_cash"
+        action="account.action_bank_statement_tree"
+        groups="ssi_financial_accounting.bank_statement_user_group"
+        sequence="1"
+    />
+
+<menuitem
+        id="account_cash_register_menu"
+        name="Cash Registers"
+        parent="menu_bank_cash"
+        action="account.action_view_bank_statement_tree"
+        groups="ssi_financial_accounting.cash_register_user_group"
+        sequence="2"
     />
 
 <menuitem

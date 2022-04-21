@@ -20,4 +20,34 @@
     <field name="parent_id" ref="financial_accounting_module_category" />
 </record>
 
+<record id="bank_statement_module_category" model="ir.module.category">
+    <field name="name">Bank Statement</field>
+    <field name="parent_id" ref="financial_accounting_module_category" />
+</record>
+
+<record id="cash_register_module_category" model="ir.module.category">
+    <field name="name">Cash Register</field>
+    <field name="parent_id" ref="financial_accounting_module_category" />
+</record>
+
+<record id="invoice_module_category" model="ir.module.category">
+    <field name="name">Invoice</field>
+    <field name="parent_id" ref="financial_accounting_module_category" />
+</record>
+
+<record id="bill_module_category" model="ir.module.category">
+    <field name="name">Bill</field>
+    <field name="parent_id" ref="financial_accounting_module_category" />
+</record>
+
+<record id="credit_note_module_category" model="ir.module.category">
+    <field name="name">Credit Note</field>
+    <field name="parent_id" ref="financial_accounting_module_category" />
+</record>
+
+<record id="refund_module_category" model="ir.module.category">
+    <field name="name">Refund</field>
+    <field name="parent_id" ref="financial_accounting_module_category" />
+</record>
+
 </odoo>
