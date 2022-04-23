@@ -173,4 +173,14 @@
         sequence="0"
         action="res_config_settings_action"
     />
+
+<!-- Hide Original View -->
+<record id="account.res_config_settings_view_form" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.inherit.account</field>
+    <field name="model">res.config.settings</field>
+    <field name="priority" eval="40" />
+    <field name="inherit_id" ref="base.res_config_settings_view_form" />
+    <field name="active" eval="1" />
+    <field name="groups_id" eval="[(6, 0, [ref('original_accounting_group')])]" />
+</record>
 </odoo>
