@@ -85,6 +85,13 @@
     />
 
 <menuitem
+        id="menu_fixed_asset"
+        name="Fixed Asset"
+        parent="menu_root_financial_accounting"
+        sequence="40"
+    />
+
+<menuitem
         id="menu_accounting_entry"
         name="Accounting Entry"
         parent="menu_root_financial_accounting"
@@ -212,6 +219,13 @@
         groups="account_fiscal_position_group"
         action="account.action_account_fiscal_position_form"
         sequence="20"
+    />
+
+<menuitem
+        id="menu_fixed_asset_configuration"
+        name="Fixed Asset"
+        parent="menu_financial_accounting_configuration"
+        sequence="30"
     />
 
 <!-- Hide menu -->
