@@ -148,9 +148,110 @@
 
                     </div>
 
+                    <div id="use_ssi_fixed_asset" class="col-12 col-lg-6 o_setting_box">
+                        <div
+                                name="use_ssi_fixed_asset_left"
+                                class="o_setting_left_pane"
+                            >
+                            <field name="module_ssi_fixed_asset" />
+                        </div>
+                        <div
+                                name="use_ssi_fixed_asset_right"
+                                class="o_setting_right_pane"
+                            >
+                            <label for="module_ssi_fixed_asset" />
+                            <div class="text-muted">
+                                Manage fixed asset
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                            id="use_ssi_fixed_asset_disposal"
+                            class="col-12 col-lg-6 o_setting_box"
+                        >
+                        <div
+                                name="use_ssi_fixed_asset_disposal"
+                                class="o_setting_left_pane"
+                            >
+                            <field name="module_ssi_fixed_asset_disposal" />
+                        </div>
+                        <div
+                                name="use_ssi_fixed_asset_disposal_right"
+                                class="o_setting_right_pane"
+                            >
+                            <label for="module_ssi_fixed_asset_disposal" />
+                            <div class="text-muted">
+                                Manage fixed asset disposal
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                            id="use_ssi_fixed_asset_improvement"
+                            class="col-12 col-lg-6 o_setting_box"
+                        >
+                        <div
+                                name="use_ssi_fixed_asset_improvement"
+                                class="o_setting_left_pane"
+                            >
+                            <field name="module_ssi_fixed_asset_improvement" />
+                        </div>
+                        <div
+                                name="use_ssi_fixed_asset_improvement_right"
+                                class="o_setting_right_pane"
+                            >
+                            <label for="module_ssi_fixed_asset_improvement" />
+                            <div class="text-muted">
+                                Manage fixed asset improvement
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                            id="use_ssi_fixed_asset_estimation_change"
+                            class="col-12 col-lg-6 o_setting_box"
+                        >
+                        <div
+                                name="use_ssi_fixed_asset_estimation_change"
+                                class="o_setting_left_pane"
+                            >
+                            <field name="module_ssi_fixed_asset_estimation_change" />
+                        </div>
+                        <div
+                                name="use_ssi_fixed_asset_estimation_change_right"
+                                class="o_setting_right_pane"
+                            >
+                            <label for="module_ssi_fixed_asset_estimation_change" />
+                            <div class="text-muted">
+                                Manage fixed asset estimation change
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                            id="use_ssi_fixed_asset_complex"
+                            class="col-12 col-lg-6 o_setting_box"
+                        >
+                        <div
+                                name="use_ssi_fixed_asset_complex"
+                                class="o_setting_left_pane"
+                            >
+                            <field name="module_ssi_fixed_asset_complex" />
+                        </div>
+                        <div
+                                name="use_ssi_fixed_asset_complex_right"
+                                class="o_setting_right_pane"
+                            >
+                            <label for="module_ssi_fixed_asset_complex" />
+                            <div class="text-muted">
+                                Manage complex fixed asset
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <h2>Integration</h2>
-                <div class="row mt16 o_settings_container" id="psychology_feature">
+                <div
+                        class="row mt16 o_settings_container"
+                        id="financial_accounting_integration"
+                    >
                 </div>
             </div>
         </xpath>
@@ -163,7 +264,9 @@
     <field name="res_model">res.config.settings</field>
     <field name="view_mode">form</field>
     <field name="target">inline</field>
-    <field name="context">{'module' : 'ssi_psychology', 'bin_size': False}</field>
+    <field
+            name="context"
+        >{'module' : 'ssi_financial_accounting', 'bin_size': False}</field>
 </record>
 
 <menuitem
