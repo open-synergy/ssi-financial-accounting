@@ -30,3 +30,18 @@ class ResConfigSettings(models.TransientModel):
     module_ssi_voucher_invoice_settlement = fields.Boolean(
         string="Invoice Settlement Voucher",
     )
+    module_ssi_fixed_asset = fields.Boolean(
+        string="Fixed Asset",
+    )
+    module_ssi_fixed_asset_disposal = fields.Boolean(
+        string="Fixed Asset Disposal",
+    )
+    module_ssi_fixed_asset_improvement = fields.Boolean(
+        string="Fixed Asset Improvement",
+    )
+    module_ssi_fixed_asset_estimation_change = fields.Boolean(
+        string="Fixed Asset Estimation Change",
+    )
+    module_ssi_fixed_asset_complex = fields.Boolean(
+        string="Complex Fixed Asset",
+    )
