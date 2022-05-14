@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+<menuitem
+        id="trial_balance_wizard_menu"
+        name="Trial Balance"
+        parent="menu_financial_accounting_report"
+        action="account_financial_report.action_trial_balance_wizard"
+        sequence="2"
+    />
+
+</odoo>
