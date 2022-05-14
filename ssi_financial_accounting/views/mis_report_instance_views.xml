@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<menuitem
+        id="mis_report_instance_menu"
+        name="MIS Reports"
+        parent="menu_financial_accounting_report"
+        sequence="99"
+        action="mis_builder.mis_report_instance_view_action"
+    />
+
+
+</odoo>
