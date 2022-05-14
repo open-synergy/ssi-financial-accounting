@@ -13,6 +13,7 @@
     "depends": [
         "account",
         "configuration_helper",
+        "currency_rate_inverted",
     ],
     "data": [
         "security/ir_module_category_data.xml",
