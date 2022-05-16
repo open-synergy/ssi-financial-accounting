@@ -92,6 +92,13 @@
     />
 
 <menuitem
+        id="menu_periodic_processing"
+        name="Periodic Processing"
+        parent="menu_root_financial_accounting"
+        sequence="50"
+    />
+
+<menuitem
         id="menu_accounting_entry"
         name="Accounting Entry"
         parent="menu_root_financial_accounting"
