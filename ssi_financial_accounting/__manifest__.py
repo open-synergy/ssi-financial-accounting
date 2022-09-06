@@ -4,7 +4,7 @@
 
 {
     "name": "Financial Accounting",
-    "version": "14.0.2.1.0",
+    "version": "14.0.2.2.0",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "license": "LGPL-3",
@@ -24,6 +24,9 @@
         "menu.xml",
         "views/res_config_settings_views.xml",
         "views/mis_report_instance_views.xml",
+        "views/mis_report_style_views.xml",
+        "views/mis_report_views.xml",
+        "views/account_account_type_views.xml",
         "wizards/general_ledger_wizard_views.xml",
         "wizards/trial_balance_wizard_views.xml",
         "wizards/aged_partner_balance_wizard_views.xml",
