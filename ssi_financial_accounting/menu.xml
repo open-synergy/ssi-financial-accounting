@@ -236,6 +236,13 @@
     />
 
 <menuitem
+        id="menu_mis_report_configuration"
+        name="MIS Report"
+        parent="menu_financial_accounting_configuration"
+        sequence="40"
+    />
+
+<menuitem
         id="menu_misc_configuration"
         name="miscellaneous"
         parent="menu_financial_accounting_configuration"
