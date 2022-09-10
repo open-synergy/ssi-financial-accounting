@@ -166,6 +166,26 @@
                         </div>
                     </div>
                     <div
+                            id="use_ssi_fixed_in_progress"
+                            class="col-12 col-lg-6 o_setting_box"
+                        >
+                        <div
+                                name="use_ssi_fixed_in_progress_left"
+                                class="o_setting_left_pane"
+                            >
+                            <field name="module_ssi_fixed_asset_in_progress" />
+                        </div>
+                        <div
+                                name="use_ssi_fixed_asset_in_progress_right"
+                                class="o_setting_right_pane"
+                            >
+                            <label for="module_ssi_fixed_asset_in_progress" />
+                            <div class="text-muted">
+                                Manage fixed asset in progress
+                            </div>
+                        </div>
+                    </div>
+                    <div
                             id="use_ssi_fixed_asset_disposal"
                             class="col-12 col-lg-6 o_setting_box"
                         >
