@@ -45,3 +45,6 @@ class ResConfigSettings(models.TransientModel):
     module_ssi_fixed_asset_complex = fields.Boolean(
         string="Complex Fixed Asset",
     )
+    module_ssi_fixed_asset_in_progress = fields.Boolean(
+        string="Fixed Asset in Progress",
+    )
