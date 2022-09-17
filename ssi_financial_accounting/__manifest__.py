@@ -4,7 +4,7 @@
 
 {
     "name": "Financial Accounting",
-    "version": "14.0.2.3.0",
+    "version": "14.0.2.4.0",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "license": "LGPL-3",
@@ -21,6 +21,7 @@
     "data": [
         "security/ir_module_category_data.xml",
         "security/res_group_data.xml",
+        "data/account_journal_data.xml",
         "menu.xml",
         "views/res_config_settings_views.xml",
         "views/mis_report_instance_views.xml",
