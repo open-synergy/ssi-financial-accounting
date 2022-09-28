@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="account_move_py3o_report" model="ir.actions.report">
+    <field name="name">Journal Entry A4 PDF</field>
+    <field name="model">account.move</field>
+    <field name="report_name">JournalEntryA4PDF</field>
+    <field name="report_type">py3o</field>
+    <field name="py3o_filetype">pdf</field>
+    <field name="module">account_move_p3o_report</field>
+    <field name="py3o_template_fallback">/reports/account_move.odt</field>
+</record>
+</odoo>
