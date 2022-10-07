@@ -10,6 +10,7 @@
         parent="menu_financial_accounting_report"
         action="account_financial_report.action_general_ledger_wizard"
         sequence="1"
+        groups="general_ledger_group"
     />
 
 </odoo>

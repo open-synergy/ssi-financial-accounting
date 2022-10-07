@@ -9,6 +9,7 @@
         parent="menu_financial_accounting_report"
         sequence="99"
         action="mis_builder.mis_report_instance_view_action"
+        groups="mis_report_group"
     />
 
 
