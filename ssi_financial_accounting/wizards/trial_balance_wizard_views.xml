@@ -10,6 +10,7 @@
         parent="menu_financial_accounting_report"
         action="account_financial_report.action_trial_balance_wizard"
         sequence="2"
+        groups="trial_balance_group"
     />
 
 </odoo>

@@ -20,6 +20,11 @@
         <field name="name">Financial Accounting - Wizard</field>
     </record>
 
+    <record id="financial_accounting_report_module_category" model="ir.module.category">
+        <field name="name">Financial Accounting - Report</field>
+        <field name="parent_id" ref="financial_accounting_module_category" />
+    </record>
+
     <record id="journal_entry_module_category" model="ir.module.category">
         <field name="name">Journal Entry</field>
         <field name="parent_id" ref="financial_accounting_module_category" />

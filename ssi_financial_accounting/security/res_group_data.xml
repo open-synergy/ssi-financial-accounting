@@ -3,6 +3,7 @@
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
 <odoo>
+<!-- Journal Entry Workflow -->
 <record id="journal_entry_user_group" model="res.groups">
     <field name="name">User</field>
     <field
@@ -24,6 +25,7 @@
         />
 </record>
 
+<!-- Bank statement workflow -->
 <record id="bank_statement_user_group" model="res.groups">
     <field name="name">User</field>
     <field
@@ -45,6 +47,7 @@
         />
 </record>
 
+<!-- Cash register workflow -->
 <record id="cash_register_user_group" model="res.groups">
     <field name="name">User</field>
     <field
@@ -136,7 +139,7 @@
         />
 </record>
 
-
+<!-- Configurator -->
 <record id="account_account_type_group" model="res.groups">
     <field name="name">Account Type</field>
     <field
@@ -227,6 +230,43 @@
             name="category_id"
             ref="ssi_financial_accounting.financial_accounting_configurator_module_category"
         />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<!-- Report -->
+<record id="general_ledger_group" model="res.groups">
+    <field name="name">General Ledger</field>
+    <field name="category_id" ref="financial_accounting_report_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="trial_balance_group" model="res.groups">
+    <field name="name">Trial Balance</field>
+    <field name="category_id" ref="financial_accounting_report_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="aged_partner_balance_group" model="res.groups">
+    <field name="name">Aged Partner Balance</field>
+    <field name="category_id" ref="financial_accounting_report_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="mis_report_group" model="res.groups">
+    <field name="name">MIS Report</field>
+    <field name="category_id" ref="financial_accounting_report_module_category" />
     <field
             name="users"
             eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
