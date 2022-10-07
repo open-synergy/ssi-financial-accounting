@@ -9,5 +9,6 @@
         name="Styles"
         action="mis_builder.mis_report_style_view_action"
         sequence="2"
+        groups="mis_report_style_group"
     />
 </odoo>

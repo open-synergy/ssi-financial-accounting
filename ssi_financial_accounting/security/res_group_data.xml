@@ -236,6 +236,30 @@
         />
 </record>
 
+<record id="mis_report_template_group" model="res.groups">
+    <field name="name">MIS Report Template</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.financial_accounting_configurator_module_category"
+        />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="mis_report_style_group" model="res.groups">
+    <field name="name">MIS Report Style</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.financial_accounting_configurator_module_category"
+        />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <!-- Report -->
 <record id="general_ledger_group" model="res.groups">
     <field name="name">General Ledger</field>

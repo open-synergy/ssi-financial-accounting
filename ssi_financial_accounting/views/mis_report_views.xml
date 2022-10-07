@@ -9,5 +9,6 @@
         name="Templates"
         action="mis_builder.mis_report_view_action"
         sequence="1"
+        groups="mis_report_template_group"
     />
 </odoo>
