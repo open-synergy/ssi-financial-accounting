@@ -7,3 +7,5 @@ oca-currency https://github.com/OCA/currency.git 14.0
 oca-reporting-engine https://github.com/OCA/reporting-engine.git 14.0
 oca-account-financial-reporting https://github.com/OCA/account-financial-reporting.git 14.0
 akretion-odoo-usability https://github.com/akretion/odoo-usability.git 14.0
+oca-bank-statement-import https://github.com/OCA/bank-statement-import.git 14.0
+oca-web https://github.com/OCA/web.git 14.0
