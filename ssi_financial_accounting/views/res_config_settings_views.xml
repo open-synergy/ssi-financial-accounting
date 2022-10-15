@@ -266,6 +266,48 @@
                         </div>
                     </div>
 
+                    <div
+                            id="use_ssi_account_amortization"
+                            class="col-12 col-lg-6 o_setting_box"
+                        >
+                        <div
+                                name="use_ssi_account_amortization"
+                                class="o_setting_left_pane"
+                            >
+                            <field name="module_ssi_account_amortization" />
+                        </div>
+                        <div
+                                name="use_ssi_account_amortization_right"
+                                class="o_setting_right_pane"
+                            >
+                            <label for="module_ssi_account_amortization" />
+                            <div class="text-muted">
+                                Manage prepaid expense &amp; deferred revenue amortization
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                            id="use_ssi_account_currency_revaluation"
+                            class="col-12 col-lg-6 o_setting_box"
+                        >
+                        <div
+                                name="use_ssi_account_currency_revaluation"
+                                class="o_setting_left_pane"
+                            >
+                            <field name="module_ssi_account_currency_revaluation" />
+                        </div>
+                        <div
+                                name="use_ssi_account_currency_revaluation_right"
+                                class="o_setting_right_pane"
+                            >
+                            <label for="module_ssi_account_currency_revaluation" />
+                            <div class="text-muted">
+                                Manage currency revaluation
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <h2>Integration</h2>
                 <div

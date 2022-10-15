@@ -48,3 +48,9 @@ class ResConfigSettings(models.TransientModel):
     module_ssi_fixed_asset_in_progress = fields.Boolean(
         string="Fixed Asset in Progress",
     )
+    module_ssi_account_amortization = fields.Boolean(
+        string="Prepaid Expense & Deferred Revenue Amortization",
+    )
+    module_ssi_account_currency_revaluation = fields.Boolean(
+        string="Currency Revaluation",
+    )
