@@ -6,7 +6,7 @@
 
 # ssi-financial-accounting
 
-None
+ssi-financial-accounting
 
 <!-- /!\ do not modify below this line -->
 
