@@ -31,7 +31,7 @@ class AccountMove(models.Model):
     @api.depends(
         "move_line_payment_ids",
     )
-    def _compute_invoice_last_payment_date(self):
+    def _compute_last_payment_date(self):
         for document in self:
             last_payment_date = False
             if document.move_line_payment_ids:
@@ -39,11 +39,11 @@ class AccountMove(models.Model):
                     key=lambda r: r.date, reverse=True
                 )[0]
                 last_payment_date = payment.date
-            document.invoice_last_payment_date = last_payment_date
+            document.last_payment_date = last_payment_date
 
-    invoice_last_payment_date = fields.Date(
+    last_payment_date = fields.Date(
         string="Last Payment Date",
-        compute="_compute_invoice_last_payment_date",
+        compute="_compute_last_payment_date",
         store=True,
         readonly=True,
     )
