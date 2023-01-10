@@ -30,19 +30,29 @@ class AccountMove(models.Model):
 
     @api.depends(
         "move_line_payment_ids",
+        "move_line_payment_ids.date",
     )
     def _compute_last_payment_date(self):
         for document in self:
-            last_payment_date = False
+            last_payment_date = last_payment_line_id = False
             if document.move_line_payment_ids:
                 payment = document.move_line_payment_ids.sorted(
                     key=lambda r: r.date, reverse=True
                 )[0]
                 last_payment_date = payment.date
+                last_payment_line_id = payment.id
             document.last_payment_date = last_payment_date
+            document.last_payment_line_id = last_payment_line_id
 
     last_payment_date = fields.Date(
         string="Last Payment Date",
+        compute="_compute_last_payment_date",
+        store=True,
+        readonly=True,
+    )
+    last_payment_line_id = fields.Many2one(
+        string="#Last Payment Line",
+        comodel_name="account.move.line",
         compute="_compute_last_payment_date",
         store=True,
         readonly=True,
