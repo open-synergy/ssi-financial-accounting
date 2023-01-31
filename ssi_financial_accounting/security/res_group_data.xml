@@ -176,6 +176,18 @@
         />
 </record>
 
+<record id="cash_flow_type_group" model="res.groups">
+    <field name="name">Cash Flow Type</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.financial_accounting_configurator_module_category"
+        />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <record id="account_journal_group_group" model="res.groups">
     <field name="name">Journal Group</field>
     <field
