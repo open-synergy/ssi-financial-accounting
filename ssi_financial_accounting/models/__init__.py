@@ -6,4 +6,7 @@ from . import (
     res_company,
     res_config_settings,
     account_move,
+    cash_flow_type,
+    account_account,
+    account_move_line,
 )
