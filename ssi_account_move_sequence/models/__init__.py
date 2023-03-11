@@ -4,4 +4,5 @@
 
 from . import (
     account_move,
+    account_journal,
 )
