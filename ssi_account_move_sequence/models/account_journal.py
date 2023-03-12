@@ -13,6 +13,6 @@ class AccountJournal(models.Model):
 
     sequence_id = fields.Many2one(
         string="Sequence",
-        comodel_name="account.journal",
+        comodel_name="ir.sequence",
         ondelete="restrict",
     )
