@@ -4,6 +4,20 @@
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
 <odoo>
 
+<!-- Inherit Form View to Modify it -->
+<record id="aged_partner_balance_wizard" model="ir.ui.view">
+    <field name="name">aged.partner.balance.report.wizard.form</field>
+    <field name="model">aged.partner.balance.report.wizard</field>
+    <field name="inherit_id" ref="account_financial_report.aged_partner_balance_wizard"/>
+    <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='date_from']" position="after">
+            <field name="due_interval"/>
+        </xpath>
+
+    </field>
+</record>
+
 <menuitem
         id="aged_partner_balance_wizard_menu"
         name="Aged Partner Balance"
