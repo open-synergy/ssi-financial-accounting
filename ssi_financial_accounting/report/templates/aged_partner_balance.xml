@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_aged_partner_balance_lines_header" inherit_id="account_financial_report.report_aged_partner_balance_lines_header">
+            <xpath expr="//div/div/div[4]" position="replace">
+                <div class="act_as_cell" style="width: 9.64%;"><t t-esc="interval_label1"/></div>
+            </xpath>
+            <xpath expr="//div/div/div[5]" position="replace">
+                <div class="act_as_cell" style="width: 9.64%;"><t t-esc="interval_label2"/></div>
+            </xpath>
+            <xpath expr="//div/div/div[6]" position="replace">
+                <div class="act_as_cell" style="width: 9.64%;"><t t-esc="interval_label3"/></div>
+            </xpath>
+            <xpath expr="//div/div/div[7]" position="replace">
+                <div class="act_as_cell" style="width: 9.64%;"><t t-esc="interval_label4"/></div>
+            </xpath>
+            <xpath expr="//div/div/div[8]" position="replace">
+                <div class="act_as_cell" style="width: 9.64%;"><t t-esc="interval_label5"/></div>
+            </xpath>
+        </template>
+
+        <template id="report_aged_partner_balance_move_lines" inherit_id="account_financial_report.report_aged_partner_balance_move_lines">
+            <xpath expr="//div/div/div/div[10]" position="replace">
+                <div class="act_as_cell" style="width: 6.00%;"><t t-esc="interval_label1"/></div>
+            </xpath>
+            <xpath expr="//div/div/div/div[11]" position="replace">
+                <div class="act_as_cell" style="width: 6.00%;"><t t-esc="interval_label2"/></div>
+            </xpath>
+            <xpath expr="//div/div/div/div[12]" position="replace">
+                <div class="act_as_cell" style="width: 6.00%;"><t t-esc="interval_label3"/></div>
+            </xpath>
+            <xpath expr="//div/div/div/div[13]" position="replace">
+                <div class="act_as_cell" style="width: 6.00%;"><t t-esc="interval_label4"/></div>
+            </xpath>
+            <xpath expr="//div/div/div/div[14]" position="replace">
+                <div class="act_as_cell" style="width: 6.00%;"><t t-esc="interval_label5"/></div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
