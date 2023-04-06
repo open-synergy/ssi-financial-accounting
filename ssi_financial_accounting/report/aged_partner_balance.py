@@ -20,16 +20,16 @@ class AgedPartnerBalanceReport(models.AbstractModel):
             if not due_date or today <= due_date:
                 ag_pb_data[acc_id]["current"] += residual
                 ag_pb_data[acc_id][prt_id]["current"] += residual
-            elif today <= due_date + timedelta(days=wizard_id.due_interval * 1):
+            elif today <= due_date + timedelta(days=wizard_id.get_interval(1)):
                 ag_pb_data[acc_id]["30_days"] += residual
                 ag_pb_data[acc_id][prt_id]["30_days"] += residual
-            elif today <= due_date + timedelta(days=wizard_id.due_interval * 2):
+            elif today <= due_date + timedelta(days=wizard_id.get_interval(2)):
                 ag_pb_data[acc_id]["60_days"] += residual
                 ag_pb_data[acc_id][prt_id]["60_days"] += residual
-            elif today <= due_date + timedelta(days=wizard_id.due_interval * 3):
+            elif today <= due_date + timedelta(days=wizard_id.get_interval(3)):
                 ag_pb_data[acc_id]["90_days"] += residual
                 ag_pb_data[acc_id][prt_id]["90_days"] += residual
-            elif today <= due_date + timedelta(days=wizard_id.due_interval * 4):
+            elif today <= due_date + timedelta(days=wizard_id.get_interval(4)):
                 ag_pb_data[acc_id]["120_days"] += residual
                 ag_pb_data[acc_id][prt_id]["120_days"] += residual
             else:
@@ -58,13 +58,13 @@ class AgedPartnerBalanceReport(models.AbstractModel):
             today = date_at_object
             if not due_date or today <= due_date:
                 ml["current"] += amount
-            elif today <= due_date + timedelta(days=wizard_id.due_interval * 1):
+            elif today <= due_date + timedelta(days=wizard_id.get_interval(1)):
                 ml["30_days"] += amount
-            elif today <= due_date + timedelta(days=wizard_id.due_interval * 2):
+            elif today <= due_date + timedelta(days=wizard_id.get_interval(2)):
                 ml["60_days"] += amount
-            elif today <= due_date + timedelta(days=wizard_id.due_interval * 3):
+            elif today <= due_date + timedelta(days=wizard_id.get_interval(3)):
                 ml["90_days"] += amount
-            elif today <= due_date + timedelta(days=wizard_id.due_interval * 4):
+            elif today <= due_date + timedelta(days=wizard_id.get_interval(4)):
                 ml["120_days"] += amount
             else:
                 ml["older"] += amount
