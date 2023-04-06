@@ -12,7 +12,12 @@
     <field name="arch" type="xml">
 
         <xpath expr="//field[@name='date_from']" position="after">
-            <field name="due_interval"/>
+            <field name="use_auto_interval"/>
+            <field name="due_interval" attrs="{'invisible': [('use_auto_interval', '=', False)], 'required': [('use_auto_interval', '=', True)]}"/>
+            <field name="interval_1" attrs="{'invisible': [('use_auto_interval', '=', True)], 'required': [('use_auto_interval', '=', False)]}"/>
+            <field name="interval_2" attrs="{'invisible': [('use_auto_interval', '=', True)], 'required': [('use_auto_interval', '=', False)]}"/>
+            <field name="interval_3" attrs="{'invisible': [('use_auto_interval', '=', True)], 'required': [('use_auto_interval', '=', False)]}"/>
+            <field name="interval_4" attrs="{'invisible': [('use_auto_interval', '=', True)], 'required': [('use_auto_interval', '=', False)]}"/>
         </xpath>
 
     </field>
