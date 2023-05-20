@@ -92,10 +92,17 @@
     />
 
 <menuitem
+        id="menu_equity"
+        name="Equity"
+        parent="menu_root_financial_accounting"
+        sequence="50"
+    />
+
+<menuitem
         id="menu_periodic_processing"
         name="Periodic Processing"
         parent="menu_root_financial_accounting"
-        sequence="50"
+        sequence="60"
     />
 
 <menuitem
@@ -233,6 +240,13 @@
         name="Fixed Asset"
         parent="menu_financial_accounting_configuration"
         sequence="30"
+    />
+
+<menuitem
+        id="menu_equity_configuration"
+        name="Equity"
+        parent="menu_financial_accounting_configuration"
+        sequence="31"
     />
 
 <menuitem
