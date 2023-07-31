@@ -14,7 +14,17 @@ None
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[ssi_account_create_liquidity_journal](ssi_account_create_liquidity_journal/) | 14.0.1.0.1 |  | Add Wizard to Create Liquidity Journal
+[ssi_account_move_line_day_overdue](ssi_account_move_line_day_overdue/) | 14.0.1.0.1 |  | Account Move Line Days Overdue
+[ssi_account_move_py3o_report](ssi_account_move_py3o_report/) | 14.0.1.1.1 |  | Py3o Report for Journal Entry
+[ssi_account_move_sequence](ssi_account_move_sequence/) | 14.0.1.2.1 |  | Sequence Mixin Implementation on Journal Entry
+[ssi_account_statement_import](ssi_account_statement_import/) | 14.0.1.0.1 |  | Add Wizard to Import Statement
+[ssi_account_type_active](ssi_account_type_active/) | 14.0.1.0.1 |  | Active Field on Account Type
+[ssi_financial_accounting](ssi_financial_accounting/) | 14.0.3.1.1 |  | Financial Accounting
 
 [//]: # (end addons)
 
