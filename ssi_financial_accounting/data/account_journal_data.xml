@@ -10,6 +10,12 @@
     <field name="type">general</field>
 </record>
 
+<record id="journal_opening" model="account.journal">
+    <field name="name">Opening</field>
+    <field name="code">OPEN</field>
+    <field name="type">general</field>
+</record>
+
 <record id="journal_adj" model="account.journal">
     <field name="name">Adjustment</field>
     <field name="code">ADJ</field>
