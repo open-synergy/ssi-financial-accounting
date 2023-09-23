@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
+from odoo.tools.safe_eval import safe_eval
 
 
 class AccountMoveLine(models.Model):
@@ -57,3 +58,23 @@ class AccountMoveLine(models.Model):
             )
 
         return results
+
+    def _transform_to_other_data(self, aml_selector):
+        self.ensure_one()
+        dict_mappings = safe_eval(aml_selector.field_mapping)
+        record = self.read()[0]
+
+        for dict_mapping in dict_mappings.items():
+            if dict_mapping[1] == "active_id":
+                dict_mappings.update({dict_mapping[0]: aml_selector.active_id})
+            else:
+                if type(record[dict_mapping[0]]) is tuple:
+                    data = record[dict_mapping[1]][0]
+                else:
+                    data = record[dict_mapping[1]]
+                dict_mappings.update(
+                    {
+                        dict_mapping[0]: data,
+                    }
+                )
+        self.env[aml_selector.active_model].create(dict_mappings)
