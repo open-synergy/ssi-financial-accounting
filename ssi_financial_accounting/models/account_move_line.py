@@ -68,7 +68,7 @@ class AccountMoveLine(models.Model):
             if dict_mapping[1] == "active_id":
                 dict_mappings.update({dict_mapping[0]: aml_selector.active_id})
             else:
-                if type(record[dict_mapping[0]]) is tuple:
+                if type(record[dict_mapping[1]]) is tuple:
                     data = record[dict_mapping[1]][0]
                 else:
                     data = record[dict_mapping[1]]
