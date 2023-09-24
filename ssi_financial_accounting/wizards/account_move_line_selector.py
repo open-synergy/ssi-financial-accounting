@@ -35,6 +35,14 @@ class AccountMoveLineSelector(models.TransientModel):
         string="Allowed Journals",
         comodel_name="account.journal",
     )
+    filter_analytic_ok = fields.Boolean(
+        string="Filter by Analytic Account",
+        default=False,
+    )
+    analytic_account_ids = fields.Many2many(
+        string="Allowed Analytic Accounts",
+        comodel_name="account.analytic.account",
+    )
     direction = fields.Selection(
         string="Direction",
         selection=[
@@ -69,6 +77,8 @@ class AccountMoveLineSelector(models.TransientModel):
         "journal_ids",
         "filter_partner_ok",
         "partner_ids",
+        "filter_analytic_ok",
+        "analytic_account_ids",
         "direction",
         "reconcile",
     )
@@ -76,6 +86,7 @@ class AccountMoveLineSelector(models.TransientModel):
         for record in self:
             criteria = [
                 ("reconciled", "=", record.reconcile),
+                ("account_id.reconcile", "=", True),
             ]
 
             if record.direction == "dr":
@@ -91,6 +102,11 @@ class AccountMoveLineSelector(models.TransientModel):
 
             if record.filter_partner_ok:
                 criteria.append(("partner_id", "in", record.partner_ids.ids))
+
+            if record.filter_analytic_ok:
+                criteria.append(
+                    ("analytic_account_id", "in", record.analytic_account_ids.ids)
+                )
 
             record.allowed_move_line_ids = self.env["account.move.line"].search(
                 criteria

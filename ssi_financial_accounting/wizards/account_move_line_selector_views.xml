@@ -17,6 +17,12 @@
                 <field name="journal_ids" widget="many2many_tags" invisible="1" />
                 <field name="filter_partner_ok" invisible="1" />
                 <field name="partner_ids" widget="many2many_tags" invisible="1" />
+                <field name="filter_analytic_ok" invisible="1" />
+                <field
+                        name="analytic_account_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
                 <field name="direction" invisible="1" />
                 <field name="reconcile" invisible="1" />
                 <field
