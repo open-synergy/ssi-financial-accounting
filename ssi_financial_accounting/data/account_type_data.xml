@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data noupdate="0">
+<record id="account_type_10" model="account_type">
+    <field name="name">Cash</field>
+    <field name="code">T0010</field>
+    <field name="sequence" eval="10" />
+    <field name="odoo_type_id" ref="account.data_account_type_liquidity" />
+</record>
+
+<record id="account_type_20" model="account_type">
+    <field name="name">Bank</field>
+    <field name="code">T0020</field>
+    <field name="sequence" eval="20" />
+    <field name="odoo_type_id" ref="account.data_account_type_liquidity" />
+</record>
+
+<record id="account_type_30" model="account_type">
+    <field name="name">Cash/Bank Transfer</field>
+    <field name="code">T0030</field>
+    <field name="sequence" eval="30" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+    <field name="reconcile" eval="1" />
+</record>
+
+<record id="account_type_40" model="account_type">
+    <field name="name">Trade Receivable</field>
+    <field name="code">T0040</field>
+    <field name="sequence" eval="40" />
+    <field name="odoo_type_id" ref="account.data_account_type_receivable" />
+    <field name="reconcile" eval="1" />
+</record>
+
+<record id="account_type_50" model="account_type">
+    <field name="name">Contract Asset</field>
+    <field name="code">T0050</field>
+    <field name="sequence" eval="50" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_60" model="account_type">
+    <field name="name">Inventory</field>
+    <field name="code">T0060</field>
+    <field name="sequence" eval="60" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_70" model="account_type">
+    <field name="name">Prepayment</field>
+    <field name="code">T0070</field>
+    <field name="sequence" eval="70" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_80" model="account_type">
+    <field name="name">Prepaid Tax</field>
+    <field name="code">T0080</field>
+    <field name="sequence" eval="80" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_90" model="account_type">
+    <field name="name">Other Current Asset</field>
+    <field name="code">T0090</field>
+    <field name="sequence" eval="90" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_100" model="account_type">
+    <field name="name">Non Trade Receivable</field>
+    <field name="code">T0100</field>
+    <field name="sequence" eval="100" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_110" model="account_type">
+    <field name="name">Investment in Associate</field>
+    <field name="code">T0110</field>
+    <field name="sequence" eval="110" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_120" model="account_type">
+    <field name="name">Join Venture</field>
+    <field name="code">T0120</field>
+    <field name="sequence" eval="120" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_130" model="account_type">
+    <field name="name">Deferred Tax Asset</field>
+    <field name="code">T0130</field>
+    <field name="sequence" eval="130" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_assets" />
+</record>
+
+<record id="account_type_140" model="account_type">
+    <field name="name">Fixed Asset Acquisition</field>
+    <field name="code">T0140</field>
+    <field name="sequence" eval="140" />
+    <field name="odoo_type_id" ref="account.data_account_type_fixed_assets" />
+</record>
+
+<record id="account_type_150" model="account_type">
+    <field name="name">Fixed Asset Accum. Depr.</field>
+    <field name="code">T0150</field>
+    <field name="sequence" eval="150" />
+    <field name="odoo_type_id" ref="account.data_account_type_fixed_assets" />
+</record>
+
+<record id="account_type_160" model="account_type">
+    <field name="name">Fixed Asset In Progress</field>
+    <field name="code">T0160</field>
+    <field name="sequence" eval="160" />
+    <field name="odoo_type_id" ref="account.data_account_type_fixed_assets" />
+</record>
+
+<record id="account_type_170" model="account_type">
+    <field name="name">Fixed Asset Disposal Cross Account</field>
+    <field name="code">T0170</field>
+    <field name="sequence" eval="170" />
+    <field name="odoo_type_id" ref="account.data_account_type_fixed_assets" />
+</record>
+
+<record id="account_type_180" model="account_type">
+    <field name="name">Intangible Asset Acquisition</field>
+    <field name="code">T0180</field>
+    <field name="sequence" eval="180" />
+    <field name="odoo_type_id" ref="account.data_account_type_non_current_assets" />
+</record>
+
+<record id="account_type_190" model="account_type">
+    <field name="name">Intangible Asset Accum. Depr.</field>
+    <field name="code">T0190</field>
+    <field name="sequence" eval="190" />
+    <field name="odoo_type_id" ref="account.data_account_type_non_current_assets" />
+</record>
+
+<record id="account_type_200" model="account_type">
+    <field name="name">Intangible Asset In Progress</field>
+    <field name="code">T0200</field>
+    <field name="sequence" eval="200" />
+    <field name="odoo_type_id" ref="account.data_account_type_non_current_assets" />
+</record>
+
+<record id="account_type_210" model="account_type">
+    <field name="name">Intangible Asset Disposal Cross Account</field>
+    <field name="code">T0210</field>
+    <field name="sequence" eval="210" />
+    <field name="odoo_type_id" ref="account.data_account_type_non_current_assets" />
+</record>
+
+<record id="account_type_220" model="account_type">
+    <field name="name">RIght of Use Asset Acquisition</field>
+    <field name="code">T0220</field>
+    <field name="sequence" eval="220" />
+    <field name="odoo_type_id" ref="account.data_account_type_non_current_assets" />
+</record>
+
+<record id="account_type_230" model="account_type">
+    <field name="name">RIght of Use Asset Accum. Depr.</field>
+    <field name="code">T0230</field>
+    <field name="sequence" eval="230" />
+    <field name="odoo_type_id" ref="account.data_account_type_non_current_assets" />
+</record>
+
+<record id="account_type_240" model="account_type">
+    <field name="name">Investment Property</field>
+    <field name="code">T0240</field>
+    <field name="sequence" eval="240" />
+    <field name="odoo_type_id" ref="account.data_account_type_non_current_assets" />
+</record>
+
+<record id="account_type_250" model="account_type">
+    <field name="name">Other Non-Current Asset</field>
+    <field name="code">T0250</field>
+    <field name="sequence" eval="250" />
+    <field name="odoo_type_id" ref="account.data_account_type_non_current_assets" />
+</record>
+
+<record id="account_type_260" model="account_type">
+    <field name="name">Trade Payable</field>
+    <field name="code">T0260</field>
+    <field name="sequence" eval="260" />
+    <field name="odoo_type_id" ref="account.data_account_type_payable" />
+    <field name="reconcile" eval="1" />
+</record>
+
+<record id="account_type_270" model="account_type">
+    <field name="name">Accrual and Other Payable</field>
+    <field name="code">T0270</field>
+    <field name="sequence" eval="270" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_liabilities" />
+</record>
+
+<record id="account_type_280" model="account_type">
+    <field name="name">Contract Liability</field>
+    <field name="code">T0280</field>
+    <field name="sequence" eval="280" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_liabilities" />
+</record>
+
+<record id="account_type_290" model="account_type">
+    <field name="name">Bank Overdraft</field>
+    <field name="code">T0290</field>
+    <field name="sequence" eval="290" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_liabilities" />
+</record>
+
+<record id="account_type_300" model="account_type">
+    <field name="name">Short Term Employee Benefit Liability</field>
+    <field name="code">T0300</field>
+    <field name="sequence" eval="300" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_liabilities" />
+</record>
+
+<record id="account_type_310" model="account_type">
+    <field name="name">Tax Payable</field>
+    <field name="code">T0310</field>
+    <field name="sequence" eval="310" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_liabilities" />
+</record>
+
+<record id="account_type_320" model="account_type">
+    <field name="name">Non-trade payable</field>
+    <field name="code">T0320</field>
+    <field name="sequence" eval="320" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_liabilities" />
+</record>
+
+<record id="account_type_330" model="account_type">
+    <field name="name">Liabilities of disposal group classified as held for sale</field>
+    <field name="code">T0330</field>
+    <field name="sequence" eval="330" />
+    <field name="odoo_type_id" ref="account.data_account_type_current_liabilities" />
+</record>
+
+<record id="account_type_340" model="account_type">
+    <field name="name">Other non-current liability</field>
+    <field name="code">T0340</field>
+    <field name="sequence" eval="340" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_350" model="account_type">
+    <field name="name">Derivative financial intrument</field>
+    <field name="code">T0350</field>
+    <field name="sequence" eval="350" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_360" model="account_type">
+    <field name="name">Bank borrowing</field>
+    <field name="code">T0360</field>
+    <field name="sequence" eval="360" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_370" model="account_type">
+    <field name="name">Finance lease liability</field>
+    <field name="code">T0370</field>
+    <field name="sequence" eval="370" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_380" model="account_type">
+    <field name="name">Other long-term borrowing</field>
+    <field name="code">T0380</field>
+    <field name="sequence" eval="380" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_390" model="account_type">
+    <field name="name">Convertible bond</field>
+    <field name="code">T0390</field>
+    <field name="sequence" eval="390" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_400" model="account_type">
+    <field name="name">Post-employement benefit obligation</field>
+    <field name="code">T0400</field>
+    <field name="sequence" eval="400" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_410" model="account_type">
+    <field name="name">Deferred tax liability</field>
+    <field name="code">T0410</field>
+    <field name="sequence" eval="410" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_420" model="account_type">
+    <field name="name">Provision for other liabilities and charges</field>
+    <field name="code">T0420</field>
+    <field name="sequence" eval="420" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_430" model="account_type">
+    <field name="name">Other long-term liability</field>
+    <field name="code">T0430</field>
+    <field name="sequence" eval="430" />
+    <field
+                name="odoo_type_id"
+                ref="account.data_account_type_non_current_liabilities"
+            />
+</record>
+
+<record id="account_type_440" model="account_type">
+    <field name="name">Share capital</field>
+    <field name="code">T0440</field>
+    <field name="sequence" eval="440" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_450" model="account_type">
+    <field name="name">Additional paid-in capital</field>
+    <field name="code">T0450</field>
+    <field name="sequence" eval="450" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_460" model="account_type">
+    <field name="name">Treasury share</field>
+    <field name="code">T0460</field>
+    <field name="sequence" eval="460" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_470" model="account_type">
+    <field name="name">Equity component of convertible bond</field>
+    <field name="code">T0470</field>
+    <field name="sequence" eval="470" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_480" model="account_type">
+    <field name="name">Transactions with non-controlling interest</field>
+    <field name="code">T0480</field>
+    <field name="sequence" eval="480" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_490" model="account_type">
+    <field name="name">Other equity component</field>
+    <field name="code">T0490</field>
+    <field name="sequence" eval="490" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_500" model="account_type">
+    <field name="name">Current Year Earning</field>
+    <field name="code">T0500</field>
+    <field name="sequence" eval="500" />
+    <field name="odoo_type_id" ref="account.data_unaffected_earnings" />
+</record>
+
+<record id="account_type_510" model="account_type">
+    <field name="name">Retained earnings - appropriated</field>
+    <field name="code">T0510</field>
+    <field name="sequence" eval="510" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_520" model="account_type">
+    <field name="name">Retained earnings - unappropriated</field>
+    <field name="code">T0520</field>
+    <field name="sequence" eval="520" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_530" model="account_type">
+    <field name="name">Non-controlling interest</field>
+    <field name="code">T0530</field>
+    <field name="sequence" eval="530" />
+    <field name="odoo_type_id" ref="account.data_account_type_equity" />
+</record>
+
+<record id="account_type_540" model="account_type">
+    <field name="name">Revenue - goods</field>
+    <field name="code">T0540</field>
+    <field name="sequence" eval="540" />
+    <field name="odoo_type_id" ref="account.data_account_type_revenue" />
+</record>
+
+<record id="account_type_550" model="account_type">
+    <field name="name">Revenue - services</field>
+    <field name="code">T0550</field>
+    <field name="sequence" eval="550" />
+    <field name="odoo_type_id" ref="account.data_account_type_revenue" />
+</record>
+
+<record id="account_type_560" model="account_type">
+    <field name="name">Interest income</field>
+    <field name="code">T0560</field>
+    <field name="sequence" eval="560" />
+    <field name="odoo_type_id" ref="account.data_account_type_revenue" />
+</record>
+
+<record id="account_type_560" model="account_type">
+    <field name="name">Interest income</field>
+    <field name="code">T0560</field>
+    <field name="sequence" eval="560" />
+    <field name="odoo_type_id" ref="account.data_account_type_other_income" />
+</record>
+
+<record id="account_type_570" model="account_type">
+    <field name="name">Other revenues besides interest income</field>
+    <field name="code">T0570</field>
+    <field name="sequence" eval="570" />
+    <field name="odoo_type_id" ref="account.data_account_type_other_income" />
+</record>
+
+<record id="account_type_580" model="account_type">
+    <field name="name">Cost of revenue - goods</field>
+    <field name="code">T0580</field>
+    <field name="sequence" eval="580" />
+    <field name="odoo_type_id" ref="account.data_account_type_direct_costs" />
+</record>
+
+<record id="account_type_590" model="account_type">
+    <field name="name">Cost of revenue - services</field>
+    <field name="code">T0590</field>
+    <field name="sequence" eval="590" />
+    <field name="odoo_type_id" ref="account.data_account_type_direct_costs" />
+</record>
+
+<record id="account_type_600" model="account_type">
+    <field name="name">Human resources expense</field>
+    <field name="code">T0600</field>
+    <field name="sequence" eval="600" />
+    <field name="odoo_type_id" ref="account.data_account_type_expenses" />
+</record>
+
+<record id="account_type_610" model="account_type">
+    <field name="name">General and admimistrative expense</field>
+    <field name="code">T0610</field>
+    <field name="sequence" eval="610" />
+    <field name="odoo_type_id" ref="account.data_account_type_expenses" />
+</record>
+
+<record id="account_type_620" model="account_type">
+    <field name="name">Depreciation and amortization expense</field>
+    <field name="code">T0620</field>
+    <field name="sequence" eval="620" />
+    <field name="odoo_type_id" ref="account.data_account_type_depreciation" />
+</record>
+
+<record id="account_type_630" model="account_type">
+    <field name="name">Interest expense</field>
+    <field name="code">T0630</field>
+    <field name="sequence" eval="630" />
+    <field name="odoo_type_id" ref="account.data_account_type_expenses" />
+</record>
+
+<record id="account_type_640" model="account_type">
+    <field name="name">Other expenses besides interest expense</field>
+    <field name="code">T0640</field>
+    <field name="sequence" eval="640" />
+    <field name="odoo_type_id" ref="account.data_account_type_expenses" />
+</record>
+
+<record id="account_type_650" model="account_type">
+    <field name="name">Current tax expense</field>
+    <field name="code">T0650</field>
+    <field name="sequence" eval="650" />
+    <field name="odoo_type_id" ref="account.data_account_type_expenses" />
+</record>
+
+<record id="account_type_660" model="account_type">
+    <field name="name">Deferred tax expense</field>
+    <field name="code">T0660</field>
+    <field name="sequence" eval="660" />
+    <field name="odoo_type_id" ref="account.data_account_type_expenses" />
+</record>
+
+<record id="account_type_670" model="account_type">
+    <field name="name">OCI - will not recassified to PL</field>
+    <field name="code">T0670</field>
+    <field name="sequence" eval="670" />
+    <field name="odoo_type_id" ref="account.data_account_type_expenses" />
+</record>
+
+<record id="account_type_680" model="account_type">
+    <field name="name">OCI - will recassified to PL</field>
+    <field name="code">T0680</field>
+    <field name="sequence" eval="680" />
+    <field name="odoo_type_id" ref="account.data_account_type_expenses" />
+</record>
+</data>
+</odoo>

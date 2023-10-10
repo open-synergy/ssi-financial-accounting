@@ -3,15 +3,30 @@
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <record model="ir.ui.view" id="view_account_asset_form">
-          <field name="name">account.asset.form</field>
-          <field name="model">account.account</field>
-          <field name="inherit_id" ref="account.view_account_form" />
-          <field name="arch" type="xml">
-                <field name="user_type_id" position="after">
-                    <field name="direct_cash_flow_type_id" />
-                    <field name="indirect_cash_flow_type_id" />
-                </field>
-          </field>
-    </record>
+<record model="ir.ui.view" id="view_account_account_form">
+        <field name="name">account.account form</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form" />
+        <field name="arch" type="xml">
+            <field name="user_type_id" position="after">
+                <field name="direct_cash_flow_type_id" />
+                <field name="indirect_cash_flow_type_id" />
+            </field>
+        </field>
+</record>
+
+<record model="ir.ui.view" id="view_account_account_tree">
+        <field name="name">account.account tree</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list" />
+        <field name="arch" type="xml">
+            <field name="user_type_id" position="before">
+                <field name="type_id" />
+            </field>
+            <field name="user_type_id" position="after">
+                <field name="direct_cash_flow_type_id" optional="hide" />
+                <field name="indirect_cash_flow_type_id" optional="hide" />
+            </field>
+        </field>
+</record>
 </odoo>

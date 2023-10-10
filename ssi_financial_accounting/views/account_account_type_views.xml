@@ -15,4 +15,17 @@
         </data>
     </field>
 </record>
+
+<record id="account_account_type_form" model="ir.ui.view">
+    <field name="name">account.account.type form</field>
+    <field name="model">account.account.type</field>
+    <field name="inherit_id" ref="account.view_account_type_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="internal_group" />
+            </xpath>
+        </data>
+    </field>
+</record>
 </odoo>
