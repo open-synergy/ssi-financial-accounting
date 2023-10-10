@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_cash_flow_type_configurator,cash_flow_type - configurator,model_cash_flow_type,cash_flow_type_group,1,1,1,1
 access_cash_flow_type_all,cash_flow_type - all user,model_cash_flow_type,,1,0,0,0
+access_account_type_configurator,account_type_type - configurator,model_account_type,account_type_group,1,1,1,1
+access_account_type_all,account_type_type - all user,model_account_type,,1,0,0,0
 access_account_move_line_selector_all,account_move_line_selector - all user,model_account_move_line_selector,,1,1,1,1

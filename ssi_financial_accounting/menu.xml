@@ -152,7 +152,7 @@
 
 <menuitem
         id="account_account_type_menu"
-        name="Account Types"
+        name="Odoo Types"
         parent="menu_account_configuration"
         groups="account_account_type_group"
         action="account.action_account_type_form"
