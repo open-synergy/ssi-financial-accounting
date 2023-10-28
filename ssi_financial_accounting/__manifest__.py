@@ -18,6 +18,7 @@
         "mis_builder",
         "mis_template_financial_report",
         "ssi_master_data_mixin",
+        "ssi_sequence_mixin",
     ],
     "data": [
         "security/ir_module_category_data.xml",
@@ -25,6 +26,8 @@
         "security/ir.model.access.csv",
         "data/account_journal_data.xml",
         "data/account_type_data.xml",
+        "data/ir_sequence_data.xml",
+        "data/sequence_template_data.xml",
         "menu.xml",
         "wizards/general_ledger_wizard_views.xml",
         "wizards/trial_balance_wizard_views.xml",
