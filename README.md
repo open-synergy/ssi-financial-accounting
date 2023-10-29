@@ -18,6 +18,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[ssi_account_account_m2o_configurator_mixin](ssi_account_account_m2o_configurator_mixin/) | 14.0.1.0.0 |  | account.account Many2one Configurator Mixin
 [ssi_account_create_liquidity_journal](ssi_account_create_liquidity_journal/) | 14.0.1.0.1 |  | Add Wizard to Create Liquidity Journal
 [ssi_account_move_line_day_overdue](ssi_account_move_line_day_overdue/) | 14.0.1.0.1 |  | Account Move Line Days Overdue
 [ssi_account_move_py3o_report](ssi_account_move_py3o_report/) | 14.0.1.1.1 |  | Py3o Report for Journal Entry
