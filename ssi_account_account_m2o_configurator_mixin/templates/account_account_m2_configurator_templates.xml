@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="account_account_m2o_configurator_template">
+        <group name="account_1" col="2" colspan="4" string="Account">
+            <field name="account_selection_method" />
+            <field
+                name="account_ids"
+                attrs="{'invisible':[('account_selection_method','!=','manual')]}"
+            />
+            <field
+                name="account_domain"
+                widget="domain"
+                options="{'model': 'account.account', 'in_dialog': True}"
+                attrs="{'invisible':[('account_selection_method','!=','domain')]}"
+            />
+            <field
+                name="account_python_code"
+                widget="ace"
+                attrs="{'invisible':[('account_selection_method','!=','code')]}"
+            />
+        </group>
+    </template>
+</odoo>
