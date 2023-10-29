@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for open-synergy-ssi-financial-accounting Odoo addons",
     version=version,
     install_requires=[
+        'odoo14-addon-ssi_account_account_m2o_configurator_mixin',
         'odoo14-addon-ssi_account_create_liquidity_journal',
         'odoo14-addon-ssi_account_move_line_day_overdue',
         'odoo14-addon-ssi_account_move_py3o_report',
