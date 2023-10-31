@@ -10,4 +10,5 @@ from . import (
     cash_flow_type,
     account_account,
     account_move_line,
+    account_bank_statement,
 )
