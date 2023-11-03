@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo14-addon-ssi_account_account_m2o_configurator_mixin',
         'odoo14-addon-ssi_account_create_liquidity_journal',
+        'odoo14-addon-ssi_account_journal_m2o_configurator_mixin',
         'odoo14-addon-ssi_account_move_line_day_overdue',
         'odoo14-addon-ssi_account_move_py3o_report',
         'odoo14-addon-ssi_account_move_sequence',
