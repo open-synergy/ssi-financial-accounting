@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="account_journal_m2o_configurator_template">
+        <group name="journal_1" col="2" colspan="4" string="Journal">
+            <field name="journal_selection_method" />
+            <field
+                name="journal_ids"
+                attrs="{'invisible':[('journal_selection_method','!=','manual')]}"
+            />
+            <field
+                name="journal_domain"
+                widget="domain"
+                options="{'model': 'account.journal', 'in_dialog': True}"
+                attrs="{'invisible':[('journal_selection_method','!=','domain')]}"
+            />
+            <field
+                name="journal_python_code"
+                widget="ace"
+                attrs="{'invisible':[('journal_selection_method','!=','code')]}"
+            />
+        </group>
+    </template>
+</odoo>
