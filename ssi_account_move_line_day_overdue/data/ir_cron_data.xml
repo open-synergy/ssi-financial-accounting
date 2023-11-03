@@ -11,7 +11,7 @@
     <field name="numbercall">-1</field>
     <field eval="False" name="doall" />
     <field name="model_id" ref="account.model_account_move_line" />
-    <field eval="'compute_days_overdue'" name="code" />
+    <field eval="'model.compute_days_overdue()'" name="code" />
     <field name="state">code</field>
 </record>
 
