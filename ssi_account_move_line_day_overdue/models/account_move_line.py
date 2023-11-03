@@ -8,8 +8,7 @@ from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 try:
-    import numpy as np
-    import pandas as pd
+    pass
 except (ImportError, IOError) as err:
     _logger.debug(err)
 
@@ -37,10 +36,10 @@ class AccountMoveLine(models.Model):
     def _compute_days_overdue(self):
         self.ensure_one()
         if self.date_maturity:
-            dt_date_due = pd.to_datetime(self.date_maturity)
-            dt_date_today = pd.datetime.now()
+            dt_date_due = fields.Datetime.to_datetime(self.date_maturity)
+            dt_date_today = fields.Datetime.now()
             if dt_date_today <= dt_date_due:
                 day_diff = 0
             else:
-                day_diff = int((dt_date_today - dt_date_due) / np.timedelta64(1, "D"))
+                day_diff = (dt_date_today - dt_date_due).days
             self.write({"days_overdue": day_diff})
