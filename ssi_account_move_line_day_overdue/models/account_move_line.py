@@ -26,7 +26,6 @@ class AccountMoveLine(models.Model):
         obj_ml = self.env["account.move.line"]
         criteria = [
             ("account_id.reconcile", "=", True),
-            ("date_maturity", "!=", False),
             ("reconciled", "=", False),
         ]
         move_lines = obj_ml.search(criteria)
@@ -35,11 +34,9 @@ class AccountMoveLine(models.Model):
 
     def _compute_days_overdue(self):
         self.ensure_one()
+        day_diff = 0
         if self.date_maturity:
             dt_date_due = fields.Datetime.to_datetime(self.date_maturity)
             dt_date_today = fields.Datetime.now()
-            if dt_date_today <= dt_date_due:
-                day_diff = 0
-            else:
-                day_diff = (dt_date_today - dt_date_due).days
-            self.write({"days_overdue": day_diff})
+            day_diff = (dt_date_today - dt_date_due).days
+        self.write({"days_overdue": day_diff})
