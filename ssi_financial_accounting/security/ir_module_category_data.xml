@@ -68,4 +68,69 @@
         <field name="name">Financial Accounting - Data Ownership</field>
     </record>
 
+    <record
+        id="journal_entry_data_ownership_module_category"
+        model="ir.module.category"
+    >
+        <field name="name">Journal Entry</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record
+        id="bank_statement_data_ownership_module_category"
+        model="ir.module.category"
+    >
+        <field name="name">Bank Statement</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record
+        id="cash_register_data_ownership_module_category"
+        model="ir.module.category"
+    >
+        <field name="name">Cash Register</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record id="invoice_data_ownership_module_category" model="ir.module.category">
+        <field name="name">Invoice</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record id="bill_data_ownership_module_category" model="ir.module.category">
+        <field name="name">Bill</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record id="credit_note_data_ownership_module_category" model="ir.module.category">
+        <field name="name">Credit Note</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record id="refund_data_ownership_module_category" model="ir.module.category">
+        <field name="name">Refund</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
 </odoo>

@@ -4,8 +4,17 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 <!-- Journal Entry Workflow -->
+<record id="journal_entry_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.journal_entry_module_category"
+        />
+</record>
+
 <record id="journal_entry_user_group" model="res.groups">
     <field name="name">User</field>
+    <field name="implied_ids" eval="[(4, ref('journal_entry_viewer_group'))]" />
     <field
             name="category_id"
             ref="ssi_financial_accounting.journal_entry_module_category"
@@ -25,13 +34,52 @@
         />
 </record>
 
+<record id="journal_entry_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.journal_entry_data_ownership_module_category"
+        />
+</record>
+
+<record id="journal_entry_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.journal_entry_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('journal_entry_company_group'))]" />
+</record>
+
+<record id="journal_entry_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.journal_entry_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('journal_entry_company_child_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <!-- Bank statement workflow -->
+<record id="bank_statement_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.bank_statement_module_category"
+        />
+</record>
+
 <record id="bank_statement_user_group" model="res.groups">
     <field name="name">User</field>
     <field
             name="category_id"
             ref="ssi_financial_accounting.bank_statement_module_category"
         />
+    <field name="implied_ids" eval="[(4, ref('bank_statement_viewer_group'))]" />
 </record>
 
 <record id="bank_statement_validator_group" model="res.groups">
@@ -47,13 +95,52 @@
         />
 </record>
 
+<record id="bank_statement_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.bank_statement_data_ownership_module_category"
+        />
+</record>
+
+<record id="bank_statement_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.bank_statement_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('bank_statement_company_group'))]" />
+</record>
+
+<record id="bank_statement_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.bank_statement_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('bank_statement_company_child_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <!-- Cash register workflow -->
+<record id="cash_register_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.cash_register_module_category"
+        />
+</record>
+
 <record id="cash_register_user_group" model="res.groups">
     <field name="name">User</field>
     <field
             name="category_id"
             ref="ssi_financial_accounting.cash_register_module_category"
         />
+    <field name="implied_ids" eval="[(4, ref('cash_register_viewer_group'))]" />
 </record>
 
 <record id="cash_register_validator_group" model="res.groups">
@@ -69,10 +156,46 @@
         />
 </record>
 
+<record id="cash_register_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.cash_register_data_ownership_module_category"
+        />
+</record>
+
+<record id="cash_register_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.cash_register_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('cash_register_company_group'))]" />
+</record>
+
+<record id="cash_register_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.cash_register_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('cash_register_company_child_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <!-- Invoice -->
+<record id="invoice_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field name="category_id" ref="ssi_financial_accounting.invoice_module_category" />
+</record>
+
 <record id="invoice_user_group" model="res.groups">
     <field name="name">User</field>
     <field name="category_id" ref="ssi_financial_accounting.invoice_module_category" />
+    <field name="implied_ids" eval="[(4, ref('invoice_viewer_group'))]" />
 </record>
 
 <record id="invoice_validator_group" model="res.groups">
@@ -85,9 +208,48 @@
         />
 </record>
 
+<record id="invoice_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.invoice_data_ownership_module_category"
+        />
+</record>
+
+<record id="invoice_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.invoice_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('invoice_company_group'))]" />
+</record>
+
+<record id="invoice_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.invoice_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('invoice_company_child_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <!-- Credit Note -->
+<record id="credit_note_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.credit_note_module_category"
+        />
+</record>
+
 <record id="credit_note_user_group" model="res.groups">
     <field name="name">User</field>
+    <field name="implied_ids" eval="[(4, ref('credit_note_viewer_group'))]" />
     <field
             name="category_id"
             ref="ssi_financial_accounting.credit_note_module_category"
@@ -107,9 +269,45 @@
         />
 </record>
 
+<record id="credit_note_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.credit_note_data_ownership_module_category"
+        />
+</record>
+
+<record id="credit_note_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.credit_note_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('credit_note_company_group'))]" />
+</record>
+
+<record id="credit_note_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.credit_note_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('credit_note_company_child_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <!-- Bill -->
+<record id="bill_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field name="category_id" ref="ssi_financial_accounting.bill_module_category" />
+</record>
+
 <record id="bill_user_group" model="res.groups">
     <field name="name">User</field>
+    <field name="implied_ids" eval="[(4, ref('bill_viewer_group'))]" />
     <field name="category_id" ref="ssi_financial_accounting.bill_module_category" />
 </record>
 
@@ -123,16 +321,82 @@
         />
 </record>
 
+<record id="bill_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.bill_data_ownership_module_category"
+        />
+</record>
+
+<record id="bill_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.bill_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('bill_company_group'))]" />
+</record>
+
+<record id="bill_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.bill_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('bill_company_child_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
 <!-- Refund -->
+<record id="refund_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field name="category_id" ref="ssi_financial_accounting.refund_module_category" />
+</record>
+
 <record id="refund_user_group" model="res.groups">
     <field name="name">User</field>
     <field name="category_id" ref="ssi_financial_accounting.refund_module_category" />
+    <field name="implied_ids" eval="[(4, ref('refund_viewer_group'))]" />
 </record>
 
 <record id="refund_validator_group" model="res.groups">
     <field name="name">Validator</field>
     <field name="category_id" ref="ssi_financial_accounting.refund_module_category" />
     <field name="implied_ids" eval="[(4, ref('refund_user_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="refund_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.refund_data_ownership_module_category"
+        />
+</record>
+
+<record id="refund_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.refund_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('refund_company_group'))]" />
+</record>
+
+<record id="refund_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.refund_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('refund_company_child_group'))]" />
     <field
             name="users"
             eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
