@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2024 OpenSynergy Indonesia
+     Copyright 2024 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_bank_statement_form" model="ir.ui.view">
+        <field name="name">account.bank.statement.form</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='button_post']" position="attributes">
+                <attribute name="states"></attribute>
+                <attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['open']), ('post_ok', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_validate_or_action']" position="attributes">
+                <attribute name="attrs">{'invisible':['|', '|', '|', ('all_lines_reconciled', '=', False), ('line_ids','=',[]), ('state', '!=', 'posted'), ('validate_ok', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_reopen']" position="attributes">
+                <attribute name="attrs">{'invisible':['|', ('state', '!=', 'posted'), ('reopen_ok', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_reprocess']" position="attributes">
+                <attribute name="attrs">{'invisible':['|', ('state', '!=', 'confirm'), ('reprocess_ok', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(account.action_cash_box_out)d']" position="attributes">
+                <attribute name="attrs">{'invisible':['|', ('journal_type', '!=', 'cash'), ('cash_box_ok', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='statement_line_ids']" position="after">
+                <page name="policy" string="Policies" groups="base.group_system">
+                    <group name="policy_1" colspan="4" col="2">
+                        <field name="policy_template_id" />
+                        <button
+                                name="action_reload_policy_template"
+                                type="object"
+                                string="Reload Template Policy"
+                                class="oe_highlight"
+                                icon="fa-refresh"
+                            />
+                    </group>
+                    <group name="policy_2" colspan="4" col="2">
+                        <field name="post_ok" order="95" />
+                        <field name="validate_ok" order="96" />
+                        <field name="reopen_ok" order="97" />
+                        <field name="reprocess_ok" order="98" />
+                        <field name="cash_box_ok" order="99" attrs="{'invisible': [('journal_type','!=','cash')]}" />
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

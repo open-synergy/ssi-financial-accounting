@@ -10,10 +10,40 @@ class AccountBankStatement(models.Model):
     _inherit = [
         "account.bank.statement",
         "mixin.sequence",
+        "mixin.policy",
     ]
+
+    def _compute_policy(self):
+        _super = super(AccountBankStatement, self)
+        _super._compute_policy()
 
     name = fields.Char(
         default='/',
+    )
+    post_ok = fields.Boolean(
+        string="Can Post",
+        compute="_compute_policy",
+        default=False,
+    )
+    validate_ok = fields.Boolean(
+        string="Can Validate",
+        compute="_compute_policy",
+        default=False,
+    )
+    reopen_ok = fields.Boolean(
+        string="Can Reset to New",
+        compute="_compute_policy",
+        default=False,
+    )
+    reprocess_ok = fields.Boolean(
+        string="Can Reset to Processing",
+        compute="_compute_policy",
+        default=False,
+    )
+    cash_box_ok = fields.Boolean(
+        string="Can Take Money In/Out",
+        compute="_compute_policy",
+        default=False,
     )
 
     def button_post(self):
@@ -26,4 +56,17 @@ class AccountBankStatement(models.Model):
         for rec in self:
             if not rec.line_ids:
                 rec.button_validate()
+        return res
+
+    @api.model
+    def _get_policy_field(self):
+        res = super(AccountBankStatement, self)._get_policy_field()
+        policy_field = [
+            "post_ok",
+            "validate_ok",
+            "reopen_ok",
+            "reprocess_ok",
+            "cash_box_ok",
+        ]
+        res += policy_field
         return res
