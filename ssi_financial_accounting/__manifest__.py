@@ -19,6 +19,7 @@
         "mis_template_financial_report",
         "ssi_master_data_mixin",
         "ssi_sequence_mixin",
+        "ssi_policy_mixin",
     ],
     "data": [
         "security/ir_module_category_data.xml",
@@ -28,6 +29,7 @@
         "data/account_type_data.xml",
         "data/ir_sequence_data.xml",
         "data/sequence_template_data.xml",
+        "data/policy_template_data.xml",
         "menu.xml",
         "wizards/general_ledger_wizard_views.xml",
         "wizards/trial_balance_wizard_views.xml",
@@ -43,6 +45,7 @@
         "views/account_move_views.xml",
         "views/cash_flow_type_views.xml",
         "views/account_type_views.xml",
+        "views/account_bank_statement_views.xml",
         "report/templates/aged_partner_balance.xml",
     ],
     "demo": [],
