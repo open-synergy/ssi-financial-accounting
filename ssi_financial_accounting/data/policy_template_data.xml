@@ -53,7 +53,10 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_validator_group')])]"
             />
-    <field name="restrict_additional" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.all_lines_reconciled or document.line_ids:
+    result = True</field>
 </record>
 <record id="policy_template_bank_statement_bank_reopen" model="policy.template_detail">
     <field name="template_id" ref="policy_template_bank_statement_bank" />
@@ -146,7 +149,10 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_validator_group')])]"
             />
-    <field name="restrict_additional" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.all_lines_reconciled or document.line_ids:
+    result = True</field>
 </record>
 <record id="policy_template_bank_statement_cash_reopen" model="policy.template_detail">
     <field name="template_id" ref="policy_template_bank_statement_cash" />
@@ -209,7 +215,10 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_user_group')])]"
             />
-    <field name="restrict_additional" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.journal_type == "cash":
+    result = True</field>
 </record>
 </data>
 </odoo>
