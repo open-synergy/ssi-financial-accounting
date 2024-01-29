@@ -26,7 +26,7 @@ addon | version | maintainers | summary
 [ssi_account_move_sequence](ssi_account_move_sequence/) | 14.0.1.2.1 |  | Sequence Mixin Implementation on Journal Entry
 [ssi_account_statement_import](ssi_account_statement_import/) | 14.0.1.0.1 |  | Add Wizard to Import Statement
 [ssi_account_type_active](ssi_account_type_active/) | 14.0.1.0.1 |  | Active Field on Account Type
-[ssi_financial_accounting](ssi_financial_accounting/) | 14.0.5.1.0 |  | Financial Accounting
+[ssi_financial_accounting](ssi_financial_accounting/) | 14.0.5.2.0 |  | Financial Accounting
 
 [//]: # (end addons)
 
