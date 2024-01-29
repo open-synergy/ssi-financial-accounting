@@ -125,7 +125,7 @@ if document.all_lines_reconciled or document.line_ids:
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_user_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.cash_register_user_group')])]"
             />
     <field name="restrict_additional" eval="0" />
 </record>
@@ -147,7 +147,7 @@ if document.all_lines_reconciled or document.line_ids:
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_validator_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.cash_register_validator_group')])]"
             />
     <field name="restrict_additional" eval="1" />
     <field name="additional_python_code">result = False
@@ -169,7 +169,7 @@ if document.all_lines_reconciled or document.line_ids:
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_validator_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.cash_register_validator_group')])]"
             />
     <field name="restrict_additional" eval="0" />
 </record>
@@ -191,7 +191,7 @@ if document.all_lines_reconciled or document.line_ids:
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_user_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.cash_register_user_group')])]"
             />
     <field name="restrict_additional" eval="0" />
 </record>
@@ -213,7 +213,7 @@ if document.all_lines_reconciled or document.line_ids:
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_user_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.cash_register_user_group')])]"
             />
     <field name="restrict_additional" eval="1" />
     <field name="additional_python_code">result = False
