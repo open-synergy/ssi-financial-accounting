@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo14-addon-ssi_account_statement_import',
         'odoo14-addon-ssi_account_type_active',
         'odoo14-addon-ssi_financial_accounting',
+        'odoo14-addon-ssi_journal_entry_work_log',
     ],
     classifiers=[
         'Programming Language :: Python',
