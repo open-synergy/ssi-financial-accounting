@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_general_ledger_lines" inherit_id="account_financial_report.report_general_ledger_lines">
+            <xpath expr="//t[@t-set='total_bal_curr']" position="attributes">
+                <attribute name="t-value">account_or_group_item_object['init_bal']['bal_curr']</attribute>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
