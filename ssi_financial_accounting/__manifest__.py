@@ -47,6 +47,7 @@
         "views/account_type_views.xml",
         "views/account_bank_statement_views.xml",
         "report/templates/aged_partner_balance.xml",
+        "report/templates/general_ledger.xml",
     ],
     "demo": [],
 }

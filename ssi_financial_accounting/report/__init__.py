@@ -5,4 +5,5 @@
 from . import (
     aged_partner_balance,
     aged_partner_balance_xlsx,
+    general_ledger_xlsx,
 )
