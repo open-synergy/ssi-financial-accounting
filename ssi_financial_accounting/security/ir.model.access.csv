@@ -4,3 +4,4 @@ access_cash_flow_type_all,cash_flow_type - all user,model_cash_flow_type,,1,0,0,
 access_account_type_configurator,account_type_type - configurator,model_account_type,account_type_group,1,1,1,1
 access_account_type_all,account_type_type - all user,model_account_type,,1,0,0,0
 access_account_move_line_selector_all,account_move_line_selector - all user,model_account_move_line_selector,,1,1,1,1
+access_mis_report_instance_launcher_all,mis_report_instance_launcher - all user,model_mis_report_instance_launcher,,1,1,1,1

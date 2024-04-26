@@ -35,6 +35,7 @@
         "wizards/trial_balance_wizard_views.xml",
         "wizards/aged_partner_balance_wizard_views.xml",
         "wizards/account_move_line_selector_views.xml",
+        "wizards/mis_report_instance_launcher_views.xml",
         "views/res_config_settings_views.xml",
         "views/mis_report_instance_views.xml",
         "views/mis_report_style_views.xml",
