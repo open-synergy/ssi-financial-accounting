@@ -5,7 +5,7 @@
 from odoo import api, fields, models
 
 
-class MisReportInstanceLauncher(models.Model):
+class MisReportInstanceLauncher(models.TransientModel):
     _name = "mis_report_instance_launcher"
     _description = "Mis Report Instance Launcher"
 
