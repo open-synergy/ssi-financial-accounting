@@ -11,4 +11,5 @@ from . import (
     account_account,
     account_move_line,
     account_bank_statement,
+    mis_report_instance,
 )
