@@ -11,14 +11,17 @@ class AccountBankStatement(models.Model):
         "account.bank.statement",
         "mixin.sequence",
         "mixin.policy",
+        "mixin.work_object",
     ]
+
+    _work_log_create_page = True
 
     def _compute_policy(self):
         _super = super(AccountBankStatement, self)
         _super._compute_policy()
 
     name = fields.Char(
-        default='/',
+        default="/",
     )
     post_ok = fields.Boolean(
         string="Can Post",
@@ -48,9 +51,9 @@ class AccountBankStatement(models.Model):
 
     def button_post(self):
         # hanya implement sequence di transaksi yang name nya tidak diinput manual oleh user
-        for rec in self.filtered(lambda s: not s.name or s.name == '/'):
+        for rec in self.filtered(lambda s: not s.name or s.name == "/"):
             if not rec.name:
-                rec.write({'name': '/'})
+                rec.write({"name": "/"})
             rec._create_sequence()
         res = super(AccountBankStatement, self).button_post()
         for rec in self:
