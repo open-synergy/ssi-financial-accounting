@@ -11,10 +11,7 @@ class AccountBankStatement(models.Model):
         "account.bank.statement",
         "mixin.sequence",
         "mixin.policy",
-        "mixin.work_object",
     ]
-
-    _work_log_create_page = True
 
     def _compute_policy(self):
         _super = super(AccountBankStatement, self)
