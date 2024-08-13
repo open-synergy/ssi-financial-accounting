@@ -13,9 +13,13 @@
     "depends": [
         "ssi_financial_accounting",
         "account_statement_import",
+        "account_reconciliation_widget",
     ],
     "data": [
         "views/account_bank_statement_views.xml",
     ],
     "demo": [],
+    "qweb": [
+        "static/src/xml/account_reconciliation.xml",
+    ],
 }

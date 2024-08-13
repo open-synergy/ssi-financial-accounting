@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t t-extend="reconciliation.done">
+    <t t-jquery="button.button_close_statement" t-operation="replace" />
+</t>
+</templates>
