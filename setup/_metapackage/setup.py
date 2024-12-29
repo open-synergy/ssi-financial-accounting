@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo14-addon-ssi_account_type_active',
         'odoo14-addon-ssi_bank_statement_work_log',
         'odoo14-addon-ssi_financial_accounting',
+        'odoo14-addon-ssi_financial_accounting_operating_unit',
         'odoo14-addon-ssi_journal_entry_work_log',
     ],
     classifiers=[
