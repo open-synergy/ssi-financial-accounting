@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record model="ir.ui.view" id="account_move_view_form">
+    <field name="name">account.move - form</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//div[@class='o_td_label'][1]" position="before">
+                <field
+                        name="operating_unit_id"
+                        groups="operating_unit.group_multi_operating_unit"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="account_move_view_tree">
+    <field name="name">account.move - tree</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_invoice_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field
+                        name="operating_unit_id"
+                        groups="operating_unit.group_multi_operating_unit"
+                        optional="hide"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="account_move_view_tree2">
+    <field name="name">account.move - tree</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field
+                        name="operating_unit_id"
+                        groups="operating_unit.group_multi_operating_unit"
+                        optional="hide"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+</odoo>

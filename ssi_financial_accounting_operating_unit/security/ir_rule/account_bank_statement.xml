@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 OpenSynergy Indonesia
+     Copyright 2021 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="account_bank_statement_rule_ou" model="ir.rule">
+    <field name="model_id" ref="account.model_account_bank_statement" />
+    <field name="domain_force">
+        ['|', ('operating_unit_id','=',False),
+        ('operating_unit_id','in',user.operating_unit_ids.ids)]
+    </field>
+    <field name="name">account.move - ou</field>
+    <field name="global" eval="True" />
+    <field eval="0" name="perm_unlink" />
+    <field eval="0" name="perm_write" />
+    <field eval="1" name="perm_read" />
+    <field eval="0" name="perm_create" />
+</record>
+</odoo>
