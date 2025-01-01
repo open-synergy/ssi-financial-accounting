@@ -49,7 +49,7 @@ class AccountMove(models.Model):
         ):
             self.operating_unit_id = self.journal_id.operating_unit_ids[0]
             for line in self.line_ids:
-                line.operating_unit_id = self.journal_id.operating_unit_id
+                line.operating_unit_id = self.journal_id.operating_unit_ids[0]
 
     @api.constrains("operating_unit_id", "journal_id")
     def _check_journal_operating_unit(self):
@@ -58,7 +58,7 @@ class AccountMove(models.Model):
                 move.journal_id.operating_unit_ids
                 and move.operating_unit_id
                 and move.operating_unit_id.id
-                not in [move.journal_id.operating_unit_id.id]
+                not in move.journal_id.operating_unit_ids.ids
             ):
                 # Change journal_id if create move from other model. e.g., sale.order
                 if (
