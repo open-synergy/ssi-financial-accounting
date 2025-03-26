@@ -21,6 +21,11 @@
         "ssi_sequence_mixin",
         "ssi_policy_mixin",
         "ssi_print_mixin",
+        "account_reconciliation_widget",
+        "account_statement_import_txt_xlsx",
+        "account_invoice_force_number",
+        "account_journal_lock_date",
+        "account_move_force_removal",
     ],
     "data": [
         "security/ir_module_category_data.xml",
