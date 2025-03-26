@@ -6,7 +6,13 @@ from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
-    _inherit = "account.move"
+    _name = "account.move"
+    _inherit = [
+        "account.move",
+        "mixin.print_document",
+    ]
+
+    _automatically_insert_print_button = True
 
     @api.depends(
         "move_type",
