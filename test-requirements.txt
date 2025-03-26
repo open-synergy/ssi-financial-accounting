@@ -3,3 +3,8 @@ odoo14-addon-ssi-decorator
 odoo14-addon-ssi-work-log-mixin
 odoo14-addon-ssi-operating-unit-mixin
 odoo14-addon-ssi-print-mixin
+odoo14-addon-account-reconciliation-widget
+odoo14-addon-account-statement-import-txt-xlsx
+odoo14-addon-account-invoice-force-number
+odoo14-addon-account-journal-lock-date
+odoo14-addon-account-move-force-removal
