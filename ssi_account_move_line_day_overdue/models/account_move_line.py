@@ -27,6 +27,7 @@ class AccountMoveLine(models.Model):
         criteria = [
             ("account_id.reconcile", "=", True),
             ("reconciled", "=", False),
+            ("account_id.compute_days_overdue", "=", True),
         ]
         move_lines = obj_ml.search(criteria)
         for move_line in move_lines:

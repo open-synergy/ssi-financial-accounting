@@ -13,6 +13,7 @@
     ],
     "data": [
         "data/ir_cron_data.xml",
+        "views/account_account_views.xml",
         "views/account_move_line_views.xml",
     ],
 }
