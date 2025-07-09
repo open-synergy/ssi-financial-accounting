@@ -54,7 +54,9 @@
                 eval="[(6,0,[ref('ssi_financial_accounting.bank_statement_validator_group')])]"
             />
     <field name="restrict_additional" eval="1" />
-    <field name="additional_python_code">result = document.all_lines_reconciled and document.line_ids</field>
+    <field
+                name="additional_python_code"
+            >result = document.all_lines_reconciled and document.line_ids</field>
 </record>
 <record id="policy_template_bank_statement_bank_reopen" model="policy.template_detail">
     <field name="template_id" ref="policy_template_bank_statement_bank" />
@@ -148,7 +150,9 @@
                 eval="[(6,0,[ref('ssi_financial_accounting.cash_register_validator_group')])]"
             />
     <field name="restrict_additional" eval="1" />
-    <field name="additional_python_code">result = document.all_lines_reconciled and document.line_ids</field>
+    <field
+                name="additional_python_code"
+            >result = document.all_lines_reconciled and document.line_ids</field>
 </record>
 <record id="policy_template_bank_statement_cash_reopen" model="policy.template_detail">
     <field name="template_id" ref="policy_template_bank_statement_cash" />

@@ -10,9 +10,79 @@ class AccountMove(models.Model):
     _inherit = [
         "account.move",
         "mixin.print_document",
+        "mixin.policy",
     ]
 
     _automatically_insert_print_button = True
+
+    def _compute_policy(self):
+        _super = super(AccountMove, self)
+        _super._compute_policy()
+
+    # INVOICE
+    confirm_ok = fields.Boolean(
+        string="Can Confirm",
+        compute="_compute_policy",
+        default=False,
+    )
+    send_print_ok = fields.Boolean(
+        string="Can Send & Print",
+        compute="_compute_policy",
+        default=False,
+    )
+    register_payment_ok = fields.Boolean(
+        string="Can Register Payment",
+        compute="_compute_policy",
+        default=False,
+    )
+    preview_ok = fields.Boolean(
+        string="Can Preview",
+        compute="_compute_policy",
+        default=False,
+    )
+    add_credit_note_ok = fields.Boolean(
+        string="Can Add Credit Note",
+        compute="_compute_policy",
+        default=False,
+    )
+    # ENTRY
+    post_ok = fields.Boolean(
+        string="Can Post",
+        compute="_compute_policy",
+        default=False,
+    )
+    reverse_entry_ok = fields.Boolean(
+        string="Can Reverse Entry",
+        compute="_compute_policy",
+        default=False,
+    )
+    cancel_ok = fields.Boolean(
+        string="Can Cancel",
+        compute="_compute_policy",
+        default=False,
+    )
+    restart_ok = fields.Boolean(
+        string="Can Reset To Draft",
+        compute="_compute_policy",
+        default=False,
+    )
+
+    @api.model
+    def _get_policy_field(self):
+        res = super(AccountMove, self)._get_policy_field()
+        policy_field = [
+            "post_ok",
+            "confirm_ok",
+            "send_print_ok",
+            "register_payment_ok",
+            "preview_ok",
+            "reverse_entry_ok",
+            "add_credit_note_ok",
+            "cancel_ok",
+            "restart_ok",
+        ]
+        res += policy_field
+        return res
 
     @api.depends(
         "move_type",

@@ -17,6 +17,66 @@
     <field name="model">account.move</field>
     <field name="inherit_id" ref="account.view_move_form" />
     <field name="arch" type="xml">
+        <xpath expr="//button[@name='action_post'][1]" position="attributes">
+            <attribute name="groups" />
+            <attribute
+                    name="attrs"
+                >{'invisible': ['|', '|', ('post_ok', '!=', True), ('auto_post', '=', True), ('move_type', '!=', 'entry')]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_post'][2]" position="attributes">
+            <attribute name="groups" />
+            <attribute
+                    name="attrs"
+                >{'invisible': ['|', '|', ('confirm_ok', '!=', True), ('auto_post', '=', True), ('move_type', '=', 'entry')]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_invoice_sent'][1]" position="attributes">
+            <attribute
+                    name="attrs"
+                >{'invisible':['|', '|', ('send_print_ok', '!=', True), ('is_move_sent', '=', True), ('move_type', 'not in', ('out_invoice', 'out_refund'))]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_invoice_sent'][2]" position="attributes">
+            <attribute
+                    name="attrs"
+                >{'invisible':['|', '|', ('send_print_ok', '!=', True), ('is_move_sent', '=', False), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_register_payment']" position="attributes">
+            <attribute name="groups" />
+            <attribute
+                    name="attrs"
+                >{'invisible': ['|', '|', ('register_payment_ok', '!=', True), ('payment_state', 'not in', ('not_paid', 'partial')), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='preview_invoice']" position="attributes">
+            <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('preview_ok', '!=', True), ('move_type', 'not in', ('out_invoice', 'out_refund'))]}</attribute>
+        </xpath>
+        <xpath
+                expr="//button[@name='%(account.action_view_account_move_reversal)d']"
+                position="attributes"
+            >
+            <attribute name="groups" />
+            <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('move_type', '!=', 'entry'), '|', ('reverse_entry_ok', '!=', True), ('payment_state', '=', 'reversed')]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='action_reverse']" position="attributes">
+            <attribute name="groups" />
+            <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('move_type', 'not in', ('out_invoice', 'in_invoice')), ('add_credit_note_ok', '!=', True)]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='button_cancel']" position="attributes">
+            <attribute name="groups" />
+            <attribute
+                    name="attrs"
+                >{'invisible' : ['|', ('id', '=', False), ('cancel_ok', '!=', True)]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='button_draft']" position="attributes">
+            <attribute name="groups" />
+            <attribute
+                    name="attrs"
+                >{'invisible' : ['|', ('show_reset_to_draft_button', '=', False), ('restart_ok', '!=', True)]}</attribute>
+        </xpath>
         <xpath
                 expr="//field[@name='line_ids']/tree/field[@name='account_id']"
                 position="after"
@@ -24,13 +84,64 @@
             <field name="direct_cash_flow_type_id" optional="hide" />
             <field name="indirect_cash_flow_type_id" optional="hide" />
         </xpath>
-        <xpath expr="//notebook/page[last()]" position="after">
+        <xpath expr="//notebook" position="inside">
             <page name="page_payment" string="Payments">
                 <group>
                     <field name="last_payment_line_id" />
                     <field name="last_payment_date" />
                 </group>
                 <field name="move_line_payment_ids" />
+            </page>
+            <page name="policy" string="Policies" groups="base.group_system">
+                <group name="policy_1" colspan="4" col="2">
+                    <field name="policy_template_id" />
+                    <button
+                            name="action_reload_policy_template"
+                            type="object"
+                            string="Reload Template Policy"
+                            class="oe_highlight"
+                            icon="fa-refresh"
+                        />
+                </group>
+                <group name="policy_2" colspan="4" col="2">
+                    <field
+                            name="confirm_ok"
+                            order="95"
+                            attrs="{'invisible': [('move_type','=','entry')]}"
+                        />
+                    <field
+                            name="send_print_ok"
+                            order="96"
+                            attrs="{'invisible': [('move_type','=','entry')]}"
+                        />
+                    <field
+                            name="register_payment_ok"
+                            order="97"
+                            attrs="{'invisible': [('move_type','=','entry')]}"
+                        />
+                    <field
+                            name="preview_ok"
+                            order="98"
+                            attrs="{'invisible': [('move_type','=','entry')]}"
+                        />
+                    <field
+                            name="add_credit_note_ok"
+                            order="99"
+                            attrs="{'invisible': [('move_type','=','entry')]}"
+                        />
+                    <field
+                            name="post_ok"
+                            order="100"
+                            attrs="{'invisible': [('move_type','!=','entry')]}"
+                        />
+                    <field
+                            name="reverse_entry_ok"
+                            order="101"
+                            attrs="{'invisible': [('move_type','!=','entry')]}"
+                        />
+                    <field name="cancel_ok" order="102" />
+                    <field name="restart_ok" order="103" />
+                </group>
             </page>
         </xpath>
     </field>
