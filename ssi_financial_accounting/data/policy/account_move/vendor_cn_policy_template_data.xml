@@ -30,7 +30,7 @@
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.refund_user_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.refund_validator_group')])]"
             />
     <field name="restrict_additional" eval="0" />
 </record>
@@ -52,7 +52,8 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.refund_user_group')])]"
             />
-    <field name="restrict_additional" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
 </record>
 <!-- REGISTER PAYMENT -->
 <record
@@ -73,7 +74,7 @@
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.refund_validator_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_user_group')])]"
             />
 </record>
 <!-- PREVIEW -->
@@ -90,6 +91,8 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.refund_user_group')])]"
             />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
 </record>
 <!-- ADD CREDIT NOTE -->
 <record
@@ -112,6 +115,8 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.refund_validator_group')])]"
             />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
 </record>
 <!-- CANCEL -->
 <record id="policy_template_detail_vendor_cn_cancel" model="policy.template_detail">
@@ -129,7 +134,7 @@
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.refund_user_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.refund_validator_group')])]"
             />
 </record>
 <!-- RESET TO DRAFT -->
@@ -144,7 +149,7 @@
     <field name="computation_method">use_group</field>
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.refund_user_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.refund_validator_group')])]"
             />
 </record>
 </data>
