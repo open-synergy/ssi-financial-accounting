@@ -120,9 +120,10 @@
             />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
+
     <field
                 name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.refund_user_group')])]"
+                eval="[(6,0,[ref('ssi_financial_accounting.credit_note_user_group')])]"
             />
 </record>
 <!-- CANCEL -->
