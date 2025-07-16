@@ -36,7 +36,7 @@
             <notebook>
                 <page name="policy" string="Policies" groups="base.group_system">
                     <group name="policy_1" colspan="4" col="2">
-                        <field name="policy_template_id" />
+                        <field name="policy_template_id" groups="base.group_system" />
                         <button
                                 name="action_reload_policy_template"
                                 type="object"
