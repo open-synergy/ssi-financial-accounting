@@ -60,6 +60,16 @@
         <field name="parent_id" ref="financial_accounting_module_category" />
     </record>
 
+    <record id="sale_receipt_module_category" model="ir.module.category">
+        <field name="name">Sale Receipt</field>
+        <field name="parent_id" ref="financial_accounting_module_category" />
+    </record>
+
+    <record id="purchase_receipt_module_category" model="ir.module.category">
+        <field name="name">Purchase Receipt</field>
+        <field name="parent_id" ref="financial_accounting_module_category" />
+    </record>
+
     <!-- Data Ownership -->
     <record
         id="financial_accounting_data_ownership_module_category"
@@ -127,6 +137,25 @@
 
     <record id="refund_data_ownership_module_category" model="ir.module.category">
         <field name="name">Refund</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record id="sale_receipt_data_ownership_module_category" model="ir.module.category">
+        <field name="name">Sale Receipt</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record
+        id="purchase_receipt_data_ownership_module_category"
+        model="ir.module.category"
+    >
+        <field name="name">Purchase Receipt</field>
         <field
             name="parent_id"
             ref="financial_accounting_data_ownership_module_category"

@@ -35,6 +35,15 @@
     />
 
 <menuitem
+        id="sale_receipt_menu"
+        name="Receipts"
+        parent="menu_account_receivable"
+        action="account.action_account_payments"
+        groups="ssi_financial_accounting.sale_receipt_user_group"
+        sequence="3"
+    />
+
+<menuitem
         id="menu_account_payable"
         name="Account Payable"
         parent="menu_root_financial_accounting"
@@ -57,6 +66,15 @@
         action="account.action_move_in_refund_type"
         groups="ssi_financial_accounting.refund_user_group"
         sequence="2"
+    />
+
+<menuitem
+        id="purchase_receipt_menu"
+        name="Payments"
+        parent="menu_account_payable"
+        action="account.action_account_payments_payable"
+        groups="ssi_financial_accounting.purchase_receipt_user_group"
+        sequence="3"
     />
 
 <menuitem

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 OpenSynergy Indonesia
+     Copyright 2025 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0-standalone.html). -->
+<odoo>
+<data noupdate="0">
+<record id="policy_template_sale_receipt" model="policy.template">
+    <field name="name">Sale Receipts: Standard</field>
+    <field name="model_id" ref="account.model_account_move" />
+    <field
+                name="state_field_id"
+                search="[('model_id.model','=','account.move'),('name','=','state')]"
+            />
+    <field name="sequence" eval="100" />
+    <field name="python_code">result = document.move_type == 'out_receipt'</field>
+</record>
+<!-- CONFIRM -->
+<record id="policy_template_detail_sale_receipt_confirm" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_sale_receipt" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.move'),('name','=','confirm_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','account.move'),('value','=','draft')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+<!-- SEND & PRINT -->
+<record
+            id="policy_template_detail_sale_receipt_send_print"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_sale_receipt" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.move'),('name','=','send_print_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','account.move'),('value','=','posted')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_user_group')])]"
+            />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
+</record>
+<!-- REGISTER PAYMENT -->
+<record
+            id="policy_template_detail_sale_receipt_register_payment"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_sale_receipt" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.move'),('name','=','register_payment_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','account.move'),('value','=','posted')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
+</record>
+<!-- PREVIEW -->
+<record id="policy_template_detail_sale_receipt_preview" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_sale_receipt" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.move'),('name','=','preview_ok')]"
+            />
+    <field name="restrict_state" eval="0" />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_user_group')])]"
+            />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
+</record>
+<!-- ADD CREDIT NOTE -->
+<record
+            id="policy_template_detail_sale_receipt_add_credit_note"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_sale_receipt" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.move'),('name','=','add_credit_note_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','account.move'),('value','=','posted')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
+</record>
+<!-- CANCEL -->
+<record id="policy_template_detail_sale_receipt_cancel" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_sale_receipt" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.move'),('name','=','cancel_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','account.move'),('value','=','draft')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+            />
+</record>
+<!-- RESET TO DRAFT -->
+<record id="policy_template_detail_sale_receipt_restart" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_sale_receipt" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.move'),('name','=','restart_ok')]"
+            />
+    <field name="restrict_state" eval="0" />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+            />
+</record>
+</data>
+</odoo>

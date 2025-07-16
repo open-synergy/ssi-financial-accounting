@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 OpenSynergy Indonesia
+     Copyright 2025 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0-standalone.html). -->
+<odoo>
+<data>
+<record id="policy_template_vendor_payment" model="policy.template">
+    <field name="name">Vendor Payment: Standard</field>
+    <field name="model_id" ref="account.model_account_payment" />
+    <field
+                name="state_field_id"
+                search="[('model_id.model','=','account.payment'),('name','=','state')]"
+            />
+    <field name="sequence" eval="100" />
+    <field name="python_code">result = document.payment_type == 'outbound'</field>
+</record>
+
+<!-- CONFIRM -->
+<record
+            id="policy_template_detail_vendor_payment_confirm"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_vendor_payment" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.payment'),('name','=','confirm_ok')]"
+            />
+    <field name="restrict_state" eval="0" />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.state == "draft":
+    result = True
+</field>
+</record>
+<!-- Mark as Sent -->
+<record
+            id="policy_template_detail_vendor_payment_mark_as_sent"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_vendor_payment" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.payment'),('name','=','mark_as_sent_ok')]"
+            />
+    <field name="restrict_state" eval="0" />
+    <field name="restrict_user" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
+</record>
+
+<!-- Unmark as Sent -->
+<record
+            id="policy_template_detail_vendor_payment_unmark_as_sent"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_vendor_payment" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.payment'),('name','=','unmark_as_sent_ok')]"
+            />
+    <field name="restrict_state" eval="0" />
+    <field name="restrict_user" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False</field>
+</record>
+
+<!-- CANCEL -->
+<record
+            id="policy_template_detail_vendor_payment_cancel"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_vendor_payment" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.payment'),('name','=','cancel_ok')]"
+            />
+    <field name="restrict_state" eval="0" />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.state == "draft":
+    result = True
+</field>
+</record>
+<!-- RESET TO DRAFT -->
+<record
+            id="policy_template_detail_vendor_payment_restart"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_vendor_payment" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','account.payment'),('name','=','restart_ok')]"
+            />
+    <field name="restrict_state" eval="0" />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.state != "draft":
+    result = True
+</field>
+</record>
+</data>
+</odoo>
