@@ -67,4 +67,5 @@
         "report/templates/general_ledger.xml",
     ],
     "demo": [],
+    "post_init_hook": "install_generic_coa_if_demo",
 }
