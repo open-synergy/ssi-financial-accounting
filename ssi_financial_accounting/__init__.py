@@ -7,3 +7,7 @@ from . import (
     report,
     wizards,
 )
+
+from .hooks import (
+    install_generic_coa_if_demo,
+)
