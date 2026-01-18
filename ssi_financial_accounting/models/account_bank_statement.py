@@ -14,7 +14,7 @@ class AccountBankStatement(models.Model):
     ]
 
     def _compute_policy(self):
-        _super = super(AccountBankStatement, self)
+        _super = super()
         _super._compute_policy()
 
     name = fields.Char(
@@ -23,26 +23,31 @@ class AccountBankStatement(models.Model):
     post_ok = fields.Boolean(
         string="Can Post",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     validate_ok = fields.Boolean(
         string="Can Validate",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     reopen_ok = fields.Boolean(
         string="Can Reset to New",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     reprocess_ok = fields.Boolean(
         string="Can Reset to Processing",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     cash_box_ok = fields.Boolean(
         string="Can Take Money In/Out",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
 
@@ -52,7 +57,7 @@ class AccountBankStatement(models.Model):
             if not rec.name:
                 rec.write({"name": "/"})
             rec._create_sequence()
-        res = super(AccountBankStatement, self).button_post()
+        res = super().button_post()
         for rec in self:
             if not rec.line_ids:
                 rec.button_validate()
@@ -60,7 +65,7 @@ class AccountBankStatement(models.Model):
 
     @api.model
     def _get_policy_field(self):
-        res = super(AccountBankStatement, self)._get_policy_field()
+        res = super()._get_policy_field()
         policy_field = [
             "post_ok",
             "validate_ok",

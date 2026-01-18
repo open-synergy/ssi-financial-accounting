@@ -23,26 +23,31 @@ class AccountPayment(models.Model):
     confirm_ok = fields.Boolean(
         string="Can Confirm",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     mark_as_sent_ok = fields.Boolean(
         string="Can Mark as Sent",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     unmark_as_sent_ok = fields.Boolean(
         string="Can Unmark as Sent",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     cancel_ok = fields.Boolean(
         string="Can Cancel",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     restart_ok = fields.Boolean(
         string="Can Reset To Draft",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
 
