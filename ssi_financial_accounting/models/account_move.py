@@ -16,60 +16,69 @@ class AccountMove(models.Model):
     _automatically_insert_print_button = True
 
     def _compute_policy(self):
-        _super = super(AccountMove, self)
+        _super = super()
         _super._compute_policy()
 
     # INVOICE
     confirm_ok = fields.Boolean(
         string="Can Confirm",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     send_print_ok = fields.Boolean(
         string="Can Send & Print",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     register_payment_ok = fields.Boolean(
         string="Can Register Payment",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     preview_ok = fields.Boolean(
         string="Can Preview",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     add_credit_note_ok = fields.Boolean(
         string="Can Add Credit Note",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     # ENTRY
     post_ok = fields.Boolean(
         string="Can Post",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     reverse_entry_ok = fields.Boolean(
         string="Can Reverse Entry",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     cancel_ok = fields.Boolean(
         string="Can Cancel",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
     restart_ok = fields.Boolean(
         string="Can Reset To Draft",
         compute="_compute_policy",
+        compute_sudo=True,
         default=False,
     )
 
     @api.model
     def _get_policy_field(self):
-        res = super(AccountMove, self)._get_policy_field()
+        res = super()._get_policy_field()
         policy_field = [
             "post_ok",
             "confirm_ok",
@@ -102,6 +111,7 @@ class AccountMove(models.Model):
         comodel_name="account.move.line",
         compute="_compute_move_line_payment_ids",
         store=True,
+        compute_sudo=True,
     )
 
     @api.depends(
@@ -125,6 +135,7 @@ class AccountMove(models.Model):
         compute="_compute_last_payment_date",
         store=True,
         readonly=True,
+        compute_sudo=True,
     )
     last_payment_line_id = fields.Many2one(
         string="#Last Payment Line",
@@ -132,4 +143,5 @@ class AccountMove(models.Model):
         compute="_compute_last_payment_date",
         store=True,
         readonly=True,
+        compute_sudo=True,
     )
