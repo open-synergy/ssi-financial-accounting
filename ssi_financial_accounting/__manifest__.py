@@ -26,6 +26,7 @@
         "account_invoice_force_number",
         "account_journal_lock_date",
         "account_move_force_removal",
+        "ssi_account_create_liquidity_journal",
     ],
     "data": [
         "security/ir_module_category_data.xml",
