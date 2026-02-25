@@ -33,6 +33,7 @@
         "security/ir_module_category_data.xml",
         "security/res_group_data.xml",
         "security/res_groups/master_data.xml",
+        "security/res_groups/report.xml",
         "security/res_groups/journal_entry.xml",
         "security/res_groups/bank_statement.xml",
         "security/res_groups/cash_register.xml",
