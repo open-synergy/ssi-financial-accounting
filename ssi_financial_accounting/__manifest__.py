@@ -39,6 +39,7 @@
         "security/res_groups/credit_note.xml",
         "security/res_groups/vendor_bill.xml",
         "security/res_groups/refund.xml",
+        "security/res_groups/sale_receipt.xml",
         "security/ir.model.access.csv",
         "data/account_journal_data.xml",
         "data/account_type_data.xml",
