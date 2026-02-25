@@ -27,6 +27,7 @@
         "account_journal_lock_date",
         "account_move_force_removal",
         "ssi_account_create_liquidity_journal",
+        "account_mass_reconcile",
     ],
     "data": [
         "security/ir_module_category_data.xml",
@@ -66,6 +67,7 @@
         "views/account_payment_views.xml",
         "report/templates/aged_partner_balance.xml",
         "report/templates/general_ledger.xml",
+        "views/mass_reconcile_views.xml",
     ],
     "demo": [],
 }

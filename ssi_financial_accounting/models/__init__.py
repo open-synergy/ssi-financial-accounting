@@ -13,4 +13,6 @@ from . import (
     account_bank_statement,
     mis_report_instance,
     account_payment,
+    mass_reconcile,
+    mass_reconcile_advanced_partner,
 )
