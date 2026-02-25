@@ -32,6 +32,7 @@
     "data": [
         "security/ir_module_category_data.xml",
         "security/res_group_data.xml",
+        "security/res_groups/journal_entry.xml",
         "security/ir.model.access.csv",
         "data/account_journal_data.xml",
         "data/account_type_data.xml",
