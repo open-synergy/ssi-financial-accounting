@@ -37,6 +37,7 @@
         "security/res_groups/cash_register.xml",
         "security/res_groups/invoice.xml",
         "security/res_groups/credit_note.xml",
+        "security/res_groups/vendor_bill.xml",
         "security/ir.model.access.csv",
         "data/account_journal_data.xml",
         "data/account_type_data.xml",
