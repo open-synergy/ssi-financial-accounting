@@ -276,7 +276,7 @@
 
 <menuitem
         id="menu_misc_configuration"
-        name="miscellaneous"
+        name="Miscellaneous"
         parent="menu_financial_accounting_configuration"
         sequence="99"
     />
