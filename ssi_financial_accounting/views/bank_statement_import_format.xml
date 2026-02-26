@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<menuitem
+        id="bank_statement_import_format_menu"
+        parent="menu_misc_configuration"
+        name="Bank Statement Import Format"
+        action="account_statement_import_txt_xlsx.action_statement_import_sheet_report_mappings"
+        sequence="100"
+        groups="bank_statement_import_format_group"
+    />
+</odoo>
