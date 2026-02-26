@@ -34,6 +34,7 @@
         # Groups
         "security/res_groups/master_data.xml",
         "security/res_groups/report.xml",
+        "security/res_groups/wizard.xml",
         "security/res_groups/usability.xml",
         "security/res_groups/journal_entry.xml",
         "security/res_groups/bank_statement.xml",
@@ -77,6 +78,7 @@
         "views/account_type_views.xml",
         "views/account_bank_statement_views.xml",
         "views/account_payment_views.xml",
+        "views/account_mass_reconcile.xml",
         "report/templates/aged_partner_balance.xml",
         "report/templates/general_ledger.xml",
         "views/mass_reconcile_views.xml",
