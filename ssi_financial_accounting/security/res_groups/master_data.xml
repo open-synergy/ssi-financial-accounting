@@ -146,4 +146,16 @@
             eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
         />
 </record>
+
+<record id="bank_statement_import_format_group" model="res.groups">
+    <field name="name">Bank Statement Import Format</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.financial_accounting_configurator_module_category"
+        />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
 </odoo>

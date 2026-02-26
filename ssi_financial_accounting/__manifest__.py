@@ -79,6 +79,7 @@
         "views/account_bank_statement_views.xml",
         "views/account_payment_views.xml",
         "views/account_mass_reconcile.xml",
+        "views/bank_statement_import_format.xml",
         "report/templates/aged_partner_balance.xml",
         "report/templates/general_ledger.xml",
         "views/mass_reconcile_views.xml",
