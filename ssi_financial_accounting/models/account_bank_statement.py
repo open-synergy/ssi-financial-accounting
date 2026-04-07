@@ -11,6 +11,7 @@ class AccountBankStatement(models.Model):
         "account.bank.statement",
         "mixin.sequence",
         "mixin.policy",
+        "mixin.print_document",
     ]
 
     def _compute_policy(self):
