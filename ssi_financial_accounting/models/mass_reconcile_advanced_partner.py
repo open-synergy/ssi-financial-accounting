@@ -4,7 +4,8 @@
 
 import logging
 
-from odoo import models
+from odoo import fields, models
+from odoo.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -21,6 +22,30 @@ class MassReconcileAdvancedPartner(models.TransientModel):
     _name = "mass.reconcile.advanced.partner"
     _inherit = "mass.reconcile.advanced"
     _description = "Advanced. Partner Only (Partial)"
+
+    filter_partner = fields.Boolean(
+        string="Filter Partner",
+        help="If checked, only move lines belonging to partners matching "
+        "the Partner Domain will be considered for reconciliation.",
+    )
+    partner_domain = fields.Text(
+        string="Partner Domain",
+        help="Domain expression to filter partners for reconciliation. "
+        "Only move lines belonging to partners matching this domain "
+        "will be considered for reconciliation.",
+    )
+
+    def _where_query(self, *args, **kwargs):
+        where, params = super()._where_query(*args, **kwargs)
+        if self.filter_partner and self.partner_domain:
+            domain = safe_eval(self.partner_domain)
+            partner_ids = self.env["res.partner"].search(domain).ids
+            if partner_ids:
+                where += " AND account_move_line.partner_id IN %s"
+                params.append(tuple(partner_ids))
+            else:
+                where += " AND 1=0"
+        return where, params
 
     @staticmethod
     def _skip_line(move_line):

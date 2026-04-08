@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record id="view_mass_reconcile_form" model="ir.ui.view">
         <field name="name">account.mass.reconcile.form.partner.only</field>
@@ -20,6 +23,67 @@
                     />
                 </group>
             </page>
+        </field>
+    </record>
+
+    <record id="view_mass_reconcile_method_tree" model="ir.ui.view">
+        <field name="name">account.mass.reconcile.method.tree.inherit</field>
+        <field name="model">account.mass.reconcile.method</field>
+        <field
+            name="inherit_id"
+            ref="account_mass_reconcile.account_mass_reconcile_method_tree"
+        />
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="editable" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mass_reconcile_method_form" model="ir.ui.view">
+        <field name="name">account.mass.reconcile.method.form</field>
+        <field name="model">account.mass.reconcile.method</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <form string="Reconciliation Method">
+                <group>
+                    <group>
+                        <field name="sequence" />
+                        <field name="name" />
+                    </group>
+                    <group>
+                        <field name="write_off" />
+                        <field name="date_base_on" />
+                    </group>
+                </group>
+                <group>
+                    <field
+                        name="account_lost_id"
+                        attrs="{'required': [('write_off', '>', 0)]}"
+                    />
+                    <field
+                        name="account_profit_id"
+                        attrs="{'required': [('write_off', '>', 0)]}"
+                    />
+                    <field
+                        name="journal_id"
+                        attrs="{'required': [('write_off', '>', 0)]}"
+                    />
+                </group>
+                <group
+                    string="Partner Filter"
+                    attrs="{'invisible': [('name', '!=', 'mass.reconcile.advanced.partner')]}"
+                >
+                    <field name="filter_partner" />
+                    <field
+                        name="partner_domain"
+                        widget="domain"
+                        options="{'model': 'res.partner', 'in_dialog': True}"
+                        attrs="{'invisible': [('filter_partner', '=', False)]}"
+                        nolabel="1"
+                    />
+                </group>
+            </form>
         </field>
     </record>
 </odoo>
