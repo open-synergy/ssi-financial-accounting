@@ -5,7 +5,7 @@
 from odoo import api, fields, models
 
 
-class AccountBankStatement(models.Model):
+class AccountBankStatement(models.Model):  # pylint: disable=too-few-public-methods
     _name = "account.bank.statement"
     _inherit = [
         "account.bank.statement",
@@ -13,10 +13,11 @@ class AccountBankStatement(models.Model):
         "mixin.policy",
         "mixin.print_document",
     ]
+    _automatically_insert_print_button = True
 
-    def _compute_policy(self):
+    def _compute_policy(self):  # pylint: disable=missing-return
         _super = super()
-        _super._compute_policy()
+        _super._compute_policy()  # pylint: disable=protected-access
 
     name = fields.Char(
         default="/",
@@ -57,7 +58,7 @@ class AccountBankStatement(models.Model):
         for rec in self.filtered(lambda s: not s.name or s.name == "/"):
             if not rec.name:
                 rec.write({"name": "/"})
-            rec._create_sequence()
+            rec._create_sequence()  # pylint: disable=protected-access
         res = super().button_post()
         for rec in self:
             if not rec.line_ids:
