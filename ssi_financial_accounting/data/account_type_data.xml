@@ -2,8 +2,7 @@
 <!-- Copyright 2022 OpenSynergy Indonesia
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-<odoo>
-<data noupdate="0">
+<odoo noupdate="0">
 <record id="account_type_10" model="account_type">
     <field name="name">Cash</field>
     <field name="code">T0010</field>
@@ -243,9 +242,9 @@
     <field name="code">T0340</field>
     <field name="sequence" eval="340" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_350" model="account_type">
@@ -253,9 +252,9 @@
     <field name="code">T0350</field>
     <field name="sequence" eval="350" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_360" model="account_type">
@@ -263,9 +262,9 @@
     <field name="code">T0360</field>
     <field name="sequence" eval="360" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_370" model="account_type">
@@ -273,9 +272,9 @@
     <field name="code">T0370</field>
     <field name="sequence" eval="370" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_380" model="account_type">
@@ -283,9 +282,9 @@
     <field name="code">T0380</field>
     <field name="sequence" eval="380" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_390" model="account_type">
@@ -293,9 +292,9 @@
     <field name="code">T0390</field>
     <field name="sequence" eval="390" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_400" model="account_type">
@@ -303,9 +302,9 @@
     <field name="code">T0400</field>
     <field name="sequence" eval="400" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_410" model="account_type">
@@ -313,9 +312,9 @@
     <field name="code">T0410</field>
     <field name="sequence" eval="410" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_420" model="account_type">
@@ -323,9 +322,9 @@
     <field name="code">T0420</field>
     <field name="sequence" eval="420" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_430" model="account_type">
@@ -333,9 +332,9 @@
     <field name="code">T0430</field>
     <field name="sequence" eval="430" />
     <field
-                name="odoo_type_id"
-                ref="account.data_account_type_non_current_liabilities"
-            />
+            name="odoo_type_id"
+            ref="account.data_account_type_non_current_liabilities"
+        />
 </record>
 
 <record id="account_type_440" model="account_type">
@@ -419,13 +418,6 @@
     <field name="name">Revenue - services</field>
     <field name="code">T0550</field>
     <field name="sequence" eval="550" />
-    <field name="odoo_type_id" ref="account.data_account_type_revenue" />
-</record>
-
-<record id="account_type_560" model="account_type">
-    <field name="name">Interest income</field>
-    <field name="code">T0560</field>
-    <field name="sequence" eval="560" />
     <field name="odoo_type_id" ref="account.data_account_type_revenue" />
 </record>
 
@@ -519,5 +511,4 @@
     <field name="sequence" eval="680" />
     <field name="odoo_type_id" ref="account.data_account_type_expenses" />
 </record>
-</data>
 </odoo>

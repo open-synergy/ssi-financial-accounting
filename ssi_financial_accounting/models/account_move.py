@@ -1,6 +1,7 @@
 # Copyright 2023 OpenSynergy Indonesia
 # Copyright 2023 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from lxml import etree
 
 from odoo import api, fields, models
 
@@ -15,7 +16,7 @@ class AccountMove(models.Model):
 
     _automatically_insert_print_button = True
 
-    def _compute_policy(self):
+    def _compute_policy(self):  # pylint: disable=missing-return
         _super = super()
         _super._compute_policy()
 
@@ -145,3 +146,65 @@ class AccountMove(models.Model):
         readonly=True,
         compute_sudo=True,
     )
+
+    def check_group(self, move_type):
+        user = self.env.user
+        if move_type == "entry" and user.has_group(
+            "ssi_financial_accounting.journal_entry_user_group"
+        ):
+            return True
+        if move_type == "out_invoice" and user.has_group(
+            "ssi_financial_accounting.invoice_user_group"
+        ):
+            return True
+        if move_type == "out_refund" and user.has_group(
+            "ssi_financial_accounting.credit_note_user_group"
+        ):
+            return True
+        if move_type == "in_invoice" and user.has_group(
+            "ssi_financial_accounting.bill_user_group"
+        ):
+            return True
+        if move_type == "in_refund" and user.has_group(
+            "ssi_financial_accounting.refund_user_group"
+        ):
+            return True
+        if move_type == "out_receipt" and user.has_group(
+            "ssi_financial_accounting.sale_receipt_user_group"
+        ):
+            return True
+        if move_type == "in_receipt" and user.has_group(
+            "ssi_financial_accounting.purchase_receipt_user_group"
+        ):
+            return True
+        return False
+
+    @api.model
+    def fields_view_get(  # pylint: disable=deprecated-odoo-model-method
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
+    ):
+        _super = super()  # pylint: disable=super-with-arguments
+        result = _super.fields_view_get(
+            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
+        )
+        if view_type not in ("tree", "form"):
+            return result
+
+        ctx = self.env.context
+        move_type = ctx.get("default_move_type")
+        if not move_type:
+            return result
+
+        can_ced = False
+
+        if self.check_group(move_type):
+            can_ced = True
+
+        if can_ced:
+            doc = etree.XML(result["arch"])
+            doc.set("create", "true")
+            doc.set("edit", "true")
+            doc.set("delete", "true")
+            result["arch"] = etree.tostring(doc, encoding="unicode")
+
+        return result
