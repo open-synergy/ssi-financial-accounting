@@ -32,7 +32,11 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.journal_entry_validator_group')])]"
             />
-    <field name="restrict_additional" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.auto_post or document.move_type == "entry":
+    result = True
+    </field>
 </record>
 <!-- REVERSE -->
 <record id="policy_template_detail_entry_reverse" model="policy.template_detail">
@@ -52,7 +56,11 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.journal_entry_user_group')])]"
             />
-    <field name="restrict_additional" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.move_type == "entry" or document.payment_state != "reversed":
+    result = True
+    </field>
 </record>
 <!-- CANCEL -->
 <record id="policy_template_detail_entry_cancel" model="policy.template_detail">
@@ -87,6 +95,11 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.journal_entry_validator_group')])]"
             />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.show_reset_to_draft_button:
+    result = True
+    </field>
 </record>
 </data>
 </odoo>

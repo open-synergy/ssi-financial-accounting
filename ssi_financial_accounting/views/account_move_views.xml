@@ -19,36 +19,32 @@
     <field name="arch" type="xml">
         <xpath expr="//button[@name='action_post'][1]" position="attributes">
             <attribute name="groups" />
-            <attribute
-                    name="attrs"
-                >{'invisible': ['|', '|', ('post_ok', '!=', True), ('auto_post', '=', True), ('move_type', '!=', 'entry')]}</attribute>
+            <attribute name="attrs">{'invisible': [('post_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath expr="//button[@name='action_post'][2]" position="attributes">
             <attribute name="groups" />
             <attribute
                     name="attrs"
-                >{'invisible': ['|', '|', ('confirm_ok', '!=', True), ('auto_post', '=', True), ('move_type', '=', 'entry')]}</attribute>
+                >{'invisible': [('confirm_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath expr="//button[@name='action_invoice_sent'][1]" position="attributes">
-            <attribute
-                    name="attrs"
-                >{'invisible':['|', '|', ('send_print_ok', '!=', True), ('is_move_sent', '=', True), ('move_type', 'not in', ('out_invoice', 'out_refund'))]}</attribute>
+            <attribute name="invisible">1</attribute>
         </xpath>
         <xpath expr="//button[@name='action_invoice_sent'][2]" position="attributes">
             <attribute
                     name="attrs"
-                >{'invisible':['|', '|', ('send_print_ok', '!=', True), ('is_move_sent', '=', False), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}</attribute>
+                >{'invisible':[('send_print_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath expr="//button[@name='action_register_payment']" position="attributes">
             <attribute name="groups" />
             <attribute
                     name="attrs"
-                >{'invisible': ['|', ('register_payment_ok', '!=', True), ('payment_state', 'not in', ('not_paid', 'partial'))]}</attribute>
+                >{'invisible': [('register_payment_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath expr="//button[@name='preview_invoice']" position="attributes">
             <attribute
                     name="attrs"
-                >{'invisible': ['|', ('preview_ok', '!=', True), ('move_type', 'not in', ('out_invoice', 'out_refund'))]}</attribute>
+                >{'invisible': [('preview_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath
                 expr="//button[@name='%(account.action_view_account_move_reversal)d']"
@@ -57,25 +53,25 @@
             <attribute name="groups" />
             <attribute
                     name="attrs"
-                >{'invisible': ['|', ('move_type', '!=', 'entry'), '|', ('reverse_entry_ok', '!=', True), ('payment_state', '=', 'reversed')]}</attribute>
+                >{'invisible': [('reverse_entry_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath expr="//button[@name='action_reverse']" position="attributes">
             <attribute name="groups" />
             <attribute
                     name="attrs"
-                >{'invisible': ['|', ('move_type', 'not in', ('out_invoice', 'in_invoice')), ('add_credit_note_ok', '!=', True)]}</attribute>
+                >{'invisible': [('add_credit_note_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath expr="//button[@name='button_cancel']" position="attributes">
             <attribute name="groups" />
             <attribute
                     name="attrs"
-                >{'invisible' : ['|', ('id', '=', False), ('cancel_ok', '!=', True)]}</attribute>
+                >{'invisible' : [('cancel_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath expr="//button[@name='button_draft']" position="attributes">
             <attribute name="groups" />
             <attribute
                     name="attrs"
-                >{'invisible' : ['|', ('show_reset_to_draft_button', '=', False), ('restart_ok', '!=', True)]}</attribute>
+                >{'invisible' : [('restart_ok', '!=', True)]}</attribute>
         </xpath>
         <xpath
                 expr="//field[@name='line_ids']/tree/field[@name='account_id']"

@@ -32,7 +32,11 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
             />
-    <field name="restrict_additional" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if not document.auto_post or document.move_type != "entry":
+    result = True
+    </field>
 </record>
 <!-- SEND & PRINT -->
 <record
@@ -56,7 +60,10 @@
                 eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_user_group')])]"
             />
     <field name="restrict_additional" eval="1" />
-    <field name="additional_python_code">result = False</field>
+    <field name="additional_python_code">result = False
+if not document.is_move_sent or document.move_type in ['out_invoice', 'out_refund', 'in_invoice', 'in_refund']:
+    result = True
+    </field>
 </record>
 <!-- REGISTER PAYMENT -->
 <record
@@ -80,7 +87,10 @@
                 eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
             />
     <field name="restrict_additional" eval="1" />
-    <field name="additional_python_code">result = False</field>
+    <field name="additional_python_code">result = False
+if document.payment_state in ['not_paid', 'partial']:
+    result = True
+    </field>
 </record>
 <!-- PREVIEW -->
 <record id="policy_template_detail_sale_receipt_preview" model="policy.template_detail">
@@ -97,7 +107,10 @@
                 eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_user_group')])]"
             />
     <field name="restrict_additional" eval="1" />
-    <field name="additional_python_code">result = False</field>
+    <field name="additional_python_code">result = False
+if document.move_type in ['out_invoice', 'out_refund']:
+    result = True
+    </field>
 </record>
 <!-- ADD CREDIT NOTE -->
 <record
@@ -121,7 +134,10 @@
                 eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
             />
     <field name="restrict_additional" eval="1" />
-    <field name="additional_python_code">result = False</field>
+    <field name="additional_python_code">result = False
+if document.move_type in ['out_invoice', 'in_invoice']:
+    result = True
+    </field>
 </record>
 <!-- CANCEL -->
 <record id="policy_template_detail_sale_receipt_cancel" model="policy.template_detail">
@@ -156,6 +172,11 @@
                 name="group_ids"
                 eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
             />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if document.show_reset_to_draft_button:
+    result = True
+    </field>
 </record>
 </data>
 </odoo>
