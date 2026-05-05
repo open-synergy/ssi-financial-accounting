@@ -2,28 +2,11 @@
 <!-- Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-<record id="view_invoice_tree" model="ir.ui.view">
-    <field name="name">account.move(view_invoice_tree) : Access Right Tree</field>
-    <field name="model">account.move</field>
-    <field name="inherit_id" ref="account.view_invoice_tree" />
-    <field name="arch" type="xml">
-        <xpath expr="//tree" position="attributes">
-            <attribute name="create">false</attribute>
-            <attribute name="edit">false</attribute>
-            <attribute name="delete">false</attribute>
-        </xpath>
-    </field>
-</record>
 <record id="account_move_view_tree" model="ir.ui.view">
     <field name="name">account.move(account_move_view_tree) : Access Right Tree</field>
     <field name="model">account.move</field>
     <field name="inherit_id" ref="account.view_move_tree" />
     <field name="arch" type="xml">
-        <xpath expr="//tree" position="attributes">
-            <attribute name="create">false</attribute>
-            <attribute name="edit">false</attribute>
-            <attribute name="delete">false</attribute>
-        </xpath>
         <xpath expr="//tree" position="inside">
             <header />
         </xpath>
@@ -34,11 +17,6 @@
     <field name="model">account.move</field>
     <field name="inherit_id" ref="account.view_move_form" />
     <field name="arch" type="xml">
-        <xpath expr="//form" position="attributes">
-            <attribute name="create">false</attribute>
-            <attribute name="edit">false</attribute>
-            <attribute name="delete">false</attribute>
-        </xpath>
         <xpath expr="//button[@name='action_post'][1]" position="attributes">
             <attribute name="groups" />
             <attribute name="attrs">{'invisible': [('post_ok', '!=', True)]}</attribute>

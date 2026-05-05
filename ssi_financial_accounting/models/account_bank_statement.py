@@ -1,12 +1,11 @@
 # Copyright 2023 OpenSynergy Indonesia
 # Copyright 2023 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from lxml import etree
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
-from odoo import api, fields, models
 
-
-class AccountBankStatement(models.Model):  # pylint: disable=too-few-public-methods
+class AccountBankStatement(models.Model):
     _name = "account.bank.statement"
     _inherit = [
         "account.bank.statement",
@@ -16,9 +15,9 @@ class AccountBankStatement(models.Model):  # pylint: disable=too-few-public-meth
     ]
     _automatically_insert_print_button = True
 
-    def _compute_policy(self):  # pylint: disable=missing-return
+    def _compute_policy(self):
         _super = super()
-        _super._compute_policy()  # pylint: disable=protected-access
+        _super._compute_policy()
 
     name = fields.Char(
         default="/",
@@ -93,31 +92,22 @@ class AccountBankStatement(models.Model):  # pylint: disable=too-few-public-meth
         return False
 
     @api.model
-    def fields_view_get(  # pylint: disable=deprecated-odoo-model-method
-        self, view_id=None, view_type="form", toolbar=False, submenu=False
-    ):
-        _super = super()
-        result = _super.fields_view_get(
-            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
+    def create(self, vals):
+        journal_type = vals.get("journal_type") or self.env.context.get(
+            "journal_type", False
         )
-        if view_type not in ("tree", "form"):
-            return result
+        if journal_type and not self.check_group(journal_type):
+            raise UserError(_("You do not have access to this record."))
+        return super().create(vals)
 
-        ctx = self.env.context
-        journal_type = ctx.get("journal_type")
-        if not journal_type:
-            return result
+    def write(self, vals):
+        for record in self:
+            if not record.check_group(record.journal_type):
+                raise UserError(_("You do not have access to this record."))
+        return super().write(vals)
 
-        can_ced = False
-
-        if self.check_group(journal_type):
-            can_ced = True
-
-        if can_ced:
-            doc = etree.XML(result["arch"])
-            doc.set("create", "true")
-            doc.set("edit", "true")
-            doc.set("delete", "true")
-            result["arch"] = etree.tostring(doc, encoding="unicode")
-
-        return result
+    def unlink(self):
+        for record in self:
+            if not record.check_group(record.journal_type):
+                raise UserError(_("You do not have access to this record."))
+        return super().unlink()
