@@ -308,6 +308,33 @@
         sequence="10"
     />
 
+<menuitem
+        id="general_ledger_report_wizard_menu"
+        name="General Ledger"
+        parent="menu_financial_accounting_report"
+        action="account_financial_report.action_general_ledger_wizard"
+        sequence="1"
+        groups="general_ledger_group"
+    />
+
+<menuitem
+        id="trial_balance_wizard_menu"
+        name="Trial Balance"
+        parent="menu_financial_accounting_report"
+        action="account_financial_report.action_trial_balance_wizard"
+        sequence="2"
+        groups="trial_balance_group"
+    />
+
+<menuitem
+        id="aged_partner_balance_wizard_menu"
+        name="Aged Partner Balance"
+        parent="menu_financial_accounting_report"
+        action="account_financial_report.action_aged_partner_balance_wizard"
+        sequence="3"
+        groups="aged_partner_balance_group"
+    />
+
 <!-- Hide menu -->
 <record id="account.menu_finance" model="ir.ui.menu">
   <field name="groups_id" eval="[(6, 0, [ref('original_accounting_group')])]" />

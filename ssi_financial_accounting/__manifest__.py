@@ -61,8 +61,6 @@
         "data/policy/account_move/purchase_receipt_policy_template_data.xml",
         "data/policy/account_payment/customer_receipt.xml",
         "data/policy/account_payment/vendor_payment.xml",
-        "wizards/general_ledger_wizard_views.xml",
-        "wizards/trial_balance_wizard_views.xml",
         "wizards/aged_partner_balance_wizard_views.xml",
         "wizards/account_move_line_selector_views.xml",
         "wizards/mis_report_instance_launcher_views.xml",

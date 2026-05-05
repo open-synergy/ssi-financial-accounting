@@ -41,13 +41,4 @@
     </field>
 </record>
 
-<menuitem
-        id="aged_partner_balance_wizard_menu"
-        name="Aged Partner Balance"
-        parent="menu_financial_accounting_report"
-        action="account_financial_report.action_aged_partner_balance_wizard"
-        sequence="3"
-        groups="aged_partner_balance_group"
-    />
-
 </odoo>
