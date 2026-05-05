@@ -1,0 +1,1854 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_financial_accounting
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__last_payment_line_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__last_payment_line_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__last_payment_line_id
+msgid "#Last Payment Line"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_account
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__account_id
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_account_configuration
+#: model:res.groups,name:ssi_financial_accounting.account_account_group
+msgid "Account"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__account_lost_id
+msgid "Account Lost"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_mass_reconcile
+msgid "Account Mass Reconcile"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_account_payable
+msgid "Account Payable"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__account_profit_id
+msgid "Account Profit"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_account_receivable
+msgid "Account Receivable"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.account_account_tag_group
+msgid "Account Tag"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.actions.act_window,name:ssi_financial_accounting.account_tag_action
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_account_tag_menu
+msgid "Account Tags"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_type
+#: model:res.groups,name:ssi_financial_accounting.account_type_group
+msgid "Account Type"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_account__user_type_id
+msgid ""
+"Account Type is used for information purpose, to generate country-specific "
+"legal reports, and set the rules to close a fiscal year and generate opening"
+" entries."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.actions.act_window,name:ssi_financial_accounting.account_type_action
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_type_menu
+msgid "Account Types"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_accounting_entry
+msgid "Accounting Entry"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_account_menu
+msgid "Accounts"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_270
+msgid "Accrual and Other Payable"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance__window_action_id
+msgid "Action"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_needaction
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__active
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__active
+msgid "Active"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__active_id
+msgid "Active ID"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__active_model
+msgid "Active Model"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_exception_decoration
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_state
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_type_icon
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_450
+msgid "Additional paid-in capital"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_voucher_advance_settlement
+msgid "Advance Settlement Voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_mass_reconcile_advanced_partner
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.view_mass_reconcile_form
+msgid "Advanced. Partner Only (Partial)"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.aged_partner_balance_wizard_menu
+#: model:res.groups,name:ssi_financial_accounting.aged_partner_balance_group
+msgid "Aged Partner Balance"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_report_account_financial_report_aged_partner_balance
+msgid "Aged Partner Balance Report"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_aged_partner_balance_report_wizard
+msgid "Aged Partner Balance Wizard"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_report_a_f_r_report_aged_partner_balance_xlsx
+msgid "Aged Partner Balance XLSL Report"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.bank_statement_all_group
+#: model:res.groups,name:ssi_financial_accounting.bill_all_group
+#: model:res.groups,name:ssi_financial_accounting.cash_register_all_group
+#: model:res.groups,name:ssi_financial_accounting.credit_note_all_group
+#: model:res.groups,name:ssi_financial_accounting.invoice_all_group
+#: model:res.groups,name:ssi_financial_accounting.journal_entry_all_group
+#: model:res.groups,name:ssi_financial_accounting.purchase_receipt_all_group
+#: model:res.groups,name:ssi_financial_accounting.refund_all_group
+#: model:res.groups,name:ssi_financial_accounting.sale_receipt_all_group
+msgid "All"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__account_ids
+msgid "Allowed Accounts"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__analytic_account_ids
+msgid "Allowed Analytic Accounts"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__journal_ids
+msgid "Allowed Journals"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__allowed_move_line_ids
+msgid "Allowed Move Lines"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__partner_ids
+msgid "Allowed Partners"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__allowed_policy_template_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__allowed_policy_template_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__allowed_policy_template_ids
+msgid "Allowed Policy Templates"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_attachment_count
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard__use_auto_interval
+msgid "Automatic Interval"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_20
+msgid "Bank"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_bank_cash
+msgid "Bank & Cash"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_voucher_bank_cash
+msgid "Bank & Cash Voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_290
+msgid "Bank Overdraft"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_bank_statement
+#: model:ir.module.category,name:ssi_financial_accounting.bank_statement_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.bank_statement_module_category
+msgid "Bank Statement"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.bank_statement_import_format_menu
+#: model:res.groups,name:ssi_financial_accounting.bank_statement_import_format_group
+msgid "Bank Statement Import Format"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_bank_statement_menu
+msgid "Bank Statements"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_360
+msgid "Bank borrowing"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher__base_date
+msgid "Base Date"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.bill_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.bill_module_category
+msgid "Bill"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.vendor_bill_menu
+msgid "Bills"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields.selection,name:ssi_financial_accounting.selection__account_move_line_selector__direction__both
+msgid "Both"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__add_credit_note_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__add_credit_note_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__add_credit_note_ok
+msgid "Can Add Credit Note"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__cancel_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__cancel_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__cancel_ok
+msgid "Can Cancel"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__confirm_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__confirm_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__confirm_ok
+msgid "Can Confirm"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__mark_as_sent_ok
+msgid "Can Mark as Sent"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__post_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__post_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__post_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__post_ok
+msgid "Can Post"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__preview_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__preview_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__preview_ok
+msgid "Can Preview"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__register_payment_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__register_payment_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__register_payment_ok
+msgid "Can Register Payment"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__restart_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__restart_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__restart_ok
+msgid "Can Reset To Draft"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__reopen_ok
+msgid "Can Reset to New"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__reprocess_ok
+msgid "Can Reset to Processing"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__reverse_entry_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__reverse_entry_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__reverse_entry_ok
+msgid "Can Reverse Entry"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__send_print_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__send_print_ok
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__send_print_ok
+msgid "Can Send & Print"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__cash_box_ok
+msgid "Can Take Money In/Out"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__unmark_as_sent_ok
+msgid "Can Unmark as Sent"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__validate_ok
+msgid "Can Validate"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_move_line_selector_view_form
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.mis_report_instance_launcher_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_10
+msgid "Cash"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_cash_flow_type
+#: model:res.groups,name:ssi_financial_accounting.cash_flow_type_group
+msgid "Cash Flow Type"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.actions.act_window,name:ssi_financial_accounting.cash_flow_type_action
+#: model:ir.ui.menu,name:ssi_financial_accounting.cash_flow_type_menu
+msgid "Cash Flow Types"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.cash_register_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.cash_register_module_category
+msgid "Cash Register"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_cash_register_menu
+msgid "Cash Registers"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_30
+msgid "Cash/Bank Transfer"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_voucher_cheque
+msgid "Cheque Voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__code
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__code
+msgid "Code"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__company_id
+#: model:res.groups,name:ssi_financial_accounting.bank_statement_company_group
+#: model:res.groups,name:ssi_financial_accounting.bill_company_group
+#: model:res.groups,name:ssi_financial_accounting.cash_register_company_group
+#: model:res.groups,name:ssi_financial_accounting.credit_note_company_group
+#: model:res.groups,name:ssi_financial_accounting.invoice_company_group
+#: model:res.groups,name:ssi_financial_accounting.journal_entry_company_group
+#: model:res.groups,name:ssi_financial_accounting.purchase_receipt_company_group
+#: model:res.groups,name:ssi_financial_accounting.refund_company_group
+#: model:res.groups,name:ssi_financial_accounting.sale_receipt_company_group
+msgid "Company"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.bank_statement_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.bill_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.cash_register_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.credit_note_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.invoice_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.journal_entry_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.purchase_receipt_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.refund_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.sale_receipt_company_child_group
+msgid "Company and All Child Companies"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_fixed_asset_complex
+msgid "Complex Fixed Asset"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_financial_accounting_configuration
+msgid "Configuration"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_move_line_selector_view_form
+msgid "Confirm"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_50
+msgid "Contract Asset"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_280
+msgid "Contract Liability"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_390
+msgid "Convertible bond"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_580
+msgid "Cost of revenue - goods"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_590
+msgid "Cost of revenue - services"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.mis_report_instance_view_form
+msgid "Create Menu"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__create_uid
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__create_uid
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__create_uid
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__create_uid
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__create_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__create_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__create_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__create_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields.selection,name:ssi_financial_accounting.selection__account_move_line_selector__direction__cr
+msgid "Credit"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.credit_note_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.credit_note_module_category
+msgid "Credit Note"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.credit_note_menu
+msgid "Credit Notes"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.res_currency_menu
+msgid "Currencies"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.res_currency_group
+msgid "Currency"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_account_currency_revaluation
+msgid "Currency Revaluation"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_500
+msgid "Current Year Earning"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_650
+msgid "Current tax expense"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__date_base_on
+msgid "Date of reconciliation"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields.selection,name:ssi_financial_accounting.selection__account_move_line_selector__direction__dr
+msgid "Debit"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_130
+msgid "Deferred Tax Asset"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_660
+msgid "Deferred tax expense"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_410
+msgid "Deferred tax liability"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.mis_report_instance_view_form
+msgid "Delete Menu"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_620
+msgid "Depreciation and amortization expense"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_350
+msgid "Derivative financial intrument"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields.selection,name:ssi_financial_accounting.selection__cash_flow_type__kind__direct
+msgid "Direct"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_account__direct_cash_flow_type_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line__direct_cash_flow_type_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__direct_cash_flow_type_id
+msgid "Direct Cash Flow"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__kind
+msgid "Direct/Indirect"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__direction
+msgid "Direction"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_account__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_mass_reconcile__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_mass_reconcile_method__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_a_f_r_report_aged_partner_balance_xlsx__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_a_f_r_report_general_ledger_xlsx__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_account_financial_report_aged_partner_balance__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_company__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_mass_reconcile_method__partner_domain
+msgid ""
+"Domain expression to filter partners for reconciliation. Only move lines "
+"belonging to partners matching this domain will be considered during the "
+"Advanced Partner Only reconciliation method."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_mass_reconcile_advanced_partner__partner_domain
+msgid ""
+"Domain expression to filter partners for reconciliation. Only move lines "
+"belonging to partners matching this domain will be considered for "
+"reconciliation."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard__due_interval
+msgid "Due Interval"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: code:addons/ssi_financial_accounting/wizards/aged_partner_balance_report_wizard.py:0
+#, python-format
+msgid "Due interval must be greather than zero."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_equity
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_equity_configuration
+msgid "Equity"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_470
+msgid "Equity component of convertible bond"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Feature"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__field_mapping
+msgid "Field Mapping"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner___filter
+msgid "Filter"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_mass_reconcile_method__filter_partner
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__filter_partner
+msgid "Filter Partner"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__filter_account_ok
+msgid "Filter by Account"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__filter_analytic_ok
+msgid "Filter by Analytic Account"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__filter_journal_ok
+msgid "Filter by Journal"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__filter_partner_ok
+msgid "Filter by Partner"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_370
+msgid "Finance lease liability"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_root_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Financial Accounting"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.financial_accounting_configurator_module_category
+msgid "Financial Accounting - Configurator"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.financial_accounting_data_ownership_module_category
+msgid "Financial Accounting - Data Ownership"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.financial_accounting_report_module_category
+msgid "Financial Accounting - Report"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.financial_accounting_wizard_module_category
+msgid "Financial Accounting - Wizard"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.financial_accounting_module_category
+msgid "Financial Accounting - Workflow"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.account_fiscal_position_group
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_fiscal_position_menu
+msgid "Fiscal Positions"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_fixed_asset
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_fixed_asset
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_fixed_asset_configuration
+msgid "Fixed Asset"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_150
+msgid "Fixed Asset Accum. Depr."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_140
+msgid "Fixed Asset Acquisition"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_fixed_asset_disposal
+msgid "Fixed Asset Disposal"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_170
+msgid "Fixed Asset Disposal Cross Account"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_fixed_asset_estimation_change
+msgid "Fixed Asset Estimation Change"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_fixed_asset_improvement
+msgid "Fixed Asset Improvement"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_160
+msgid "Fixed Asset In Progress"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_fixed_asset_in_progress
+msgid "Fixed Asset in Progress"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_follower_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_channel_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_partner_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__activity_type_icon
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.general_ledger_report_wizard_menu
+#: model:res.groups,name:ssi_financial_accounting.general_ledger_group
+msgid "General Ledger"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_report_a_f_r_report_general_ledger_xlsx
+msgid "General Ledger XLSL Report"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_610
+msgid "General and admimistrative expense"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_voucher_giro
+msgid "Giro Voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_600
+msgid "Human resources expense"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_account__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_mass_reconcile__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_mass_reconcile_method__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_a_f_r_report_aged_partner_balance_xlsx__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_a_f_r_report_general_ledger_xlsx__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_account_financial_report_aged_partner_balance__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_company__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_exception_icon
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__activity_exception_icon
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__message_needaction
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__message_unread
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__message_needaction
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_mass_reconcile_method__filter_partner
+#: model:ir.model.fields,help:ssi_financial_accounting.field_mass_reconcile_advanced_partner__filter_partner
+msgid ""
+"If checked, only move lines belonging to partners matching the Partner "
+"Domain will be considered for reconciliation."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__message_has_error
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields.selection,name:ssi_financial_accounting.selection__cash_flow_type__kind__indirect
+msgid "Indirect"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_account__indirect_cash_flow_type_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line__indirect_cash_flow_type_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__indirect_cash_flow_type_id
+msgid "Indirect Cash Flow"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_190
+msgid "Intangible Asset Accum. Depr."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_180
+msgid "Intangible Asset Acquisition"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_210
+msgid "Intangible Asset Disposal Cross Account"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_200
+msgid "Intangible Asset In Progress"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Integration"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_630
+msgid "Interest expense"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_560
+msgid "Interest income"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard__interval_1
+msgid "Interval I"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard__interval_2
+msgid "Interval II"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard__interval_3
+msgid "Interval III"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard__interval_4
+msgid "Interval IV"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_60
+msgid "Inventory"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_240
+msgid "Investment Property"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_110
+msgid "Investment in Associate"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.invoice_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.invoice_module_category
+msgid "Invoice"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_voucher_invoice_settlement
+msgid "Invoice Settlement Voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.customer_invoice_menu
+msgid "Invoices"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_is_follower
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_120
+msgid "Join Venture"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__journal_id
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_journal_configuration
+#: model:res.groups,name:ssi_financial_accounting.account_journal_group
+msgid "Journal"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_move_menu
+msgid "Journal Entries"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_move
+#: model:ir.module.category,name:ssi_financial_accounting.journal_entry_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.journal_entry_module_category
+msgid "Journal Entry"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.account_journal_group_group
+msgid "Journal Group"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_journal_group_menu
+msgid "Journal Groups"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_move_line_selector
+msgid "Journal Item Selector"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_move_line_menu
+msgid "Journal Items"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.actions.act_window,name:ssi_financial_accounting.account_move_line_selector_action
+msgid "Journal Items Selector"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_journal_menu
+msgid "Journals"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_account____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_mass_reconcile____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_mass_reconcile_method____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_aged_partner_balance_report_wizard____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_a_f_r_report_aged_partner_balance_xlsx____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_a_f_r_report_general_ledger_xlsx____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_report_account_financial_report_aged_partner_balance____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_company____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__last_payment_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__last_payment_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__last_payment_date
+msgid "Last Payment Date"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__write_uid
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__write_uid
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__write_uid
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__write_uid
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__write_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__write_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__write_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__write_date
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_330
+msgid "Liabilities of disposal group classified as held for sale"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance_launcher__mis_report_instance_id
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_mis_report_configuration
+#: model:res.groups,name:ssi_financial_accounting.mis_report_group
+msgid "MIS Report"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_mis_report_instance
+msgid "MIS Report Instance"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.mis_report_style_group
+msgid "MIS Report Style"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.mis_report_template_group
+msgid "MIS Report Template"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.mis_report_instance_menu
+msgid "MIS Reports"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_main_attachment_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage advance settlement voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage bank and cash voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage cheque voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage complex fixed asset"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage currency revaluation"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage fixed asset"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage fixed asset disposal"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage fixed asset estimation change"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage fixed asset improvement"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage fixed asset in progress"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage giro voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage invoice settlement voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage prepaid expense &amp; deferred revenue amortization"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.res_config_settings_view_form
+msgid "Manage refund settlement voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_mass_reconcile_menu
+#: model:res.groups,name:ssi_financial_accounting.mass_reconcile_group
+msgid "Mass Reconciliation"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__active
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__active
+msgid ""
+"Master data status\n"
+"\n"
+"* Inactive data can not be selected when creating new transaction\n"
+"* Transaction with inactive master data can still be viewed\n"
+"* Set master data as inactive if master data no longger needed,\n"
+"but master data already used on transaction"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__code
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__code
+msgid ""
+"Master data unique identifier.\n"
+"\n"
+"* Fill with '/' if You do not need unique identifier\n"
+"* Click 'Generate Code' button to automatically assign code.\n"
+"  Sequence template mush be set to perform this action\n"
+"  Only master data with '/' code will be assign automatic code"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.view_mass_reconcile_form
+msgid ""
+"Match multiple debit vs multiple credit entries by partner only."
+"                             Allows partial reconciliation. All unreconciled"
+" lines for the same                             partner will be grouped and "
+"reconciled together."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance__menu_id
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.mis_report_instance_view_form
+msgid "Menu"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_has_error
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_mis_report_instance_launcher
+msgid "Mis Report Instance Launcher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_misc_configuration
+msgid "Miscellaneous"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__my_activity_date_deadline
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__name
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__name
+msgid "Name"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_date_deadline
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_summary
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_type_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_100
+msgid "Non Trade Receivable"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_530
+msgid "Non-controlling interest"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_320
+msgid "Non-trade payable"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__note
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__note
+msgid "Note"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_needaction_counter
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_has_error_counter
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__message_needaction_counter
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__message_has_error_counter
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__message_unread_counter
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_670
+msgid "OCI - will not recassified to PL"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_680
+msgid "OCI - will recassified to PL"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.account_account_type_group
+msgid "Odoo Account Type"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__odoo_type_id
+msgid "Odoo Internal Type"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_account__user_type_id
+msgid "Odoo Type"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_account_type_menu
+msgid "Odoo Types"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.mis_report_instance_launcher_form_view
+msgid "Open"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_90
+msgid "Other Current Asset"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_250
+msgid "Other Non-Current Asset"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_490
+msgid "Other equity component"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_640
+msgid "Other expenses besides interest expense"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_380
+msgid "Other long-term borrowing"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_430
+msgid "Other long-term liability"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_340
+msgid "Other non-current liability"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_570
+msgid "Other revenues besides interest income"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mis_report_instance__parent_menu_id
+msgid "Parent Menu"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_mass_reconcile_method__partner_domain
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__partner_domain
+msgid "Partner Domain"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.view_mass_reconcile_method_form
+msgid "Partner Filter"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_payment
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement_line__move_line_payment_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__move_line_payment_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__move_line_payment_ids
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_move_view_form
+msgid "Payments"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_periodic_processing
+msgid "Periodic Processing"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_move_view_form
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_payment_view_form
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.view_bank_statement_form
+msgid "Policies"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__policy_template_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move__policy_template_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_payment__policy_template_id
+msgid "Policy Template"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_400
+msgid "Post-employement benefit obligation"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_account_amortization
+msgid "Prepaid Expense & Deferred Revenue Amortization"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_80
+msgid "Prepaid Tax"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_70
+msgid "Prepayment"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_420
+msgid "Provision for other liabilities and charges"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.purchase_receipt_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.purchase_receipt_module_category
+msgid "Purchase Receipt"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_230
+msgid "RIght of Use Asset Accum. Depr."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_220
+msgid "RIght of Use Asset Acquisition"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.purchase_receipt_menu
+#: model:ir.ui.menu,name:ssi_financial_accounting.sale_receipt_menu
+msgid "Receipts"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__reconcile
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__reconcile
+msgid "Reconcile"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model,name:ssi_financial_accounting.model_account_mass_reconcile_method
+msgid "Reconcile Method for account_mass_reconcile"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.view_mass_reconcile_method_form
+msgid "Reconciliation Method"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_bank_statement__name
+msgid "Reference"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.refund_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.refund_module_category
+msgid "Refund"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_res_config_settings__module_ssi_voucher_refund_settlement
+msgid "Refund Settlement Voucher"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.refund_bill_menu
+msgid "Refunds"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_move_view_form
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_payment_view_form
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.view_bank_statement_form
+msgid "Reload Template Policy"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_financial_accounting_report
+msgid "Report"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__activity_user_id
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__partner_ids
+msgid "Restrict on partners"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_510
+msgid "Retained earnings - appropriated"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_520
+msgid "Retained earnings - unappropriated"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_540
+msgid "Revenue - goods"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_550
+msgid "Revenue - services"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.sale_receipt_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.sale_receipt_module_category
+msgid "Sale Receipt"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line_selector__move_line_ids
+msgid "Selected Move Lines"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.actions.act_window,name:ssi_financial_accounting.res_config_settings_action
+#: model:ir.ui.menu,name:ssi_financial_accounting.res_config_settings_menu
+msgid "Settings"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_440
+msgid "Share capital"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_300
+msgid "Short Term Employee Benefit Liability"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.original_accounting_group
+msgid "Show original accounting top menu"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__activity_state
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.mis_report_style_menu
+msgid "Styles"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.menu_tax_configuration
+#: model:res.groups,name:ssi_financial_accounting.account_tax_group
+msgid "Tax"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_310
+msgid "Tax Payable"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_tax_menu
+msgid "Taxes"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.mis_report_menu
+msgid "Templates"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_260
+msgid "Trade Payable"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_40
+msgid "Trade Receivable"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_480
+msgid "Transactions with non-controlling interest"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:account_type,name:ssi_financial_accounting.account_type_460
+msgid "Treasury share"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.ui.menu,name:ssi_financial_accounting.trial_balance_wizard_menu
+#: model:res.groups,name:ssi_financial_accounting.trial_balance_group
+msgid "Trial Balance"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_account__type_id
+msgid "Type"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__activity_exception_decoration
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_unread
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__message_unread_counter
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.bank_statement_user_group
+#: model:res.groups,name:ssi_financial_accounting.bill_user_group
+#: model:res.groups,name:ssi_financial_accounting.cash_register_user_group
+#: model:res.groups,name:ssi_financial_accounting.credit_note_user_group
+#: model:res.groups,name:ssi_financial_accounting.invoice_user_group
+#: model:res.groups,name:ssi_financial_accounting.journal_entry_user_group
+#: model:res.groups,name:ssi_financial_accounting.purchase_receipt_user_group
+#: model:res.groups,name:ssi_financial_accounting.refund_user_group
+#: model:res.groups,name:ssi_financial_accounting.sale_receipt_user_group
+msgid "User"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.bank_statement_validator_group
+#: model:res.groups,name:ssi_financial_accounting.bill_validator_group
+#: model:res.groups,name:ssi_financial_accounting.cash_register_validator_group
+#: model:res.groups,name:ssi_financial_accounting.credit_note_validator_group
+#: model:res.groups,name:ssi_financial_accounting.invoice_validator_group
+#: model:res.groups,name:ssi_financial_accounting.journal_entry_validator_group
+#: model:res.groups,name:ssi_financial_accounting.purchase_receipt_validator_group
+#: model:res.groups,name:ssi_financial_accounting.refund_validator_group
+#: model:res.groups,name:ssi_financial_accounting.sale_receipt_validator_group
+msgid "Validator"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:res.groups,name:ssi_financial_accounting.bank_statement_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.bill_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.cash_register_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.credit_note_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.invoice_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.journal_entry_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.purchase_receipt_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.refund_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.sale_receipt_viewer_group
+msgid "Viewer"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__website_message_ids
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_cash_flow_type__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,help:ssi_financial_accounting.field_account_type__website_message_ids
+#: model:ir.model.fields,help:ssi_financial_accounting.field_cash_flow_type__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__write_off
+msgid "Write off allowed"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_move_line_selector_view_form
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.mis_report_instance_launcher_form_view
+msgid "or"
+msgstr ""
