@@ -1,9 +1,8 @@
 # Copyright 2023 OpenSynergy Indonesia
 # Copyright 2023 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from lxml import etree
-
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class AccountMove(models.Model):
@@ -180,31 +179,22 @@ class AccountMove(models.Model):
         return False
 
     @api.model
-    def fields_view_get(  # pylint: disable=deprecated-odoo-model-method
-        self, view_id=None, view_type="form", toolbar=False, submenu=False
-    ):
-        _super = super()  # pylint: disable=super-with-arguments
-        result = _super.fields_view_get(
-            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
+    def create(self, vals):
+        move_type = vals.get("move_type") or self.env.context.get(
+            "default_move_type", False
         )
-        if view_type not in ("tree", "form"):
-            return result
+        if move_type and not self.check_group(move_type):
+            raise UserError(_("You do not have access to this record."))
+        return super().create(vals)
 
-        ctx = self.env.context
-        move_type = ctx.get("default_move_type")
-        if not move_type:
-            return result
+    def write(self, vals):
+        for record in self:
+            if not record.check_group(record.move_type):
+                raise UserError(_("You do not have access to this record."))
+        return super().write(vals)
 
-        can_ced = False
-
-        if self.check_group(move_type):
-            can_ced = True
-
-        if can_ced:
-            doc = etree.XML(result["arch"])
-            doc.set("create", "true")
-            doc.set("edit", "true")
-            doc.set("delete", "true")
-            result["arch"] = etree.tostring(doc, encoding="unicode")
-
-        return result
+    def unlink(self):
+        for record in self:
+            if not record.check_group(record.move_type):
+                raise UserError(_("You do not have access to this record."))
+        return super().unlink()

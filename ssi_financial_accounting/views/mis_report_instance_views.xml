@@ -6,16 +6,29 @@
 <record id="mis_report_instance_view_form" model="ir.ui.view">
     <field name="name">mis.report.instance.form</field>
     <field name="model">mis.report.instance</field>
-    <field name="inherit_id" ref="mis_builder.mis_report_instance_view_form"/>
+    <field name="inherit_id" ref="mis_builder.mis_report_instance_view_form" />
     <field name="arch" type="xml">
 
         <xpath expr="//notebook/page[3]" position="after">
             <page name="menu" string="Menu">
-                <button name="action_create_menu" type="object" string="Create Menu" attrs="{'invisible': [('menu_id', '!=', False)]}" />
-                <button name="action_delete_menu" type="object" string="Delete Menu" attrs="{'invisible': [('menu_id', '=', False)]}" />
+                <button
+                        name="action_create_menu"
+                        type="object"
+                        string="Create Menu"
+                        attrs="{'invisible': [('menu_id', '!=', False)]}"
+                    />
+                <button
+                        name="action_delete_menu"
+                        type="object"
+                        string="Delete Menu"
+                        attrs="{'invisible': [('menu_id', '=', False)]}"
+                    />
                 <group>
                     <group>
-                        <field name="parent_menu_id" options="{'no_open': True, 'no_create': True}" />
+                        <field
+                                name="parent_menu_id"
+                                options="{'no_open': True, 'no_create': True}"
+                            />
                         <field name="window_action_id" />
                         <field name="menu_id" />
                     </group>
@@ -25,12 +38,4 @@
 
     </field>
 </record>
-<menuitem
-        id="mis_report_instance_menu"
-        name="MIS Reports"
-        parent="menu_financial_accounting_report"
-        sequence="99"
-        action="mis_builder.mis_report_instance_view_action"
-        groups="mis_report_group"
-    />
 </odoo>

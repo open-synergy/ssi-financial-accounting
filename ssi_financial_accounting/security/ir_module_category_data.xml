@@ -70,6 +70,16 @@
         <field name="parent_id" ref="financial_accounting_module_category" />
     </record>
 
+    <record id="customer_payment_module_category" model="ir.module.category">
+        <field name="name">Customer Payment</field>
+        <field name="parent_id" ref="financial_accounting_module_category" />
+    </record>
+
+    <record id="vendor_payment_module_category" model="ir.module.category">
+        <field name="name">Vendor Payment</field>
+        <field name="parent_id" ref="financial_accounting_module_category" />
+    </record>
+
     <!-- Data Ownership -->
     <record
         id="financial_accounting_data_ownership_module_category"
@@ -162,4 +172,25 @@
         />
     </record>
 
+    <record
+        id="customer_payment_data_ownership_module_category"
+        model="ir.module.category"
+    >
+        <field name="name">Customer Payment</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
+
+    <record
+        id="vendor_payment_data_ownership_module_category"
+        model="ir.module.category"
+    >
+        <field name="name">Vendor Payment</field>
+        <field
+            name="parent_id"
+            ref="financial_accounting_data_ownership_module_category"
+        />
+    </record>
 </odoo>

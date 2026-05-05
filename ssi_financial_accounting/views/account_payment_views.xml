@@ -57,4 +57,44 @@
         </xpath>
     </field>
 </record>
+
+<record id="action_customer_payment" model="ir.actions.act_window">
+    <field name="name">Customer Payments</field>
+    <field name="res_model">account.payment</field>
+    <field name="view_mode">tree,kanban,form,graph</field>
+    <field name="domain">[('payment_type', '=', 'inbound')]</field>
+    <field name="context">{
+        'default_payment_type': 'inbound',
+        'default_partner_type': 'customer',
+        'default_move_journal_types': ('bank', 'cash'),
+    }</field>
+    <field name="view_id" ref="account.view_account_payment_tree" />
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Register a payment
+        </p><p>
+            Payments are used to register liquidity movements. You can process those payments by your own means or by using installed facilities.
+        </p>
+    </field>
+</record>
+
+<record id="action_vendor_payment" model="ir.actions.act_window">
+    <field name="name">Vendor Payments</field>
+    <field name="res_model">account.payment</field>
+    <field name="view_mode">tree,kanban,form,graph</field>
+    <field name="domain">[('payment_type', '=', 'outbound')]</field>
+    <field name="context">{
+        'default_payment_type': 'outbound',
+        'default_partner_type': 'supplier',
+        'default_move_journal_types': ('bank', 'cash'),
+    }</field>
+    <field name="view_id" ref="account.view_account_supplier_payment_tree" />
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Register a payment
+        </p><p>
+            Payments are used to register liquidity movements. You can process those payments by your own means or by using installed facilities.
+        </p>
+    </field>
+</record>
 </odoo>
