@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<!-- Customer Payment -->
+<record id="customer_payment_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.customer_payment_module_category"
+        />
+</record>
+
+<record id="customer_payment_user_group" model="res.groups">
+    <field name="name">User</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.customer_payment_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('customer_payment_viewer_group'))]" />
+</record>
+
+<record id="customer_payment_validator_group" model="res.groups">
+    <field name="name">Validator</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.customer_payment_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('customer_payment_user_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="customer_payment_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.customer_payment_data_ownership_module_category"
+        />
+</record>
+
+<record id="customer_payment_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.customer_payment_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('customer_payment_company_group'))]" />
+</record>
+
+<record id="customer_payment_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.customer_payment_data_ownership_module_category"
+        />
+    <field
+            name="implied_ids"
+            eval="[(4, ref('customer_payment_company_child_group'))]"
+        />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<!-- Vendor Payment -->
+<record id="vendor_payment_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.vendor_payment_module_category"
+        />
+</record>
+
+<record id="vendor_payment_user_group" model="res.groups">
+    <field name="name">User</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.vendor_payment_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('vendor_payment_viewer_group'))]" />
+</record>
+
+<record id="vendor_payment_validator_group" model="res.groups">
+    <field name="name">Validator</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.vendor_payment_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('vendor_payment_user_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="vendor_payment_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.vendor_payment_data_ownership_module_category"
+        />
+</record>
+
+<record id="vendor_payment_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.vendor_payment_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('vendor_payment_company_group'))]" />
+</record>
+
+<record id="vendor_payment_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="ssi_financial_accounting.vendor_payment_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('vendor_payment_company_child_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+</odoo>

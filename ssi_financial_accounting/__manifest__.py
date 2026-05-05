@@ -45,6 +45,7 @@
         "security/res_groups/refund.xml",
         "security/res_groups/sale_receipt.xml",
         "security/res_groups/purchase_receipt.xml",
+        "security/res_groups/account_payment.xml",
         "security/ir.model.access.csv",
         "data/account_journal_data.xml",
         "data/account_type_data.xml",
@@ -60,7 +61,6 @@
         "data/policy/account_move/purchase_receipt_policy_template_data.xml",
         "data/policy/account_payment/customer_receipt.xml",
         "data/policy/account_payment/vendor_payment.xml",
-        "menu.xml",
         "wizards/general_ledger_wizard_views.xml",
         "wizards/trial_balance_wizard_views.xml",
         "wizards/aged_partner_balance_wizard_views.xml",
@@ -83,6 +83,7 @@
         "report/templates/aged_partner_balance.xml",
         "report/templates/general_ledger.xml",
         "views/mass_reconcile_views.xml",
+        "menu.xml",
     ],
     "demo": [],
 }

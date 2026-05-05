@@ -44,6 +44,15 @@
     />
 
 <menuitem
+        id="account_payments_receivable_menu"
+        name="Customer Payments"
+        parent="menu_account_receivable"
+        action="ssi_financial_accounting.action_customer_payment"
+        groups="ssi_financial_accounting.customer_payment_viewer_group"
+        sequence="4"
+    />
+
+<menuitem
         id="menu_account_payable"
         name="Account Payable"
         parent="menu_root_financial_accounting"
@@ -75,6 +84,15 @@
         action="account.action_move_in_receipt_type"
         groups="ssi_financial_accounting.purchase_receipt_viewer_group"
         sequence="3"
+    />
+
+<menuitem
+        id="account_payments_payable_menu"
+        name="Vendor Payments"
+        parent="menu_account_payable"
+        action="ssi_financial_accounting.action_vendor_payment"
+        groups="ssi_financial_accounting.vendor_payment_viewer_group"
+        sequence="4"
     />
 
 <menuitem
