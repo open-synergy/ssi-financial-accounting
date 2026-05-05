@@ -1,0 +1,95 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_account_create_liquidity_journal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields.selection,name:ssi_account_create_liquidity_journal.selection__account_wizard_create_liquidity_journal__liquidity_type__bank
+msgid "Bank"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model_terms:ir.ui.view,arch_db:ssi_account_create_liquidity_journal.wizard_create_liquidity_journal_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields.selection,name:ssi_account_create_liquidity_journal.selection__account_wizard_create_liquidity_journal__liquidity_type__cash
+msgid "Cash"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model_terms:ir.ui.view,arch_db:ssi_account_create_liquidity_journal.wizard_create_liquidity_journal_view_form
+msgid "Confirm"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.actions.act_window,name:ssi_account_create_liquidity_journal.wizard_create_liquidity_journal_action
+#: model:ir.model,name:ssi_account_create_liquidity_journal.model_account_wizard_create_liquidity_journal
+msgid "Create Liquidity Journal"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__two_step
+msgid "Need Reconcilliation"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__suspense_account_id
+msgid "Suspense Account"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model:ir.model.fields,field_description:ssi_account_create_liquidity_journal.field_account_wizard_create_liquidity_journal__liquidity_type
+msgid "Type"
+msgstr ""
+
+#. module: ssi_account_create_liquidity_journal
+#: model_terms:ir.ui.view,arch_db:ssi_account_create_liquidity_journal.wizard_create_liquidity_journal_view_form
+msgid "or"
+msgstr ""
