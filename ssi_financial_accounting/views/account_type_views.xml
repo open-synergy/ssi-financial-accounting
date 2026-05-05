@@ -60,12 +60,4 @@
     <field name="view_mode">tree,form</field>
 </record>
 
-<menuitem
-        id="account_type_menu"
-        name="Account Types"
-        parent="ssi_financial_accounting.menu_account_configuration"
-        action="account_type_action"
-        groups="account_type_group"
-    />
-
 </odoo>

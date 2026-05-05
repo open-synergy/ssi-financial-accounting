@@ -51,12 +51,4 @@
     <field name="view_mode">tree,form</field>
 </record>
 
-<menuitem
-        id="cash_flow_type_menu"
-        name="Cash Flow Types"
-        parent="ssi_financial_accounting.menu_account_configuration"
-        action="cash_flow_type_action"
-        groups="cash_flow_type_group"
-    />
-
 </odoo>

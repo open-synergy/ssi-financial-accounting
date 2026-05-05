@@ -343,6 +343,59 @@
         action="res_config_settings_action"
     />
 
+<menuitem
+        id="mis_report_menu"
+        parent="menu_mis_report_configuration"
+        name="Templates"
+        action="mis_builder.mis_report_view_action"
+        sequence="1"
+        groups="mis_report_template_group"
+    />
+
+<menuitem
+        id="mis_report_style_menu"
+        parent="menu_mis_report_configuration"
+        name="Styles"
+        action="mis_builder.mis_report_style_view_action"
+        sequence="2"
+        groups="mis_report_style_group"
+    />
+
+<menuitem
+        id="mis_report_instance_menu"
+        name="MIS Reports"
+        parent="menu_financial_accounting_report"
+        sequence="99"
+        action="mis_builder.mis_report_instance_view_action"
+        groups="mis_report_group"
+    />
+
+
+<menuitem
+        id="account_type_menu"
+        name="Account Types"
+        parent="ssi_financial_accounting.menu_account_configuration"
+        action="account_type_action"
+        groups="account_type_group"
+    />
+
+<menuitem
+        id="cash_flow_type_menu"
+        name="Cash Flow Types"
+        parent="ssi_financial_accounting.menu_account_configuration"
+        action="cash_flow_type_action"
+        groups="cash_flow_type_group"
+    />
+
+<menuitem
+        id="bank_statement_import_format_menu"
+        parent="menu_misc_configuration"
+        name="Bank Statement Import Format"
+        action="account_statement_import_txt_xlsx.action_statement_import_sheet_report_mappings"
+        sequence="100"
+        groups="bank_statement_import_format_group"
+    />
+
 <!-- Hide menu -->
 <record id="account.menu_finance" model="ir.ui.menu">
   <field name="groups_id" eval="[(6, 0, [ref('original_accounting_group')])]" />
