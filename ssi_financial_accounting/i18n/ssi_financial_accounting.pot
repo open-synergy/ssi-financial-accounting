@@ -192,11 +192,13 @@ msgstr ""
 #: model:res.groups,name:ssi_financial_accounting.bill_all_group
 #: model:res.groups,name:ssi_financial_accounting.cash_register_all_group
 #: model:res.groups,name:ssi_financial_accounting.credit_note_all_group
+#: model:res.groups,name:ssi_financial_accounting.customer_payment_all_group
 #: model:res.groups,name:ssi_financial_accounting.invoice_all_group
 #: model:res.groups,name:ssi_financial_accounting.journal_entry_all_group
 #: model:res.groups,name:ssi_financial_accounting.purchase_receipt_all_group
 #: model:res.groups,name:ssi_financial_accounting.refund_all_group
 #: model:res.groups,name:ssi_financial_accounting.sale_receipt_all_group
+#: model:res.groups,name:ssi_financial_accounting.vendor_payment_all_group
 msgid "All"
 msgstr ""
 
@@ -462,11 +464,13 @@ msgstr ""
 #: model:res.groups,name:ssi_financial_accounting.bill_company_group
 #: model:res.groups,name:ssi_financial_accounting.cash_register_company_group
 #: model:res.groups,name:ssi_financial_accounting.credit_note_company_group
+#: model:res.groups,name:ssi_financial_accounting.customer_payment_company_group
 #: model:res.groups,name:ssi_financial_accounting.invoice_company_group
 #: model:res.groups,name:ssi_financial_accounting.journal_entry_company_group
 #: model:res.groups,name:ssi_financial_accounting.purchase_receipt_company_group
 #: model:res.groups,name:ssi_financial_accounting.refund_company_group
 #: model:res.groups,name:ssi_financial_accounting.sale_receipt_company_group
+#: model:res.groups,name:ssi_financial_accounting.vendor_payment_company_group
 msgid "Company"
 msgstr ""
 
@@ -475,11 +479,13 @@ msgstr ""
 #: model:res.groups,name:ssi_financial_accounting.bill_company_child_group
 #: model:res.groups,name:ssi_financial_accounting.cash_register_company_child_group
 #: model:res.groups,name:ssi_financial_accounting.credit_note_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.customer_payment_company_child_group
 #: model:res.groups,name:ssi_financial_accounting.invoice_company_child_group
 #: model:res.groups,name:ssi_financial_accounting.journal_entry_company_child_group
 #: model:res.groups,name:ssi_financial_accounting.purchase_receipt_company_child_group
 #: model:res.groups,name:ssi_financial_accounting.refund_company_child_group
 #: model:res.groups,name:ssi_financial_accounting.sale_receipt_company_child_group
+#: model:res.groups,name:ssi_financial_accounting.vendor_payment_company_child_group
 msgid "Company and All Child Companies"
 msgstr ""
 
@@ -590,6 +596,18 @@ msgstr ""
 #. module: ssi_financial_accounting
 #: model:account_type,name:ssi_financial_accounting.account_type_650
 msgid "Current tax expense"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.customer_payment_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.customer_payment_module_category
+msgid "Customer Payment"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.actions.act_window,name:ssi_financial_accounting.action_customer_payment
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_payments_receivable_menu
+msgid "Customer Payments"
 msgstr ""
 
 #. module: ssi_financial_accounting
@@ -1276,7 +1294,6 @@ msgid "Manage refund settlement voucher"
 msgstr ""
 
 #. module: ssi_financial_accounting
-#: model:ir.ui.menu,name:ssi_financial_accounting.account_mass_reconcile_menu
 #: model:res.groups,name:ssi_financial_accounting.mass_reconcile_group
 msgid "Mass Reconciliation"
 msgstr ""
@@ -1524,6 +1541,14 @@ msgid "Payments"
 msgstr ""
 
 #. module: ssi_financial_accounting
+#: model_terms:ir.actions.act_window,help:ssi_financial_accounting.action_customer_payment
+#: model_terms:ir.actions.act_window,help:ssi_financial_accounting.action_vendor_payment
+msgid ""
+"Payments are used to register liquidity movements. You can process those "
+"payments by your own means or by using installed facilities."
+msgstr ""
+
+#. module: ssi_financial_accounting
 #: model:ir.ui.menu,name:ssi_financial_accounting.menu_periodic_processing
 msgid "Periodic Processing"
 msgstr ""
@@ -1624,6 +1649,12 @@ msgstr ""
 #. module: ssi_financial_accounting
 #: model:ir.ui.menu,name:ssi_financial_accounting.refund_bill_menu
 msgid "Refunds"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.actions.act_window,help:ssi_financial_accounting.action_customer_payment
+#: model_terms:ir.actions.act_window,help:ssi_financial_accounting.action_vendor_payment
+msgid "Register a payment"
 msgstr ""
 
 #. module: ssi_financial_accounting
@@ -1796,11 +1827,13 @@ msgstr ""
 #: model:res.groups,name:ssi_financial_accounting.bill_user_group
 #: model:res.groups,name:ssi_financial_accounting.cash_register_user_group
 #: model:res.groups,name:ssi_financial_accounting.credit_note_user_group
+#: model:res.groups,name:ssi_financial_accounting.customer_payment_user_group
 #: model:res.groups,name:ssi_financial_accounting.invoice_user_group
 #: model:res.groups,name:ssi_financial_accounting.journal_entry_user_group
 #: model:res.groups,name:ssi_financial_accounting.purchase_receipt_user_group
 #: model:res.groups,name:ssi_financial_accounting.refund_user_group
 #: model:res.groups,name:ssi_financial_accounting.sale_receipt_user_group
+#: model:res.groups,name:ssi_financial_accounting.vendor_payment_user_group
 msgid "User"
 msgstr ""
 
@@ -1809,12 +1842,26 @@ msgstr ""
 #: model:res.groups,name:ssi_financial_accounting.bill_validator_group
 #: model:res.groups,name:ssi_financial_accounting.cash_register_validator_group
 #: model:res.groups,name:ssi_financial_accounting.credit_note_validator_group
+#: model:res.groups,name:ssi_financial_accounting.customer_payment_validator_group
 #: model:res.groups,name:ssi_financial_accounting.invoice_validator_group
 #: model:res.groups,name:ssi_financial_accounting.journal_entry_validator_group
 #: model:res.groups,name:ssi_financial_accounting.purchase_receipt_validator_group
 #: model:res.groups,name:ssi_financial_accounting.refund_validator_group
 #: model:res.groups,name:ssi_financial_accounting.sale_receipt_validator_group
+#: model:res.groups,name:ssi_financial_accounting.vendor_payment_validator_group
 msgid "Validator"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.module.category,name:ssi_financial_accounting.vendor_payment_data_ownership_module_category
+#: model:ir.module.category,name:ssi_financial_accounting.vendor_payment_module_category
+msgid "Vendor Payment"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model:ir.actions.act_window,name:ssi_financial_accounting.action_vendor_payment
+#: model:ir.ui.menu,name:ssi_financial_accounting.account_payments_payable_menu
+msgid "Vendor Payments"
 msgstr ""
 
 #. module: ssi_financial_accounting
@@ -1822,11 +1869,13 @@ msgstr ""
 #: model:res.groups,name:ssi_financial_accounting.bill_viewer_group
 #: model:res.groups,name:ssi_financial_accounting.cash_register_viewer_group
 #: model:res.groups,name:ssi_financial_accounting.credit_note_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.customer_payment_viewer_group
 #: model:res.groups,name:ssi_financial_accounting.invoice_viewer_group
 #: model:res.groups,name:ssi_financial_accounting.journal_entry_viewer_group
 #: model:res.groups,name:ssi_financial_accounting.purchase_receipt_viewer_group
 #: model:res.groups,name:ssi_financial_accounting.refund_viewer_group
 #: model:res.groups,name:ssi_financial_accounting.sale_receipt_viewer_group
+#: model:res.groups,name:ssi_financial_accounting.vendor_payment_viewer_group
 msgid "Viewer"
 msgstr ""
 
@@ -1845,6 +1894,17 @@ msgstr ""
 #. module: ssi_financial_accounting
 #: model:ir.model.fields,field_description:ssi_financial_accounting.field_mass_reconcile_advanced_partner__write_off
 msgid "Write off allowed"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: code:addons/ssi_financial_accounting/models/account_bank_statement.py:0
+#: code:addons/ssi_financial_accounting/models/account_bank_statement.py:0
+#: code:addons/ssi_financial_accounting/models/account_bank_statement.py:0
+#: code:addons/ssi_financial_accounting/models/account_move.py:0
+#: code:addons/ssi_financial_accounting/models/account_move.py:0
+#: code:addons/ssi_financial_accounting/models/account_move.py:0
+#, python-format
+msgid "You do not have access to this record."
 msgstr ""
 
 #. module: ssi_financial_accounting
