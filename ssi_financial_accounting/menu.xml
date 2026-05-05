@@ -335,6 +335,14 @@
         groups="aged_partner_balance_group"
     />
 
+<menuitem
+        id="res_config_settings_menu"
+        name="Settings"
+        parent="menu_financial_accounting_configuration"
+        sequence="0"
+        action="res_config_settings_action"
+    />
+
 <!-- Hide menu -->
 <record id="account.menu_finance" model="ir.ui.menu">
   <field name="groups_id" eval="[(6, 0, [ref('original_accounting_group')])]" />
