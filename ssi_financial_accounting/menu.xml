@@ -21,7 +21,7 @@
         name="Invoices"
         parent="menu_account_receivable"
         action="account.action_move_out_invoice_type"
-        groups="ssi_financial_accounting.invoice_user_group"
+        groups="ssi_financial_accounting.invoice_viewer_group"
         sequence="1"
     />
 
@@ -30,7 +30,7 @@
         name="Credit Notes"
         parent="menu_account_receivable"
         action="account.action_move_out_refund_type"
-        groups="ssi_financial_accounting.credit_note_user_group"
+        groups="ssi_financial_accounting.credit_note_viewer_group"
         sequence="2"
     />
 
@@ -38,8 +38,8 @@
         id="sale_receipt_menu"
         name="Receipts"
         parent="menu_account_receivable"
-        action="account.action_account_payments"
-        groups="ssi_financial_accounting.sale_receipt_user_group"
+        action="account.action_move_out_receipt_type"
+        groups="ssi_financial_accounting.sale_receipt_viewer_group"
         sequence="3"
     />
 
@@ -55,7 +55,7 @@
         name="Bills"
         parent="menu_account_payable"
         action="account.action_move_in_invoice_type"
-        groups="ssi_financial_accounting.bill_user_group"
+        groups="ssi_financial_accounting.bill_viewer_group"
         sequence="1"
     />
 
@@ -64,16 +64,16 @@
         name="Refunds"
         parent="menu_account_payable"
         action="account.action_move_in_refund_type"
-        groups="ssi_financial_accounting.refund_user_group"
+        groups="ssi_financial_accounting.refund_viewer_group"
         sequence="2"
     />
 
 <menuitem
         id="purchase_receipt_menu"
-        name="Payments"
+        name="Receipts"
         parent="menu_account_payable"
-        action="account.action_account_payments_payable"
-        groups="ssi_financial_accounting.purchase_receipt_user_group"
+        action="account.action_move_in_receipt_type"
+        groups="ssi_financial_accounting.purchase_receipt_viewer_group"
         sequence="3"
     />
 
@@ -89,7 +89,7 @@
         name="Bank Statements"
         parent="menu_bank_cash"
         action="account.action_bank_statement_tree"
-        groups="ssi_financial_accounting.bank_statement_user_group"
+        groups="ssi_financial_accounting.bank_statement_viewer_group"
         sequence="1"
     />
 
@@ -98,7 +98,7 @@
         name="Cash Registers"
         parent="menu_bank_cash"
         action="account.action_view_bank_statement_tree"
-        groups="ssi_financial_accounting.cash_register_user_group"
+        groups="ssi_financial_accounting.cash_register_viewer_group"
         sequence="2"
     />
 
@@ -134,7 +134,7 @@
         id="account_move_menu"
         name="Journal Entries"
         parent="menu_accounting_entry"
-        groups="journal_entry_user_group"
+        groups="journal_entry_viewer_group"
         action="account.action_move_journal_line"
         sequence="10"
     />
@@ -143,7 +143,7 @@
         id="account_move_line_menu"
         name="Journal Items"
         parent="menu_accounting_entry"
-        groups="journal_entry_user_group"
+        groups="journal_entry_viewer_group"
         action="account.action_account_moves_all"
         sequence="10"
     />

@@ -3,35 +3,34 @@
      Copyright 2025 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0-standalone.html). -->
 <odoo>
-<data>
 <record id="policy_template_customer_receipt" model="policy.template">
     <field name="name">Sales Receipt: Standard</field>
     <field name="model_id" ref="account.model_account_payment" />
     <field
-                name="state_field_id"
-                search="[('model_id.model','=','account.payment'),('name','=','state')]"
-            />
+            name="state_field_id"
+            search="[('model_id.model','=','account.payment'),('name','=','state')]"
+        />
     <field name="sequence" eval="100" />
     <field name="python_code">result = document.payment_type == 'inbound'</field>
 </record>
 
 <!-- CONFIRM -->
 <record
-            id="policy_template_detail_customer_receipt_confirm"
-            model="policy.template_detail"
-        >
+        id="policy_template_detail_customer_receipt_confirm"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="policy_template_customer_receipt" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','account.payment'),('name','=','confirm_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','account.payment'),('name','=','confirm_ok')]"
+        />
     <field name="restrict_state" eval="0" />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field
-                name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
-            />
+            name="group_ids"
+            eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+        />
     <field name="restrict_additional" eval="1" />
     <field name="additional_python_code">result = False
 if document.state == "draft":
@@ -40,14 +39,14 @@ if document.state == "draft":
 </record>
 <!-- Mark as Sent -->
 <record
-            id="policy_template_detail_customer_receipt_mark_as_sent"
-            model="policy.template_detail"
-        >
+        id="policy_template_detail_customer_receipt_mark_as_sent"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="policy_template_customer_receipt" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','account.payment'),('name','=','mark_as_sent_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','account.payment'),('name','=','mark_as_sent_ok')]"
+        />
     <field name="restrict_state" eval="0" />
     <field name="restrict_user" eval="0" />
     <field name="restrict_additional" eval="1" />
@@ -56,14 +55,14 @@ if document.state == "draft":
 
 <!-- Unmark as Sent -->
 <record
-            id="policy_template_detail_customer_receipt_unmark_as_sent"
-            model="policy.template_detail"
-        >
+        id="policy_template_detail_customer_receipt_unmark_as_sent"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="policy_template_customer_receipt" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','account.payment'),('name','=','unmark_as_sent_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','account.payment'),('name','=','unmark_as_sent_ok')]"
+        />
     <field name="restrict_state" eval="0" />
     <field name="restrict_user" eval="0" />
     <field name="restrict_additional" eval="1" />
@@ -72,21 +71,21 @@ if document.state == "draft":
 
 <!-- CANCEL -->
 <record
-            id="policy_template_detail_customer_receipt_cancel"
-            model="policy.template_detail"
-        >
+        id="policy_template_detail_customer_receipt_cancel"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="policy_template_customer_receipt" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','account.payment'),('name','=','cancel_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','account.payment'),('name','=','cancel_ok')]"
+        />
     <field name="restrict_state" eval="0" />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field
-                name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
-            />
+            name="group_ids"
+            eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+        />
     <field name="restrict_additional" eval="1" />
     <field name="additional_python_code">result = False
 if document.state == "draft":
@@ -95,26 +94,25 @@ if document.state == "draft":
 </record>
 <!-- RESET TO DRAFT -->
 <record
-            id="policy_template_detail_customer_receipt_restart"
-            model="policy.template_detail"
-        >
+        id="policy_template_detail_customer_receipt_restart"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="policy_template_customer_receipt" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','account.payment'),('name','=','restart_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','account.payment'),('name','=','restart_ok')]"
+        />
     <field name="restrict_state" eval="0" />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field
-                name="group_ids"
-                eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
-            />
+            name="group_ids"
+            eval="[(6,0,[ref('ssi_financial_accounting.sale_receipt_validator_group')])]"
+        />
     <field name="restrict_additional" eval="1" />
     <field name="additional_python_code">result = False
 if document.state != "draft":
     result = True
 </field>
 </record>
-</data>
 </odoo>

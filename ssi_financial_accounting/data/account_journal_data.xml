@@ -2,8 +2,7 @@
 <!-- Copyright 2022 OpenSynergy Indonesia
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-<odoo>
-<data noupdate="1">
+<odoo noupdate="1">
 <record id="journal_misc" model="account.journal">
     <field name="name">Miscellaneous</field>
     <field name="code">MISC</field>
@@ -39,5 +38,4 @@
     <field name="code">REX</field>
     <field name="type">general</field>
 </record>
-</data>
 </odoo>
