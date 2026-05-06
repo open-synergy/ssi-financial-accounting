@@ -1,8 +1,7 @@
 # Copyright 2023 OpenSynergy Indonesia
 # Copyright 2023 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class AccountBankStatement(models.Model):
@@ -77,37 +76,3 @@ class AccountBankStatement(models.Model):
         ]
         res += policy_field
         return res
-
-    def check_group(self, journal_type):
-        user = self.env.user
-        if journal_type == "bank" and user.has_group(
-            "ssi_financial_accounting.bank_statement_user_group"
-        ):
-            return True
-        if journal_type == "cash" and user.has_group(
-            "ssi_financial_accounting.cash_register_user_group"
-        ):
-            return True
-
-        return False
-
-    @api.model
-    def create(self, vals):
-        journal_type = vals.get("journal_type") or self.env.context.get(
-            "journal_type", False
-        )
-        if journal_type and not self.check_group(journal_type):
-            raise UserError(_("You do not have access to this record."))
-        return super().create(vals)
-
-    def write(self, vals):
-        for record in self:
-            if not record.check_group(record.journal_type):
-                raise UserError(_("You do not have access to this record."))
-        return super().write(vals)
-
-    def unlink(self):
-        for record in self:
-            if not record.check_group(record.journal_type):
-                raise UserError(_("You do not have access to this record."))
-        return super().unlink()

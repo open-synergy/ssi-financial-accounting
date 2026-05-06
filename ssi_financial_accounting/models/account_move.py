@@ -1,8 +1,7 @@
 # Copyright 2023 OpenSynergy Indonesia
 # Copyright 2023 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
@@ -145,56 +144,3 @@ class AccountMove(models.Model):
         readonly=True,
         compute_sudo=True,
     )
-
-    def check_group(self, move_type):
-        user = self.env.user
-        if move_type == "entry" and user.has_group(
-            "ssi_financial_accounting.journal_entry_user_group"
-        ):
-            return True
-        if move_type == "out_invoice" and user.has_group(
-            "ssi_financial_accounting.invoice_user_group"
-        ):
-            return True
-        if move_type == "out_refund" and user.has_group(
-            "ssi_financial_accounting.credit_note_user_group"
-        ):
-            return True
-        if move_type == "in_invoice" and user.has_group(
-            "ssi_financial_accounting.bill_user_group"
-        ):
-            return True
-        if move_type == "in_refund" and user.has_group(
-            "ssi_financial_accounting.refund_user_group"
-        ):
-            return True
-        if move_type == "out_receipt" and user.has_group(
-            "ssi_financial_accounting.sale_receipt_user_group"
-        ):
-            return True
-        if move_type == "in_receipt" and user.has_group(
-            "ssi_financial_accounting.purchase_receipt_user_group"
-        ):
-            return True
-        return False
-
-    @api.model
-    def create(self, vals):
-        move_type = vals.get("move_type") or self.env.context.get(
-            "default_move_type", False
-        )
-        if move_type and not self.check_group(move_type):
-            raise UserError(_("You do not have access to this record."))
-        return super().create(vals)
-
-    def write(self, vals):
-        for record in self:
-            if not record.check_group(record.move_type):
-                raise UserError(_("You do not have access to this record."))
-        return super().write(vals)
-
-    def unlink(self):
-        for record in self:
-            if not record.check_group(record.move_type):
-                raise UserError(_("You do not have access to this record."))
-        return super().unlink()
