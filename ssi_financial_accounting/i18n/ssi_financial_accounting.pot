@@ -1897,17 +1897,6 @@ msgid "Write off allowed"
 msgstr ""
 
 #. module: ssi_financial_accounting
-#: code:addons/ssi_financial_accounting/models/account_bank_statement.py:0
-#: code:addons/ssi_financial_accounting/models/account_bank_statement.py:0
-#: code:addons/ssi_financial_accounting/models/account_bank_statement.py:0
-#: code:addons/ssi_financial_accounting/models/account_move.py:0
-#: code:addons/ssi_financial_accounting/models/account_move.py:0
-#: code:addons/ssi_financial_accounting/models/account_move.py:0
-#, python-format
-msgid "You do not have access to this record."
-msgstr ""
-
-#. module: ssi_financial_accounting
 #: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_move_line_selector_view_form
 #: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.mis_report_instance_launcher_form_view
 msgid "or"
