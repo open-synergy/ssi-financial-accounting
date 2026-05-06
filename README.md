@@ -27,7 +27,7 @@ addon | version | maintainers | summary
 [ssi_account_statement_import](ssi_account_statement_import/) | 14.0.1.1.0 |  | Add Wizard to Import Statement
 [ssi_account_type_active](ssi_account_type_active/) | 14.0.1.0.1 |  | Active Field on Account Type
 [ssi_bank_statement_work_log](ssi_bank_statement_work_log/) | 14.0.1.0.0 |  | Bank Statement / Cash Register - Work Log Integration
-[ssi_financial_accounting](ssi_financial_accounting/) | 14.0.8.7.1 |  | Financial Accounting
+[ssi_financial_accounting](ssi_financial_accounting/) | 14.0.8.7.2 |  | Financial Accounting
 [ssi_financial_accounting_operating_unit](ssi_financial_accounting_operating_unit/) | 14.0.1.0.0 |  | Financial Accounting + Operating Unit
 [ssi_journal_entry_work_log](ssi_journal_entry_work_log/) | 14.0.1.0.0 |  | Journal Entry - Work Log Integration
 

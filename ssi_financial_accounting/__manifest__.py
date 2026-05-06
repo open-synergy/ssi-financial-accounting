@@ -4,7 +4,7 @@
 
 {
     "name": "Financial Accounting",
-    "version": "14.0.8.7.1",
+    "version": "14.0.8.7.2",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "license": "AGPL-3",
