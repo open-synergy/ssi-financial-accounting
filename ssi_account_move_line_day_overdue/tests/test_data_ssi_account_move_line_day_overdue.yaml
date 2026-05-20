@@ -1,0 +1,58 @@
+scenarios:
+  - name: "Account Move Line Day Overdue - Account fields"
+    steps:
+      - step: "Search for existing account"
+        action: "search"
+        model: "account.account"
+        save_as: "account"
+        domain: []
+        limit: 1
+
+      - step: "Assert account has compute_days_overdue field"
+        action: "assert"
+        target: "account"
+        asserts:
+          compute_days_overdue:
+            type: "value"
+            expected: false
+
+      - step: "Enable compute_days_overdue on account"
+        action: "write"
+        target: "account"
+        values:
+          compute_days_overdue: true
+
+      - step: "Assert compute_days_overdue is now true"
+        action: "assert"
+        target: "account"
+        asserts:
+          compute_days_overdue:
+            type: "value"
+            expected: true
+
+  - name: "Account Move Line Day Overdue - Recompute days overdue"
+    steps:
+      - step: "Search for existing move lines"
+        action: "search"
+        model: "account.move.line"
+        save_as: "move_lines"
+        domain: []
+        limit: 5
+
+      - step: "Call recompute on existing move lines (should not fail)"
+        action: "call"
+        target: "move_lines"
+        method: "action_recompute_days_overdue"
+
+      - step: "Search for move lines with reconcilable account"
+        action: "search"
+        model: "account.move.line"
+        save_as: "reconcilable_lines"
+        domain:
+          - ["account_id.reconcile", "=", true]
+        limit: 3
+
+      - step: "Call recompute on reconcilable lines"
+        action: "call"
+        target: "reconcilable_lines"
+        method: "action_recompute_days_overdue"

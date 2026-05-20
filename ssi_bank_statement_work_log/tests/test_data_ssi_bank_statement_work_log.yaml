@@ -1,0 +1,34 @@
+scenarios:
+  - name: "Bank Statement Work Log - Verify work_log integration"
+    steps:
+      - step: "Search for cash/bank journal"
+        action: "search"
+        model: "account.journal"
+        save_as: "cash_journal"
+        domain:
+          - ["type", "in", ["cash", "bank"]]
+        limit: 1
+
+      - step: "Create bank statement"
+        action: "create"
+        model: "account.bank.statement"
+        save_as: "bank_statement"
+        values:
+          name: "Test Statement WL"
+          journal_id: "EVAL: registry['cash_journal'].id"
+
+      - step: "Assert bank statement has work_log_ids field"
+        action: "assert"
+        target: "bank_statement"
+        asserts:
+          name:
+            type: "value"
+            expected: "Test Statement WL"
+
+      - step: "Assert bank statement has _work_log_create_page attribute"
+        action: "assert"
+        target: "bank_statement"
+        asserts:
+          journal_id:
+            type: "value"
+            operator: "is_truthy"

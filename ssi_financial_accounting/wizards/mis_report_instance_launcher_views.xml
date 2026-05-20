@@ -9,16 +9,17 @@
     <field name="arch" type="xml">
         <form>
             <group>
-                <field name="base_date"/>
+                <field name="base_date" />
             </group>
             <footer>
-                <button name="action_open_report"
-                    string="Open"
-                    type="object"
-                    class="oe_highlight"
+                <button
+                        name="action_open_report"
+                        string="Open"
+                        type="object"
+                        class="oe_highlight"
                     />
                 or
-                <button string="Cancel" class="oe_link" special="cancel"/>
+                <button string="Cancel" class="oe_link" special="cancel" />
             </footer>
         </form>
     </field>

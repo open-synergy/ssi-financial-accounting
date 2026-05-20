@@ -2,13 +2,15 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import models
 
 
 class GeneralLedgerXslx(models.AbstractModel):
     _inherit = "report.a_f_r.report_general_ledger_xlsx"
 
-    def _generate_report_content(self, workbook, report, data, report_data):
+    def _generate_report_content(  # noqa: C901
+        self, workbook, report, data, report_data
+    ):
         res_data = self.env[
             "report.account_financial_report.general_ledger"
         ]._get_report_values(report, data)
@@ -22,7 +24,7 @@ class GeneralLedgerXslx(models.AbstractModel):
         # For each account
         for account in general_ledger:
             # Write account title
-            total_bal_curr = account['init_bal'].get('bal_curr', 0)
+            total_bal_curr = account["init_bal"].get("bal_curr", 0)
             self.write_array_title(
                 account["code"] + " - " + accounts_data[account["id"]]["name"],
                 report_data,

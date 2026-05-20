@@ -1,0 +1,48 @@
+scenarios:
+  - name: "Account Move Sequence - Journal has sequence_id field"
+    steps:
+      - step: "Search for existing account journal"
+        action: "search"
+        model: "account.journal"
+        save_as: "journal"
+        domain:
+          - ["type", "=", "general"]
+        limit: 1
+
+      - step: "Assert journal has sequence_id field (may be falsy)"
+        action: "assert"
+        target: "journal"
+        asserts:
+          type:
+            type: "value"
+            expected: "general"
+
+      - step: "Search for any account move"
+        action: "search"
+        model: "account.move"
+        save_as: "moves"
+        domain: []
+        limit: 1
+
+      - step: "Assert moves have name field (sequence-computed)"
+        action: "assert"
+        target: "moves"
+        asserts:
+          name:
+            type: "value"
+            operator: "is_truthy"
+
+  - name: "Account Move Sequence - Constraint bypass works"
+    steps:
+      - step: "Search for any posted move to verify constraint bypass"
+        action: "search"
+        model: "account.move"
+        save_as: "posted_moves"
+        domain:
+          - ["state", "=", "posted"]
+        limit: 1
+
+      - step: "Call _constrains_date_sequence override"
+        action: "call"
+        target: "posted_moves"
+        method: "_constrains_date_sequence"

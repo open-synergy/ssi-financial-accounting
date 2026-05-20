@@ -1,0 +1,99 @@
+scenarios:
+  - name: "Financial Accounting - Create Types and Account Types"
+    steps:
+      - step: "Create direct cash flow type"
+        action: "create"
+        model: "cash_flow_type"
+        save_as: "direct_cft"
+        values:
+          name: "Test Direct Cash Flow Type"
+          code: "TDCFT"
+          kind: "direct"
+
+      - step: "Assert direct cash flow type created"
+        action: "assert"
+        target: "direct_cft"
+        asserts:
+          name:
+            type: "value"
+            expected: "Test Direct Cash Flow Type"
+          kind:
+            type: "value"
+            expected: "direct"
+          active:
+            type: "value"
+            expected: true
+
+      - step: "Create indirect cash flow type"
+        action: "create"
+        model: "cash_flow_type"
+        save_as: "indirect_cft"
+        values:
+          name: "Test Indirect Cash Flow Type"
+          code: "TICFT"
+          kind: "indirect"
+
+      - step: "Assert indirect cash flow type"
+        action: "assert"
+        target: "indirect_cft"
+        asserts:
+          kind:
+            type: "value"
+            expected: "indirect"
+
+      - step: "Search for existing odoo account type"
+        action: "search"
+        model: "account.account.type"
+        save_as: "odoo_account_type"
+        domain: []
+        limit: 1
+
+      - step: "Create account type"
+        action: "create"
+        model: "account_type"
+        save_as: "account_type"
+        values:
+          name: "Test Account Type FA"
+          code: "TATFA"
+          odoo_type_id: "EVAL: registry['odoo_account_type'].id"
+          reconcile: false
+
+      - step: "Assert account type created"
+        action: "assert"
+        target: "account_type"
+        asserts:
+          name:
+            type: "value"
+            expected: "Test Account Type FA"
+          reconcile:
+            type: "value"
+            expected: false
+          active:
+            type: "value"
+            expected: true
+
+      - step: "Create account type with cash flow links"
+        action: "create"
+        model: "account_type"
+        save_as: "account_type_cf"
+        values:
+          name: "Test Account Type with CF"
+          code: "TATCF"
+          odoo_type_id: "EVAL: registry['odoo_account_type'].id"
+          reconcile: true
+          direct_cash_flow_type_id: "EVAL: registry['direct_cft'].id"
+          indirect_cash_flow_type_id: "EVAL: registry['indirect_cft'].id"
+
+      - step: "Assert account type with cash flow links"
+        action: "assert"
+        target: "account_type_cf"
+        asserts:
+          reconcile:
+            type: "value"
+            expected: true
+          direct_cash_flow_type_id:
+            type: "value"
+            operator: "is_truthy"
+          indirect_cash_flow_type_id:
+            type: "value"
+            operator: "is_truthy"
