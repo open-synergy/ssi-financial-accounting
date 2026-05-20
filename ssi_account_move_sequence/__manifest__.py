@@ -4,7 +4,7 @@
 
 {
     "name": "Sequence Mixin Implementation on Journal Entry",
-    "version": "14.0.1.2.1",
+    "version": "14.0.1.3.0",
     "website": "https://simetri-sinergi.id",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "license": "AGPL-3",
