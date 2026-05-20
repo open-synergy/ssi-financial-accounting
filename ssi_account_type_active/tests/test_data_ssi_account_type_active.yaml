@@ -1,0 +1,47 @@
+scenarios:
+  - name: "Account Type Active - Create and toggle active"
+    steps:
+      - step: "Create new account type (not used by any account)"
+        action: "create"
+        model: "account.account.type"
+        save_as: "account_type"
+        values:
+          name: "Test Account Type Active"
+          type: "other"
+          internal_group: "equity"
+
+      - step: "Assert account type is active by default"
+        action: "assert"
+        target: "account_type"
+        asserts:
+          active:
+            type: "value"
+            expected: true
+
+      - step: "Deactivate account type (not used by any account)"
+        action: "write"
+        target: "account_type"
+        values:
+          active: false
+
+      - step: "Assert account type is now inactive"
+        action: "assert"
+        target: "account_type"
+        asserts:
+          active:
+            type: "value"
+            expected: false
+
+      - step: "Re-activate account type"
+        action: "write"
+        target: "account_type"
+        values:
+          active: true
+
+      - step: "Assert account type is active again"
+        action: "assert"
+        target: "account_type"
+        asserts:
+          active:
+            type: "value"
+            expected: true

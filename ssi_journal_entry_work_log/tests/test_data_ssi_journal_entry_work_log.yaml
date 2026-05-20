@@ -1,0 +1,44 @@
+scenarios:
+  - name: "Journal Entry Work Log - Verify work_log integration"
+    steps:
+      - step: "Search for any account move"
+        action: "search"
+        model: "account.move"
+        save_as: "account_moves"
+        domain: []
+        limit: 1
+
+      - step: "Assert account move has journal_id field"
+        action: "assert"
+        target: "account_moves"
+        asserts:
+          journal_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Search for general journal"
+        action: "search"
+        model: "account.journal"
+        save_as: "general_journal"
+        domain:
+          - ["type", "=", "general"]
+        limit: 1
+
+      - step: "Create account move (draft)"
+        action: "create"
+        model: "account.move"
+        save_as: "test_move"
+        values:
+          move_type: "entry"
+          journal_id: "EVAL: registry['general_journal'].id"
+
+      - step: "Assert move state is draft"
+        action: "assert"
+        target: "test_move"
+        asserts:
+          state:
+            type: "value"
+            expected: "draft"
+          move_type:
+            type: "value"
+            expected: "entry"
