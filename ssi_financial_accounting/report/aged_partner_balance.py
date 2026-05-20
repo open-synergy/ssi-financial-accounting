@@ -1,19 +1,19 @@
-import operator
-from datetime import date, datetime, timedelta
+from datetime import timedelta
 
 from odoo import api, models
-from odoo.tools import float_is_zero
 
 
 class AgedPartnerBalanceReport(models.AbstractModel):
-    _inherit = 'report.account_financial_report.aged_partner_balance'
+    _inherit = "report.account_financial_report.aged_partner_balance"
 
     @api.model
     def _calculate_amounts(
         self, ag_pb_data, acc_id, prt_id, residual, due_date, date_at_object
     ):
-        if self._context.get('active_model') == 'aged.partner.balance.report.wizard':
-            wizard_id = self.env['aged.partner.balance.report.wizard'].browse(self._context['active_id'])
+        if self._context.get("active_model") == "aged.partner.balance.report.wizard":
+            wizard_id = self.env["aged.partner.balance.report.wizard"].browse(
+                self._context["active_id"]
+            )
             ag_pb_data[acc_id]["residual"] += residual
             ag_pb_data[acc_id][prt_id]["residual"] += residual
             today = date_at_object
@@ -37,12 +37,16 @@ class AgedPartnerBalanceReport(models.AbstractModel):
                 ag_pb_data[acc_id][prt_id]["older"] += residual
             return ag_pb_data
         else:
-            return super(AgedPartnerBalanceReport, self)._calculate_amounts(ag_pb_data, acc_id, prt_id, residual, due_date, date_at_object)
+            return super(AgedPartnerBalanceReport, self)._calculate_amounts(
+                ag_pb_data, acc_id, prt_id, residual, due_date, date_at_object
+            )
 
     @api.model
     def _compute_maturity_date(self, ml, date_at_object):
-        if self._context.get('active_model') == 'aged.partner.balance.report.wizard':
-            wizard_id = self.env['aged.partner.balance.report.wizard'].browse(self._context['active_id'])
+        if self._context.get("active_model") == "aged.partner.balance.report.wizard":
+            wizard_id = self.env["aged.partner.balance.report.wizard"].browse(
+                self._context["active_id"]
+            )
             ml.update(
                 {
                     "current": 0.0,
@@ -69,4 +73,6 @@ class AgedPartnerBalanceReport(models.AbstractModel):
             else:
                 ml["older"] += amount
         else:
-            return super(AgedPartnerBalanceReport, self)._compute_maturity_date(ml, date_at_object)
+            return super(AgedPartnerBalanceReport, self)._compute_maturity_date(
+                ml, date_at_object
+            )
