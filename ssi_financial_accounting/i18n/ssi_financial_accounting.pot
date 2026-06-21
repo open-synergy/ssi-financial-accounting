@@ -71,6 +71,11 @@ msgid "Account Type"
 msgstr ""
 
 #. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_type_view_search
+msgid "Account Type (Odoo)"
+msgstr ""
+
+#. module: ssi_financial_accounting
 #: model:ir.model.fields,help:ssi_financial_accounting.field_account_account__user_type_id
 msgid ""
 "Account Type is used for information purpose, to generate country-specific "
@@ -652,6 +657,7 @@ msgstr ""
 
 #. module: ssi_financial_accounting
 #: model:ir.model.fields.selection,name:ssi_financial_accounting.selection__cash_flow_type__kind__direct
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.cash_flow_type_view_search
 msgid "Direct"
 msgstr ""
 
@@ -660,6 +666,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line__direct_cash_flow_type_id
 #: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__direct_cash_flow_type_id
 msgid "Direct Cash Flow"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_type_view_search
+msgid "Direct Cash Flow Type"
 msgstr ""
 
 #. module: ssi_financial_accounting
@@ -976,6 +987,7 @@ msgstr ""
 
 #. module: ssi_financial_accounting
 #: model:ir.model.fields.selection,name:ssi_financial_accounting.selection__cash_flow_type__kind__indirect
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.cash_flow_type_view_search
 msgid "Indirect"
 msgstr ""
 
@@ -984,6 +996,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_move_line__indirect_cash_flow_type_id
 #: model:ir.model.fields,field_description:ssi_financial_accounting.field_account_type__indirect_cash_flow_type_id
 msgid "Indirect Cash Flow"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_type_view_search
+msgid "Indirect Cash Flow Type"
 msgstr ""
 
 #. module: ssi_financial_accounting
@@ -1135,6 +1152,11 @@ msgstr ""
 #. module: ssi_financial_accounting
 #: model:ir.ui.menu,name:ssi_financial_accounting.account_journal_menu
 msgid "Journals"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.cash_flow_type_view_search
+msgid "Kind"
 msgstr ""
 
 #. module: ssi_financial_accounting
@@ -1395,6 +1417,11 @@ msgid "Non Trade Receivable"
 msgstr ""
 
 #. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_type_view_search
+msgid "Non-Reconcilable"
+msgstr ""
+
+#. module: ssi_financial_accounting
 #: model:account_type,name:ssi_financial_accounting.account_type_530
 msgid "Non-controlling interest"
 msgstr ""
@@ -1612,6 +1639,11 @@ msgstr ""
 #: model:ir.ui.menu,name:ssi_financial_accounting.purchase_receipt_menu
 #: model:ir.ui.menu,name:ssi_financial_accounting.sale_receipt_menu
 msgid "Receipts"
+msgstr ""
+
+#. module: ssi_financial_accounting
+#: model_terms:ir.ui.view,arch_db:ssi_financial_accounting.account_type_view_search
+msgid "Reconcilable"
 msgstr ""
 
 #. module: ssi_financial_accounting
