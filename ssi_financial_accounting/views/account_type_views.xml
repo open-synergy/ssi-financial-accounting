@@ -12,7 +12,45 @@
         />
     <field name="mode">primary</field>
     <field name="arch" type="xml">
-        <data />
+        <data>
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="odoo_type_id" />
+                <field name="direct_cash_flow_type_id" />
+                <field name="indirect_cash_flow_type_id" />
+            </xpath>
+            <xpath expr="//group[@name='dom_active']" position="before">
+                <separator name="reconcile" />
+                <filter
+                        name="dom_reconcile"
+                        string="Reconcilable"
+                        domain="[('reconcile', '=', True)]"
+                    />
+                <filter
+                        name="dom_not_reconcile"
+                        string="Non-Reconcilable"
+                        domain="[('reconcile', '=', False)]"
+                    />
+            </xpath>
+            <xpath expr="//group[@name='dom_active']" position="after">
+                <group name="group_by">
+                    <filter
+                            name="grp_odoo_type"
+                            string="Account Type (Odoo)"
+                            context="{'group_by': 'odoo_type_id'}"
+                        />
+                    <filter
+                            name="grp_direct_cash_flow_type"
+                            string="Direct Cash Flow Type"
+                            context="{'group_by': 'direct_cash_flow_type_id'}"
+                        />
+                    <filter
+                            name="grp_indirect_cash_flow_type"
+                            string="Indirect Cash Flow Type"
+                            context="{'group_by': 'indirect_cash_flow_type_id'}"
+                        />
+                </group>
+            </xpath>
+        </data>
     </field>
 </record>
 

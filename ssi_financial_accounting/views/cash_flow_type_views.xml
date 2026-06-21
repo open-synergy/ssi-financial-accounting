@@ -12,7 +12,30 @@
         />
     <field name="mode">primary</field>
     <field name="arch" type="xml">
-        <data />
+        <data>
+            <xpath expr="//group[@name='dom_active']" position="before">
+                <separator name="kind" />
+                <filter
+                        name="dom_direct"
+                        string="Direct"
+                        domain="[('kind', '=', 'direct')]"
+                    />
+                <filter
+                        name="dom_indirect"
+                        string="Indirect"
+                        domain="[('kind', '=', 'indirect')]"
+                    />
+            </xpath>
+            <xpath expr="//group[@name='dom_active']" position="after">
+                <group name="group_by">
+                    <filter
+                            name="grp_kind"
+                            string="Kind"
+                            context="{'group_by': 'kind'}"
+                        />
+                </group>
+            </xpath>
+        </data>
     </field>
 </record>
 

@@ -13,7 +13,6 @@
     "depends": [
         "ssi_financial_accounting",
         "report_py3o",
-        "base_usability",
     ],
     "data": [
         "reports/account_move_report.xml",
