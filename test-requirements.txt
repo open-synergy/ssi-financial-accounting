@@ -7,3 +7,4 @@ odoo14-addon-account-statement-import-txt-xlsx
 odoo14-addon-account-invoice-force-number
 odoo14-addon-account-journal-lock-date
 odoo14-addon-account-move-force-removal
+odoo-yaml-test

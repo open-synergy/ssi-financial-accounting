@@ -1,0 +1,75 @@
+scenarios:
+  - name: "Create PDF Statement Mapping"
+    steps:
+      - step: "Create mapping record"
+        action: "create"
+        model: "account.statement.import.pdf.mapping"
+        save_as: "mapping"
+        values:
+          name: "Test Bank PDF Mapping"
+          code: "TEST-PDF"
+          extraction_mode: "text"
+          parser_code: "result['statements'] = [{'name': 'S', 'transactions': []}]"
+      - step: "Assert mapping created with correct defaults"
+        action: "assert"
+        target: "mapping"
+        asserts:
+          id:
+            type: "value"
+            operator: "is_truthy"
+          name:
+            type: "value"
+            expected: "Test Bank PDF Mapping"
+          extraction_mode:
+            type: "value"
+            expected: "text"
+
+  - name: "Edit PDF Statement Mapping"
+    steps:
+      - step: "Create mapping to edit"
+        action: "create"
+        model: "account.statement.import.pdf.mapping"
+        save_as: "mapping"
+        values:
+          name: "Original Name"
+          code: "ORIG"
+          extraction_mode: "text"
+          parser_code: "result['statements'] = [{'name': 'S', 'transactions': []}]"
+      - step: "Update name and extraction mode"
+        action: "write"
+        target: "mapping"
+        values:
+          name: "Updated Mapping Name"
+          extraction_mode: "tables"
+      - step: "Assert changes saved"
+        action: "assert"
+        target: "mapping"
+        asserts:
+          name:
+            type: "value"
+            expected: "Updated Mapping Name"
+          extraction_mode:
+            type: "value"
+            expected: "tables"
+
+  - name: "Delete PDF Statement Mapping"
+    steps:
+      - step: "Create mapping to delete"
+        action: "create"
+        model: "account.statement.import.pdf.mapping"
+        save_as: "mapping"
+        values:
+          name: "Mapping To Delete"
+          code: "DEL-CRUD"
+          extraction_mode: "text"
+          parser_code: "result['statements'] = [{'name': 'S', 'transactions': []}]"
+      - step: "Delete mapping record"
+        action: "call"
+        target: "mapping"
+        method: "unlink"
+      - step: "Assert record no longer searchable"
+        action: "search"
+        model: "account.statement.import.pdf.mapping"
+        domain: [["code", "=", "DEL-CRUD"]]
+        save_as: "search_result"
+        expect_count: 0

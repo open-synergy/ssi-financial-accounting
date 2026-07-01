@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="account_statement_import_pdf_mapping_view_search" model="ir.ui.view">
+    <field name="name">account.statement.import.pdf.mapping - search</field>
+    <field name="model">account.statement.import.pdf.mapping</field>
+    <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//group[@name='dom_active']" position="before">
+                <separator name="extraction_mode" />
+                <filter
+                        name="dom_text"
+                        string="Text Mode"
+                        domain="[('extraction_mode', '=', 'text')]"
+                    />
+                <filter
+                        name="dom_tables"
+                        string="Tables Mode"
+                        domain="[('extraction_mode', '=', 'tables')]"
+                    />
+            </xpath>
+            <xpath expr="//group[@name='dom_active']" position="after">
+                <group name="group_by">
+                    <filter
+                            name="grp_extraction_mode"
+                            string="Extraction Mode"
+                            context="{'group_by': 'extraction_mode'}"
+                        />
+                </group>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="account_statement_import_pdf_mapping_view_tree" model="ir.ui.view">
+    <field name="name">account.statement.import.pdf.mapping - tree</field>
+    <field name="model">account.statement.import.pdf.mapping</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_tree" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='active']" position="before">
+                <field name="extraction_mode" />
+                <field name="currency_id" optional="hide" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="account_statement_import_pdf_mapping_view_form" model="ir.ui.view">
+    <field name="name">account.statement.import.pdf.mapping - form</field>
+    <field name="model">account.statement.import.pdf.mapping</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_form" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//page[@name='note']" position="before">
+                <page string="PDF Settings" name="pdf_settings">
+                    <group>
+                        <field name="extraction_mode" />
+                        <field name="currency_id" />
+                    </group>
+                    <separator string="Parser Code" />
+                    <field name="parser_code" nolabel="1" widget="text" />
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="account_statement_import_pdf_mapping_action" model="ir.actions.act_window">
+    <field name="name">PDF Statement Mappings</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.statement.import.pdf.mapping</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="menu_account_statement_import_pdf_mapping"
+        name="PDF Statement Mapping"
+        parent="ssi_financial_accounting.menu_account_configuration"
+        action="account_statement_import_pdf_mapping_action"
+    />
+</odoo>
