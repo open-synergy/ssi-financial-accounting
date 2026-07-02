@@ -35,4 +35,23 @@
         </data>
     </field>
 </record>
+
+<record model="ir.ui.view" id="account_bank_statement_view_search">
+    <field name="name">account.bank.statement - search</field>
+    <field name="model">account.bank.statement</field>
+    <field name="inherit_id" ref="account.view_bank_statement_search" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//filter[@name='date']" position="after">
+                <filter
+                        name="grp_ou"
+                        string="Operating Unit"
+                        context="{'group_by': 'operating_unit_id'}"
+                        groups="operating_unit.group_multi_operating_unit"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
 </odoo>

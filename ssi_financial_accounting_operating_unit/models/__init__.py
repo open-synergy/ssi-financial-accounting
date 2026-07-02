@@ -8,4 +8,5 @@ from . import (
     account_move_line,
     account_bank_statement,
     account_bank_statement_line,
+    account_statement_import,
 )

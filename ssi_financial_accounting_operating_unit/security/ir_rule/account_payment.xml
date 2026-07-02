@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2021 OpenSynergy Indonesia
-     Copyright 2021 PT. Simetri Sinergi Indonesia
-     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-<record id="account_move_line_rule_ou" model="ir.rule">
-    <field name="model_id" ref="account.model_account_move_line" />
+<record id="account_payment_rule_ou" model="ir.rule">
+    <field name="model_id" ref="account.model_account_payment" />
     <field name="groups" eval="[(4, ref('journal_entry_ou_group'))]" />
     <field name="domain_force">
         [('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]
     </field>
-    <field name="name">account.move.line - ou</field>
+    <field name="name">account.payment - ou</field>
     <field eval="1" name="perm_unlink" />
     <field eval="1" name="perm_write" />
     <field eval="1" name="perm_read" />

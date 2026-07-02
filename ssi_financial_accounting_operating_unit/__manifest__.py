@@ -14,14 +14,18 @@
         "ssi_operating_unit_mixin",
     ],
     "data": [
+        "security/res_group/journal_entry.xml",
+        "security/res_group/bank_statement.xml",
         "security/ir_rule/account_journal.xml",
         "security/ir_rule/account_move.xml",
         "security/ir_rule/account_move_line.xml",
         "security/ir_rule/account_bank_statement.xml",
+        "security/ir_rule/account_payment.xml",
         "views/account_journal_views.xml",
         "views/account_move_views.xml",
         "views/account_move_line_views.xml",
         "views/account_bank_statement_views.xml",
+        "views/account_payment_views.xml",
     ],
     "demo": [],
 }

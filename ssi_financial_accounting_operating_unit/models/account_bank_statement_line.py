@@ -11,6 +11,12 @@ class AccountBankStatementLine(models.Model):
         "account.bank.statement.line",
     ]
 
+    # operating_unit_id is obtained via _inherits delegation to account.move
+    # (see ssi_financial_accounting_operating_unit/models/account_move.py),
+    # not via mixin.single_operating_unit on this model. Do NOT add the mixin
+    # here — it would define a local field and break the delegation, causing
+    # the vals["operating_unit_id"] set below to write to the line instead of
+    # propagating to move_id.
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:

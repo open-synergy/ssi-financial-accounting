@@ -25,13 +25,13 @@ class AccountMove(models.Model):
     def _onchange_operating_unit(self):
         if self.operating_unit_id and (
             not self.journal_id
-            or self.journal_id.operating_unit_ids.id not in [self.operating_unit_id]
+            or self.operating_unit_id not in self.journal_id.operating_unit_ids
         ):
             journal = self.env["account.journal"].search(
                 [("type", "=", self.journal_id.type)]
             )
             jf = journal.filtered(
-                lambda aj: aj.operating_unit_ids.id in [self.operating_unit_id]
+                lambda aj: self.operating_unit_id in aj.operating_unit_ids
             )
             if not jf:
                 self.journal_id = journal[0]
@@ -45,7 +45,7 @@ class AccountMove(models.Model):
         if (
             self.journal_id
             and self.journal_id.operating_unit_ids
-            and self.journal_id.operating_unit_ids.id not in [self.operating_unit_id.id]
+            and self.operating_unit_id not in self.journal_id.operating_unit_ids
         ):
             self.operating_unit_id = self.journal_id.operating_unit_ids[0]
             for line in self.line_ids:
@@ -60,12 +60,21 @@ class AccountMove(models.Model):
                 and move.operating_unit_id.id
                 not in move.journal_id.operating_unit_ids.ids
             ):
+                # If already inside a self-heal cycle, stop immediately to prevent
+                # infinite recursion — constraint calls onchange which triggers
+                # constraint again when no matching journal is found.
+                if move._context.get("_ou_check_journal_healing"):
+                    raise UserError(
+                        _("The OU in the Move and in Journal must be the same.")
+                    )
                 # Change journal_id if create move from other model. e.g., sale.order
                 if (
                     move._context.get("active_model")
                     and move._context.get("active_model") != "account.move"
                 ):
-                    move._onchange_operating_unit()
+                    move.with_context(
+                        _ou_check_journal_healing=True
+                    )._onchange_operating_unit()
                     if (
                         move.journal_id.operating_unit_ids
                         and move.operating_unit_id

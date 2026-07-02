@@ -2,6 +2,7 @@
 # Copyright 2024 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo import fields
 from odoo.tests import TransactionCase, tagged
 
 
@@ -59,3 +60,106 @@ class TestSsiFinancialAccountingOperatingUnit(TransactionCase):
             }
         )
         self.assertEqual(move.state, "draft")
+
+    def test_bank_statement_line_ou_via_delegation_not_mixin(self):
+        """Regression: account.bank.statement.line gets operating_unit_id via
+        _inherits delegation from account.move — NOT from mixin.single_operating_unit.
+        Adding the mixin would break the delegation field. This test verifies the field
+        exists via delegation.
+        """
+        model = self.env["account.bank.statement.line"]
+
+        # Field must exist (via delegation from account.move)
+        fields_info = model.fields_get(["operating_unit_id"])
+        self.assertIn("operating_unit_id", fields_info)
+
+        # The field originates from account.move via _inherits delegation,
+        # so it must NOT be declared as a local field on the model itself.
+        local_fields = model._fields
+        local_field = local_fields.get("operating_unit_id")
+        # A delegated field has model_name pointing to the delegated model
+        self.assertEqual(
+            local_field.related_field.model_name if local_field else None,
+            "account.move",
+            "operating_unit_id on account.bank.statement.line must be a "
+            "delegation field originating from account.move, not a mixin field.",
+        )
+
+    def test_bank_statement_line_ou_propagated_from_statement(self):
+        """Regression: creating a bank.statement.line should carry the OU of the
+        parent bank.statement when OU is set on the statement.
+        """
+        journal = self.env["account.journal"].search([("type", "=", "bank")], limit=1)
+        if not journal or not self.operating_unit:
+            self.skipTest("No bank journal or operating unit found")
+
+        statement = self.env["account.bank.statement"].create(
+            {
+                "name": "Test OU Propagation",
+                "journal_id": journal.id,
+                "operating_unit_id": self.operating_unit.id,
+            }
+        )
+        self.assertEqual(statement.operating_unit_id, self.operating_unit)
+
+        line = self.env["account.bank.statement.line"].create(
+            {
+                "statement_id": statement.id,
+                "payment_ref": "Test Line OU",
+                "amount": 100.0,
+                "date": fields.Date.today(),
+            }
+        )
+        self.assertEqual(
+            line.operating_unit_id,
+            self.operating_unit,
+            "bank.statement.line.operating_unit_id must equal the parent "
+            "statement's operating_unit_id (propagated via create() override, "
+            "stored on account.move via delegation).",
+        )
+
+    def test_account_payment_ou_via_delegation(self):
+        """Regression: account.payment exposes operating_unit_id via
+        _inherits delegation to account.move (same pattern as
+        bank.statement.line, BL-0003) — NOT via mixin.single_operating_unit
+        added directly to account.payment.
+        """
+        model = self.env["account.payment"]
+
+        fields_info = model.fields_get(["operating_unit_id"])
+        self.assertIn("operating_unit_id", fields_info)
+
+        local_field = model._fields.get("operating_unit_id")
+        self.assertEqual(
+            local_field.related_field.model_name if local_field else None,
+            "account.move",
+            "operating_unit_id on account.payment must be a delegation "
+            "field originating from account.move, not a mixin field.",
+        )
+
+        journal = self.env["account.journal"].search(
+            [("type", "in", ("bank", "cash"))], limit=1
+        )
+        partner = self.env["res.partner"].search([], limit=1)
+        if not journal or not partner or not self.operating_unit:
+            self.skipTest("No journal/partner/operating unit found")
+
+        payment = self.env["account.payment"].create(
+            {
+                "journal_id": journal.id,
+                "partner_id": partner.id,
+                "amount": 100.0,
+                "operating_unit_id": self.operating_unit.id,
+            }
+        )
+        self.assertEqual(
+            payment.operating_unit_id,
+            self.operating_unit,
+            "Setting operating_unit_id on account.payment must persist via "
+            "delegation to the underlying account.move (move_id).",
+        )
+        self.assertEqual(
+            payment.move_id.operating_unit_id,
+            self.operating_unit,
+            "account.payment.operating_unit_id must delegate to move_id.",
+        )
