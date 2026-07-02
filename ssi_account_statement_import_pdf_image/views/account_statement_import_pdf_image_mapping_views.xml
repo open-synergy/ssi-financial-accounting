@@ -59,6 +59,34 @@
                         <field name="ocr_psm" />
                         <field name="currency_id" />
                     </group>
+                    <separator string="Image Preprocessing" />
+                    <group>
+                        <field name="preprocess_enabled" />
+                        <field
+                                name="preprocess_grayscale"
+                                attrs="{'invisible': [('preprocess_enabled', '=', False)]}"
+                            />
+                        <field
+                                name="preprocess_autocontrast"
+                                attrs="{'invisible': [('preprocess_enabled', '=', False)]}"
+                            />
+                        <field
+                                name="preprocess_binarize"
+                                attrs="{'invisible': [('preprocess_enabled', '=', False)]}"
+                            />
+                        <field
+                                name="preprocess_threshold"
+                                attrs="{'invisible': ['|', ('preprocess_enabled', '=', False), ('preprocess_binarize', '!=', 'global')]}"
+                            />
+                        <field
+                                name="preprocess_deskew"
+                                attrs="{'invisible': [('preprocess_enabled', '=', False)]}"
+                            />
+                        <field
+                                name="preprocess_scale"
+                                attrs="{'invisible': [('preprocess_enabled', '=', False)]}"
+                            />
+                    </group>
                     <separator string="Parser Code" />
                     <field name="parser_code" nolabel="1" widget="text" />
                 </page>

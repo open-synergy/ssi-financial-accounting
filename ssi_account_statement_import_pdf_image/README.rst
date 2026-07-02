@@ -13,7 +13,14 @@ restricted Python environment (safe_eval), applied to the OCR-extracted text.
 
 This module requires the system binaries ``tesseract-ocr`` and
 ``poppler-utils`` to be installed on the Odoo image, in addition to the
-Python packages ``pytesseract`` and ``pdf2image``.
+Python packages ``pytesseract``, ``pdf2image``, ``opencv-python-headless``
+and ``numpy``.
+
+Each mapping record can optionally enable image preprocessing (grayscale,
+auto contrast, binarization, deskew, upscale) applied to every rendered page
+before OCR. This is disabled by default and is intended for low-quality
+scans (e.g. photocopied passbooks) where raw OCR output is too noisy for
+``parser_code`` to parse.
 
 
 Bug Tracker

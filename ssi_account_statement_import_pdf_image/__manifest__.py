@@ -13,7 +13,7 @@
         "ssi_account_statement_import",
     ],
     "external_dependencies": {
-        "python": ["pytesseract", "pdf2image"],
+        "python": ["pytesseract", "pdf2image", "cv2", "numpy"],
     },
     "data": [
         "security/res_groups/account_statement_import_pdf_image_mapping.xml",
