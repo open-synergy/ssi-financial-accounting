@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo14-addon-ssi_account_move_py3o_report',
         'odoo14-addon-ssi_account_move_sequence',
         'odoo14-addon-ssi_account_statement_import',
+        'odoo14-addon-ssi_account_statement_import_pdf',
         'odoo14-addon-ssi_account_type_active',
         'odoo14-addon-ssi_bank_statement_work_log',
         'odoo14-addon-ssi_financial_accounting',

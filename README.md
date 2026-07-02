@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [ssi_account_move_py3o_report](ssi_account_move_py3o_report/) | 14.0.2.0.0 |  | Py3o Report for Journal Entry
 [ssi_account_move_sequence](ssi_account_move_sequence/) | 14.0.1.3.0 |  | Sequence Mixin Implementation on Journal Entry
 [ssi_account_statement_import](ssi_account_statement_import/) | 14.0.1.2.0 |  | Add Wizard to Import Statement
+[ssi_account_statement_import_pdf](ssi_account_statement_import_pdf/) | 14.0.1.0.0 |  | Import bank statements from PDF files using configurable Python parsers
 [ssi_account_type_active](ssi_account_type_active/) | 14.0.1.1.0 |  | Active Field on Account Type
 [ssi_bank_statement_work_log](ssi_bank_statement_work_log/) | 14.0.1.1.0 |  | Bank Statement / Cash Register - Work Log Integration
 [ssi_financial_accounting](ssi_financial_accounting/) | 14.0.9.0.0 |  | Financial Accounting
