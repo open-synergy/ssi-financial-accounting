@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="account_journal_pdf_image_mapping_form" model="ir.ui.view">
+    <field name="name">account.journal.pdf.image.mapping</field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="account.view_account_journal_form" />
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='bank_statements_source']" position="after">
+            <field
+                    name="default_pdf_image_mapping_id"
+                    attrs="{'invisible': [('type', '!=', 'bank')]}"
+                />
+        </xpath>
+    </field>
+</record>
+</odoo>
