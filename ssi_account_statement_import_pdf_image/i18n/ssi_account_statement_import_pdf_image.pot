@@ -1,0 +1,453 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_account_statement_import_pdf_image
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_account_statement_import_pdf_image
+#: code:addons/ssi_account_statement_import_pdf_image/models/account_statement_import_pdf_image_mapping.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Execute PDF image parser code for bank statement import\n"
+"Database ID: %s\n"
+"Problem: Parser code execution failed: %s\n"
+"Solution: Fix the parser_code syntax errors or logic issues shown in the problem above\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: code:addons/ssi_account_statement_import_pdf_image/models/account_statement_import_pdf_image_mapping.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: OCR-extract text from a scanned PDF file for bank statement import\n"
+"Database ID: %s\n"
+"Problem: OCR extraction failed: %s\n"
+"Solution: Ensure 'tesseract-ocr' and 'poppler-utils' system binaries are installed on the Odoo image (odoo/custom/dependencies/apt.txt), and that the uploaded file is a valid PDF\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: code:addons/ssi_account_statement_import_pdf_image/models/account_statement_import_pdf_image_mapping.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: OCR-extract text from a scanned PDF file for bank statement import\n"
+"Database ID: %s\n"
+"Problem: Python library 'pytesseract' and/or 'pdf2image' is not installed\n"
+"Solution: Install both by adding 'pytesseract' and 'pdf2image' to odoo/custom/dependencies/pip.txt, add 'tesseract-ocr' and 'poppler-utils' to odoo/custom/dependencies/apt.txt, then rebuild the Odoo image (invoke img_build)\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: code:addons/ssi_account_statement_import_pdf_image/models/account_statement_import_pdf_image_mapping.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Parse scanned PDF bank statement\n"
+"Database ID: %s\n"
+"Problem: Parser code produced empty or missing result[\"statements\"]\n"
+"Solution: Ensure parser_code sets result[\"statements\"] to a non-empty list of statement dicts, each containing a \"transactions\" list\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__active
+msgid "Active"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__code
+msgid "Code"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__currency_id
+msgid "Default Currency"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_journal__default_pdf_image_mapping_id
+msgid "Default PDF Image Statement Mapping"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_journal__default_pdf_image_mapping_id
+msgid ""
+"Default PDF image (OCR) mapping pre-selected when importing scanned bank "
+"statements from PDF files via this journal. Users can still override it per-"
+"import in the Import Statement wizard."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_journal__display_name
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import__display_name
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__currency_id
+msgid ""
+"Fallback currency used when the parser code does not set "
+"result['currency_code']. If both this field and the parser code omit the "
+"currency, the import will fail with a missing currency error."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_journal__id
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import__id
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_needaction
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model,name:ssi_account_statement_import_pdf_image.model_account_statement_import
+msgid "Import Bank Statement Files"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model,name:ssi_account_statement_import_pdf_image.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_journal____last_update
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import____last_update
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__active
+msgid ""
+"Master data status\n"
+"\n"
+"* Inactive data can not be selected when creating new transaction\n"
+"* Transaction with inactive master data can still be viewed\n"
+"* Set master data as inactive if master data no longger needed,\n"
+"but master data already used on transaction"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__code
+msgid ""
+"Master data unique identifier.\n"
+"\n"
+"* Fill with '/' if You do not need unique identifier\n"
+"* Click 'Generate Code' button to automatically assign code.\n"
+"  Sequence template mush be set to perform this action\n"
+"  Only master data with '/' code will be assign automatic code"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__name
+msgid "Name"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__note
+msgid "Note"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_pdf_image.account_statement_import_pdf_image_mapping_view_search
+msgid "OCR Language"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__ocr_lang
+msgid "OCR Language(s)"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_pdf_image.account_statement_import_pdf_image_mapping_view_form
+msgid "OCR Settings"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model,name:ssi_account_statement_import_pdf_image.model_account_statement_import_pdf_image_mapping
+msgid "PDF Image Statement Import Mapping"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import__pdf_image_mapping_id
+#: model:ir.ui.menu,name:ssi_account_statement_import_pdf_image.menu_account_statement_import_pdf_image_mapping
+#: model:res.groups,name:ssi_account_statement_import_pdf_image.account_statement_import_pdf_image_mapping_group
+msgid "PDF Image Statement Mapping"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.actions.act_window,name:ssi_account_statement_import_pdf_image.account_statement_import_pdf_image_mapping_action
+msgid "PDF Image Statement Mappings"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_pdf_image.account_statement_import_pdf_image_form
+msgid "PDF image (OCR) mapping:"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__ocr_psm
+msgid "Page Segmentation Mode"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__parser_code
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_pdf_image.account_statement_import_pdf_image_mapping_view_form
+msgid "Parser Code"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__parser_code
+msgid ""
+"Python code executed inside safe_eval to transform OCR-extracted PDF content"
+" into bank statement data. Available input variables: pages (list[str] — OCR"
+" text per PDF page), full_text (str — all pages joined by newline), tables "
+"(list — always empty, reserved for parity with sibling parser patterns), "
+"filename (str), re (module), datetime (module), date (datetime.date), "
+"mapping (this record). Required output: set result['statements'] to a non-"
+"empty list of statement dicts, each with a 'transactions' key containing "
+"dicts with at minimum: date (str YYYY-MM-DD), amount (float), payment_ref "
+"(str), unique_import_id (str). Optional output: result['currency_code'] (str"
+" ISO 4217), result['account_number'] (str or None)."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__ocr_dpi
+msgid "Render DPI"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__ocr_dpi
+msgid ""
+"Resolution (dots per inch) used to render each PDF page into an image before"
+" running OCR, via pdf2image/poppler. Higher values improve OCR accuracy on "
+"small text at the cost of processing time."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import__pdf_image_mapping_id
+msgid ""
+"Select the PDF image (OCR) mapping configuration to use when importing a "
+"scanned PDF bank statement. If set and the uploaded file ends with '.pdf', "
+"the mapping's parser_code will be executed against OCR-extracted text to "
+"extract transactions. Leave empty to use other installed format parsers."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__ocr_psm
+msgid ""
+"Tesseract '--psm' page segmentation mode. Mode 6 assumes a single uniform "
+"block of text and works well for tabular bank statement pages. Adjust per "
+"template if OCR output is poorly structured."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__ocr_lang
+msgid ""
+"Tesseract language specification used to OCR each rendered page, e.g. 'eng' "
+"or 'eng+ind' for combined English and Indonesian. The corresponding "
+"Tesseract language pack(s) must be installed on the Odoo image."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__website_message_ids
+msgid "Website communication history"
+msgstr ""
