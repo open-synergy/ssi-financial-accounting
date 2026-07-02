@@ -1,6 +1,10 @@
 # Copyright 2026 OpenSynergy Indonesia
 # Copyright 2026 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+import cv2
+import numpy
+from PIL import Image
+
 from odoo import _, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.safe_eval import safe_eval, wrap_module
@@ -72,6 +76,161 @@ class AccountStatementImportPdfImageMapping(models.Model):
             "result['account_number'] (str or None)."
         ),
     )
+    preprocess_enabled = fields.Boolean(
+        string="Enable Image Preprocessing",
+        default=False,
+        help=(
+            "Master toggle for image preprocessing before OCR. When disabled, "
+            "each rendered page is passed to OCR as-is (existing behavior). "
+            "Enable this for low-quality scans (e.g. photocopied passbooks) "
+            "where OCR text comes out too noisy for parser_code to parse."
+        ),
+    )
+    preprocess_grayscale = fields.Boolean(
+        string="Grayscale",
+        default=True,
+        help=(
+            "Convert the rendered page to a single-channel grayscale image "
+            "before further preprocessing steps. Only applied when "
+            "'Enable Image Preprocessing' is active."
+        ),
+    )
+    preprocess_autocontrast = fields.Boolean(
+        string="Auto Contrast",
+        default=True,
+        help=(
+            "Normalize pixel intensity to the full 0-255 range to improve "
+            "contrast on faded or unevenly lit scans. Only applied when "
+            "'Enable Image Preprocessing' is active."
+        ),
+    )
+    preprocess_binarize = fields.Selection(
+        string="Binarization",
+        selection=[
+            ("none", "None"),
+            ("global", "Global threshold"),
+            ("otsu", "Otsu"),
+            ("adaptive", "Adaptive"),
+        ],
+        default="adaptive",
+        help=(
+            "Method used to convert the grayscale image into pure black-and-"
+            "white pixels before OCR. 'Adaptive' is recommended for scans "
+            "with uneven lighting or folds (e.g. passbook photos): "
+            "'None' = skip binarization, "
+            "'Global threshold' = single fixed threshold value ('Threshold' "
+            "field below), "
+            "'Otsu' = automatic single threshold computed from the image "
+            "histogram, "
+            "'Adaptive' = local threshold computed per image region. "
+            "Only applied when 'Enable Image Preprocessing' is active."
+        ),
+    )
+    preprocess_threshold = fields.Integer(
+        string="Threshold",
+        default=128,
+        help=(
+            "Pixel intensity threshold (0-255) used only when 'Binarization' "
+            "is set to 'Global threshold'. Pixels above this value become "
+            "white, pixels at or below become black."
+        ),
+    )
+    preprocess_deskew = fields.Boolean(
+        string="Deskew",
+        default=False,
+        help=(
+            "Automatically detect and correct the rotation angle of a "
+            "slightly tilted scan before OCR. Only applied when "
+            "'Enable Image Preprocessing' is active."
+        ),
+    )
+    preprocess_scale = fields.Float(
+        string="Upscale Factor",
+        default=1.0,
+        help=(
+            "Factor used to resize the rendered page before other "
+            "preprocessing steps, e.g. 2.0 doubles width and height. Values "
+            "greater than 1.0 can help OCR read small text on low-resolution "
+            "scans. Only applied when 'Enable Image Preprocessing' is active."
+        ),
+    )
+
+    def _preprocess_image(self, image):
+        """Apply configured OpenCV preprocessing steps to a rendered page.
+
+        Pure seam for testing: accepts and returns a PIL Image, no OCR or
+        PDF rendering involved.
+        """
+        self.ensure_one()
+        arr = numpy.array(image)
+
+        if self.preprocess_scale and self.preprocess_scale != 1.0:
+            arr = cv2.resize(
+                arr,
+                None,
+                fx=self.preprocess_scale,
+                fy=self.preprocess_scale,
+                interpolation=cv2.INTER_CUBIC,
+            )
+
+        needs_grayscale = (
+            self.preprocess_grayscale or self.preprocess_binarize != "none"
+        )
+        if needs_grayscale and arr.ndim == 3:
+            arr = cv2.cvtColor(arr, cv2.COLOR_RGB2GRAY)
+
+        if self.preprocess_autocontrast:
+            arr = cv2.normalize(arr, None, 0, 255, cv2.NORM_MINMAX)
+
+        if self.preprocess_binarize == "global":
+            _thresh, arr = cv2.threshold(
+                arr, self.preprocess_threshold, 255, cv2.THRESH_BINARY
+            )
+        elif self.preprocess_binarize == "otsu":
+            _thresh, arr = cv2.threshold(
+                arr, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+            )
+        elif self.preprocess_binarize == "adaptive":
+            arr = cv2.adaptiveThreshold(
+                arr,
+                255,
+                cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                cv2.THRESH_BINARY,
+                31,
+                15,
+            )
+
+        if self.preprocess_deskew:
+            arr = self._preprocess_deskew(arr)
+
+        return Image.fromarray(arr)
+
+    def _preprocess_deskew(self, arr):
+        """Estimate and correct the rotation angle of a binarized image.
+
+        Returns the input array unchanged if no non-zero pixels are found
+        (e.g. a blank page), instead of raising.
+        """
+        inverted = 255 - arr
+        coords = cv2.findNonZero(inverted)
+        if coords is None:
+            return arr
+
+        angle = cv2.minAreaRect(coords)[-1]
+        if angle < -45:
+            angle = 90 + angle
+
+        height, width = arr.shape[:2]
+        center = (width / 2, height / 2)
+        rotation_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
+        return cv2.warpAffine(
+            arr,
+            rotation_matrix,
+            (width, height),
+            flags=cv2.INTER_CUBIC,
+            borderMode=cv2.BORDER_CONSTANT,
+            borderValue=255,
+        )
 
     def _extract(self, data_file):
         """Extract OCR text per page from PDF binary data using Tesseract."""
@@ -99,7 +258,9 @@ odoo/custom/dependencies/apt.txt, then rebuild the Odoo image (invoke img_build)
             images = pdf2image.convert_from_bytes(data_file, dpi=self.ocr_dpi)
             pages = [
                 pytesseract.image_to_string(
-                    image, lang=self.ocr_lang, config="--psm %d" % self.ocr_psm
+                    self._preprocess_image(image) if self.preprocess_enabled else image,
+                    lang=self.ocr_lang,
+                    config="--psm %d" % self.ocr_psm,
                 )
                 for image in images
             ]

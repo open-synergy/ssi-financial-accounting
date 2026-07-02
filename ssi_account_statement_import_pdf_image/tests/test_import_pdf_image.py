@@ -4,6 +4,10 @@
 import base64
 from unittest import mock
 
+import cv2
+import numpy
+from PIL import Image
+
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
@@ -232,3 +236,165 @@ class TestImportPdfImage(TransactionCase):
                     "parser_code": _EMPTY_PARSER_CODE,
                 }
             )
+
+    @staticmethod
+    def _gradient_image(width=64, height=64):
+        """RGB image with a smooth gradient, used to exercise binarization."""
+        row = numpy.tile(numpy.linspace(0, 255, width, dtype=numpy.uint8), (height, 1))
+        arr = numpy.stack([row, row, row], axis=-1)
+        return Image.fromarray(arr, mode="RGB")
+
+    @staticmethod
+    def _skewed_rect_array(width=200, height=200, angle=12.0):
+        """Binarized-style array (white background, black rectangle 'text')
+        rotated by `angle` degrees — same convention _preprocess_deskew
+        expects as input (dark foreground on light background)."""
+        arr = numpy.full((height, width), 255, dtype=numpy.uint8)
+        arr[80:120, 20:180] = 0
+        center = (width / 2, height / 2)
+        rotation_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
+        return cv2.warpAffine(
+            arr,
+            rotation_matrix,
+            (width, height),
+            flags=cv2.INTER_CUBIC,
+            borderMode=cv2.BORDER_CONSTANT,
+            borderValue=255,
+        )
+
+    @staticmethod
+    def _rect_angle(arr):
+        """Skew angle (degrees) of the rectangle in `arr`, normalized so 0
+        means axis-aligned (no skew). `arr` follows the white-background/
+        dark-foreground convention (same as _preprocess_deskew's input)."""
+        inverted = 255 - arr
+        coords = cv2.findNonZero(inverted)
+        if coords is None:
+            return 0.0
+        raw_angle = cv2.minAreaRect(coords)[-1]
+        if raw_angle < -45:
+            return -90 - raw_angle
+        return -raw_angle
+
+    def test_preprocess_grayscale(self):
+        """Grayscale step reduces an RGB image to single-channel 'L' mode."""
+        self.mapping.write(
+            {
+                "preprocess_enabled": True,
+                "preprocess_grayscale": True,
+                "preprocess_autocontrast": False,
+                "preprocess_binarize": "none",
+                "preprocess_deskew": False,
+            }
+        )
+        rgb = self._gradient_image()
+        img = self.mapping._preprocess_image(rgb)
+        self.assertEqual(img.mode, "L")
+
+    def test_preprocess_adaptive_binary(self):
+        """Adaptive binarization yields only pure black/white pixel values."""
+        self.mapping.write(
+            {
+                "preprocess_enabled": True,
+                "preprocess_grayscale": True,
+                "preprocess_autocontrast": False,
+                "preprocess_binarize": "adaptive",
+                "preprocess_deskew": False,
+            }
+        )
+        img = self.mapping._preprocess_image(self._gradient_image())
+        values = set(numpy.array(img).flatten().tolist())
+        self.assertTrue(values.issubset({0, 255}))
+
+    def test_preprocess_otsu_binary(self):
+        """Otsu binarization yields only pure black/white pixel values."""
+        self.mapping.write(
+            {
+                "preprocess_enabled": True,
+                "preprocess_grayscale": True,
+                "preprocess_autocontrast": False,
+                "preprocess_binarize": "otsu",
+                "preprocess_deskew": False,
+            }
+        )
+        img = self.mapping._preprocess_image(self._gradient_image())
+        values = set(numpy.array(img).flatten().tolist())
+        self.assertTrue(values.issubset({0, 255}))
+
+    def test_preprocess_global_threshold_binary(self):
+        """Global threshold binarization yields only pure black/white pixel values."""
+        self.mapping.write(
+            {
+                "preprocess_enabled": True,
+                "preprocess_grayscale": True,
+                "preprocess_autocontrast": False,
+                "preprocess_binarize": "global",
+                "preprocess_threshold": 128,
+                "preprocess_deskew": False,
+            }
+        )
+        img = self.mapping._preprocess_image(self._gradient_image())
+        values = set(numpy.array(img).flatten().tolist())
+        self.assertTrue(values.issubset({0, 255}))
+
+    def test_preprocess_disabled_is_noop_in_extract(self):
+        """_extract never calls _preprocess_image when preprocess_enabled is False."""
+        self.mapping.write({"preprocess_enabled": False})
+        fake_image = self._gradient_image()
+        with mock.patch(
+            "pdf2image.convert_from_bytes", return_value=[fake_image]
+        ), mock.patch(
+            "pytesseract.image_to_string", return_value="OCR TEXT"
+        ), mock.patch.object(
+            type(self.mapping), "_preprocess_image"
+        ) as mocked_preprocess:
+            self.mapping._extract(b"dummy pdf bytes")
+            mocked_preprocess.assert_not_called()
+
+    def test_preprocess_enabled_invoked_in_extract(self):
+        """_extract calls _preprocess_image once per page when enabled."""
+        self.mapping.write({"preprocess_enabled": True})
+        fake_image = self._gradient_image()
+        with mock.patch(
+            "pdf2image.convert_from_bytes", return_value=[fake_image]
+        ), mock.patch(
+            "pytesseract.image_to_string", return_value="OCR TEXT"
+        ), mock.patch.object(
+            type(self.mapping), "_preprocess_image", return_value=fake_image
+        ) as mocked_preprocess:
+            self.mapping._extract(b"dummy pdf bytes")
+            mocked_preprocess.assert_called_once_with(fake_image)
+
+    def test_preprocess_deskew_empty_image_safe(self):
+        """Deskew on a blank image does not raise and returns an Image."""
+        self.mapping.write(
+            {
+                "preprocess_enabled": True,
+                "preprocess_grayscale": True,
+                "preprocess_autocontrast": False,
+                "preprocess_binarize": "none",
+                "preprocess_deskew": True,
+            }
+        )
+        blank = Image.fromarray(numpy.zeros((64, 64), dtype=numpy.uint8), mode="L")
+        img = self.mapping._preprocess_image(blank)
+        self.assertIsInstance(img, Image.Image)
+
+    def test_preprocess_deskew_reduces_angle(self):
+        """Deskew reduces the estimated skew angle of a rotated rectangle."""
+        self.mapping.write(
+            {
+                "preprocess_enabled": True,
+                "preprocess_grayscale": False,
+                "preprocess_autocontrast": False,
+                "preprocess_binarize": "none",
+                "preprocess_deskew": True,
+            }
+        )
+        before = self._skewed_rect_array(angle=12.0)
+        angle_before = self._rect_angle(before)
+
+        after_img = self.mapping._preprocess_image(Image.fromarray(before, mode="L"))
+        angle_after = self._rect_angle(numpy.array(after_img))
+
+        self.assertLess(abs(angle_after), abs(angle_before))
