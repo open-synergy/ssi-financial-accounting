@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- account.statement.import.pdf.image.mapping — all users read-only -->
+    <record
+        id="account_statement_import_pdf_image_mapping_all_access"
+        model="ir.model.access"
+    >
+        <field name="name">account.statement.import.pdf.image.mapping - all</field>
+        <field name="model_id" ref="model_account_statement_import_pdf_image_mapping" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+    <!-- account.statement.import.pdf.image.mapping — configurator group full access -->
+    <record
+        id="account_statement_import_pdf_image_mapping_group_access"
+        model="ir.model.access"
+    >
+        <field name="name">account.statement.import.pdf.image.mapping - group</field>
+        <field name="model_id" ref="model_account_statement_import_pdf_image_mapping" />
+        <field name="group_id" ref="account_statement_import_pdf_image_mapping_group" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+</odoo>

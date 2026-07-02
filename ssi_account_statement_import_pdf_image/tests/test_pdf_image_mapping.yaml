@@ -1,0 +1,91 @@
+scenarios:
+  - name: "Create PDF Image Statement Mapping"
+    steps:
+      - step: "Create mapping record"
+        action: "create"
+        model: "account.statement.import.pdf.image.mapping"
+        save_as: "mapping"
+        values:
+          name: "Test Bank Passbook OCR Mapping"
+          code: "TEST-PDF-IMAGE"
+          ocr_lang: "eng"
+          ocr_dpi: 300
+          ocr_psm: 6
+          parser_code: "result['statements'] = [{'name': 'S', 'transactions': []}]"
+      - step: "Assert mapping created with correct defaults"
+        action: "assert"
+        target: "mapping"
+        asserts:
+          id:
+            type: "value"
+            operator: "is_truthy"
+          name:
+            type: "value"
+            expected: "Test Bank Passbook OCR Mapping"
+          ocr_lang:
+            type: "value"
+            expected: "eng"
+          ocr_dpi:
+            type: "value"
+            expected: 300
+          ocr_psm:
+            type: "value"
+            expected: 6
+
+  - name: "Edit PDF Image Statement Mapping"
+    steps:
+      - step: "Create mapping to edit"
+        action: "create"
+        model: "account.statement.import.pdf.image.mapping"
+        save_as: "mapping"
+        values:
+          name: "Original Name"
+          code: "ORIG-IMAGE"
+          ocr_lang: "eng"
+          ocr_dpi: 300
+          ocr_psm: 6
+          parser_code: "result['statements'] = [{'name': 'S', 'transactions': []}]"
+      - step: "Update OCR settings"
+        action: "write"
+        target: "mapping"
+        values:
+          name: "Updated Mapping Name"
+          ocr_dpi: 400
+          ocr_lang: "eng+ind"
+      - step: "Assert changes saved"
+        action: "assert"
+        target: "mapping"
+        asserts:
+          name:
+            type: "value"
+            expected: "Updated Mapping Name"
+          ocr_dpi:
+            type: "value"
+            expected: 400
+          ocr_lang:
+            type: "value"
+            expected: "eng+ind"
+
+  - name: "Delete PDF Image Statement Mapping"
+    steps:
+      - step: "Create mapping to delete"
+        action: "create"
+        model: "account.statement.import.pdf.image.mapping"
+        save_as: "mapping"
+        values:
+          name: "Mapping To Delete"
+          code: "DEL-IMAGE-CRUD"
+          ocr_lang: "eng"
+          ocr_dpi: 300
+          ocr_psm: 6
+          parser_code: "result['statements'] = [{'name': 'S', 'transactions': []}]"
+      - step: "Delete mapping record"
+        action: "call"
+        target: "mapping"
+        method: "unlink"
+      - step: "Assert record no longer searchable"
+        action: "search"
+        model: "account.statement.import.pdf.image.mapping"
+        domain: [["code", "=", "DEL-IMAGE-CRUD"]]
+        save_as: "search_result"
+        expect_count: 0
