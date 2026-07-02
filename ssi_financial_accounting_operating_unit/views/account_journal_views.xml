@@ -38,4 +38,30 @@
       </data>
     </field>
 </record>
+
+<record id="account_journal_view_search" model="ir.ui.view">
+    <field name="name">account.journal - search</field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="account.view_account_journal_search" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='name']" position="after">
+                <field
+                        name="operating_unit_ids"
+                        string="Operating Unit"
+                        groups="operating_unit.group_multi_operating_unit"
+                    />
+            </xpath>
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <filter
+                        name="grp_ou"
+                        string="Operating Unit"
+                        context="{'group_by': 'operating_unit_ids'}"
+                        groups="operating_unit.group_multi_operating_unit"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
 </odoo>
