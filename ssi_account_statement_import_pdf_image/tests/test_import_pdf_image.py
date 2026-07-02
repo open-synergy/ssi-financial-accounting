@@ -35,7 +35,6 @@ for line in lines:
         "payment_ref": ref,
         "unique_import_id": "%s-%s-%s-%s" % (d, amount, balance, idx),
     })
-result["currency_code"] = "IDR"
 result["statements"] = [{"name": filename, "transactions": transactions}]
 """
 
@@ -48,6 +47,10 @@ class TestImportPdfImage(TransactionCase):
     def setUp(self):
         super().setUp()
         self.MappingModel = self.env["account.statement.import.pdf.image.mapping"]
+        # Use the company's active currency as fallback so _match_currency
+        # (OCA account_statement_import) finds a valid, active currency
+        # regardless of which currencies are active in the test database.
+        self.company_currency = self.env.company.currency_id
         self.mapping = self.MappingModel.create(
             {
                 "name": "Test PDF Image Mapping",
@@ -55,6 +58,7 @@ class TestImportPdfImage(TransactionCase):
                 "ocr_lang": "eng",
                 "ocr_dpi": 300,
                 "ocr_psm": 6,
+                "currency_id": self.company_currency.id,
                 "parser_code": _PARSER_CODE,
             }
         )
@@ -81,7 +85,7 @@ class TestImportPdfImage(TransactionCase):
         self.assertEqual(len(result), 3)
 
         currency_code, account_number, statements = result
-        self.assertEqual(currency_code, "IDR")
+        self.assertEqual(currency_code, self.company_currency.name)
         self.assertFalse(account_number)
         self.assertTrue(statements, "statements must not be empty")
 
