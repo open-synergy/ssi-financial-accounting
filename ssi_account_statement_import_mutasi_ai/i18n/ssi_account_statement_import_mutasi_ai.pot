@@ -1,0 +1,771 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_account_statement_import_mutasi_ai
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Extract bank statement via mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: mutasi-ai extraction failed: %s\n"
+"Solution: Check the source file quality (scan/photo legibility) and retry, or use the Reprocess action on the mutasi-ai service if the issue is transient\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Extract bank statement via mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: mutasi-ai response contains no statements\n"
+"Solution: Check the source file quality (scan/photo legibility) and retry\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Extract bank statement via mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: mutasi-ai response has no currency_code and no Fallback Currency is configured on this backend\n"
+"Solution: Set a Fallback Currency on the mutasi-ai backend configuration\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_job.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Retry mutasi-ai statement import job\n"
+"Database ID: %s\n"
+"Problem: Job is in state '%s', only 'Failed' or 'Need Review' jobs can be retried\n"
+"Solution: Wait for the current job to finish, or check its result\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Test connection to mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: '%s/api/v1/health' returned HTTP %d\n"
+"Solution: Check that the mutasi-ai service is running and the Base URL is correct\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Test connection to mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: '%s/api/v1/me' returned HTTP %d — the Bearer Token was rejected\n"
+"Solution: Verify the Bearer Token configured on this backend\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Test connection to mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: Could not reach '%s/api/v1/health': %s\n"
+"Solution: Check the Base URL and network connectivity\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Test connection to mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: Could not reach '%s/api/v1/me': %s\n"
+"Solution: Check the Base URL and network connectivity\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Upload bank statement file to mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: Could not reach mutasi-ai backend '%s': %s\n"
+"Solution: Check the Base URL, network connectivity, and that the service is running, then retry\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Upload bank statement file to mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: File '%s' is %d bytes, larger than the service limit of %d bytes\n"
+"Solution: Split the file or use a smaller export of the bank statement\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Upload bank statement file to mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: mutasi-ai backend '%s' returned HTTP %d: %s\n"
+"Solution: Verify the Bearer Token and Base URL configuration, or check the mutasi-ai service logs\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Upload bank statement file to mutasi-ai service\n"
+"Database ID: %s\n"
+"Problem: mutasi-ai backend '%s' returned a non-JSON response\n"
+"Solution: Check the mutasi-ai service logs for the actual error\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__active
+msgid "Active"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__backend_id
+msgid "Backend configuration used to call the mutasi-ai service."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_ids
+msgid "Bank Statements"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__journal_id
+msgid ""
+"Bank journal the import was launched from, if any. When set, it constrains "
+"which journal the resulting bank statement is attached to; when empty, the "
+"journal is resolved from the account number returned by mutasi-ai."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import.py:0
+#, python-format
+msgid ""
+"Bank statement '%s' queued for AI extraction. You can follow its progress in"
+" the Mutasi AI Import Jobs menu."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_ids
+msgid "Bank statement(s) created from this job's extracted transactions."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__base_url
+msgid "Base URL"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__base_url
+msgid ""
+"Base URL of the mutasi-ai service, without trailing slash (e.g. "
+"https://carik.cantum.co.id). The wizard calls POST "
+"{base_url}/api/v1/statements to upload the bank statement file."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__bearer_token
+msgid "Bearer Token"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__code
+msgid "Code"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid "Connection Successful"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__create_uid
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__create_date
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__currency_id
+msgid ""
+"Currency used when the mutasi-ai response does not include a currency_code. "
+"If both this field and the response omit the currency, the import will fail "
+"with a missing currency error."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_journal__default_mutasi_ai_backend_id
+msgid "Default Mutasi AI Backend"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_journal__default_mutasi_ai_backend_id
+msgid ""
+"Default mutasi-ai backend pre-selected when importing bank statements via "
+"this journal. Users can still override it per-import in the Import Statement"
+" wizard."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_journal__display_name
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import__display_name
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__display_name
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__done
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
+msgid "Done"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_form
+msgid "Error"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__error_message
+msgid "Error Message"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__error_message
+msgid ""
+"Error raised while calling the mutasi-ai service or importing the extracted "
+"transactions."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__model
+msgid "Extraction Model"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__failed
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
+msgid "Failed"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__currency_id
+msgid "Fallback Currency"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_filename
+msgid "Filename"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_journal__id
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import__id
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__id
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__external_id
+msgid ""
+"ID of the extraction record on the mutasi-ai service "
+"(StatementExtractionRead.id)."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_needaction
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model,name:ssi_account_statement_import_mutasi_ai.model_account_statement_import
+msgid "Import Bank Statement Files"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_job.py:0
+#, python-format
+msgid "Import bank statement via mutasi-ai: %s"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__state
+msgid ""
+"Job status: Draft = not yet queued, Queued = waiting for a queue_job worker,"
+" Processing = currently calling the mutasi-ai service, Done = statement "
+"imported successfully, Need Review = imported but mutasi-ai flagged low "
+"confidence, Failed = the service call or import raised an error."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model,name:ssi_account_statement_import_mutasi_ai.model_account_journal
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__journal_id
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
+msgid "Journal"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_journal____last_update
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import____last_update
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend____last_update
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__write_uid
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__write_date
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__active
+msgid ""
+"Master data status\n"
+"\n"
+"* Inactive data can not be selected when creating new transaction\n"
+"* Transaction with inactive master data can still be viewed\n"
+"* Set master data as inactive if master data no longger needed,\n"
+"but master data already used on transaction"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__code
+msgid ""
+"Master data unique identifier.\n"
+"\n"
+"* Fill with '/' if You do not need unique identifier\n"
+"* Click 'Generate Code' button to automatically assign code.\n"
+"  Sequence template mush be set to perform this action\n"
+"  Only master data with '/' code will be assign automatic code"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__timeout_seconds
+msgid ""
+"Maximum time to wait for the mutasi-ai extraction response. The service "
+"itself may take up to CLAUDE_EXTRACTION_TIMEOUT_SECONDS (default 600s) to "
+"analyze a single file."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import.py:0
+#, python-format
+msgid "Mutasi AI"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import__mutasi_ai_backend_id
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__backend_id
+#: model:ir.ui.menu,name:ssi_account_statement_import_mutasi_ai.menu_account_statement_import_mutasi_ai_backend
+msgid "Mutasi AI Backend"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.actions.act_window,name:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_backend_action
+msgid "Mutasi AI Backends"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__external_id
+msgid "Mutasi AI Extraction ID"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.actions.act_window,name:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_action
+#: model:ir.ui.menu,name:ssi_account_statement_import_mutasi_ai.menu_account_statement_import_mutasi_ai_job
+msgid "Mutasi AI Import Jobs"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_backend_view_form
+msgid "Mutasi AI Settings"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:res.groups,name:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_backend_group
+msgid "Mutasi AI Statement Import"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model,name:ssi_account_statement_import_mutasi_ai.model_account_statement_import_mutasi_ai_backend
+msgid "Mutasi AI Statement Import Backend"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model,name:ssi_account_statement_import_mutasi_ai.model_account_statement_import_mutasi_ai_job
+msgid "Mutasi AI Statement Import Job"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__external_status
+msgid "Mutasi AI Status"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_form
+msgid "Mutasi AI backend:"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__name
+msgid "Name"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__need_review
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
+msgid "Need Review"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__note
+msgid "Note"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_form
+msgid "Open Statements"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__model
+msgid ""
+"Optional Claude model override sent as the 'model' form field. Leave empty "
+"to use the service's default model."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__attachment_id
+msgid ""
+"Original bank statement file uploaded by the user and sent to the mutasi-ai "
+"service."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_filename
+msgid "Original filename of the uploaded bank statement file."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__processing
+msgid "Processing"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__queued
+msgid "Queued"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__response_json
+msgid ""
+"Raw JSON response from the mutasi-ai service, kept for troubleshooting."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__response_json
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_form
+msgid "Raw Response"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__external_status
+msgid ""
+"Raw status returned by the mutasi-ai service (ok / need_review / failed)."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__name
+msgid "Reference"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_form
+msgid "Retry"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import__mutasi_ai_backend_id
+msgid ""
+"Select a mutasi-ai backend to extract this bank statement file with AI "
+"instead of a regular file parser. The file is queued and processed in the "
+"background; leave empty to use other installed format parsers."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__name
+msgid "Sequential reference of this import job."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__attachment_id
+msgid "Statement File"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__bearer_token
+msgid ""
+"Static bearer token sent as 'Authorization: Bearer <token>' on every call to"
+" the mutasi-ai service (e.g. an Authentik long-lived token or the service's "
+"DEV_BEARER_TOKEN)."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__state
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
+msgid "Status"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_backend_view_form
+msgid "Test Connection"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__timeout_seconds
+msgid "Timeout (seconds)"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__verify_ssl
+msgid "Verify SSL"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__verify_ssl
+msgid ""
+"Verify the service's TLS certificate. Disable only for self-signed "
+"certificates in a development environment."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid "mutasi-ai %s — authenticated as %s"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid "unknown error"
+msgstr ""
