@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="account_statement_import_mutasi_ai_backend_view_search" model="ir.ui.view">
+    <field name="name">account.statement.import.mutasi.ai.backend - search</field>
+    <field name="model">account.statement.import.mutasi.ai.backend</field>
+    <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data />
+    </field>
+</record>
+
+<record id="account_statement_import_mutasi_ai_backend_view_tree" model="ir.ui.view">
+    <field name="name">account.statement.import.mutasi.ai.backend - tree</field>
+    <field name="model">account.statement.import.mutasi.ai.backend</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_tree" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='active']" position="before">
+                <field name="base_url" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="account_statement_import_mutasi_ai_backend_view_form" model="ir.ui.view">
+    <field name="name">account.statement.import.mutasi.ai.backend - form</field>
+    <field name="model">account.statement.import.mutasi.ai.backend</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_form" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="/form/header" position="inside">
+                <button
+                        name="action_test_connection"
+                        type="object"
+                        string="Test Connection"
+                        class="btn-secondary"
+                    />
+            </xpath>
+            <xpath expr="//page[@name='note']" position="before">
+                <page string="Mutasi AI Settings" name="mutasi_ai_settings">
+                    <group>
+                        <field name="base_url" />
+                        <field name="bearer_token" widget="password" />
+                        <field name="model" />
+                        <field name="timeout_seconds" />
+                        <field name="verify_ssl" />
+                        <field name="currency_id" />
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record
+        id="account_statement_import_mutasi_ai_backend_action"
+        model="ir.actions.act_window"
+    >
+    <field name="name">Mutasi AI Backends</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.statement.import.mutasi.ai.backend</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="menu_account_statement_import_mutasi_ai_backend"
+        name="Mutasi AI Backend"
+        parent="ssi_financial_accounting.menu_account_configuration"
+        action="account_statement_import_mutasi_ai_backend_action"
+    />
+</odoo>

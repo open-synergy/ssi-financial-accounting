@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- account.statement.import.mutasi.ai.job — all internal users read-only.
+         Job creation/mutation always goes through sudo() in the wizard and
+         in the job's own action_* methods, so read access is enough for
+         users to monitor progress and trigger buttons. -->
+    <record
+        id="account_statement_import_mutasi_ai_job_all_access"
+        model="ir.model.access"
+    >
+        <field name="name">account.statement.import.mutasi.ai.job - all</field>
+        <field name="model_id" ref="model_account_statement_import_mutasi_ai_job" />
+        <field name="group_id" ref="base.group_user" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+    <!-- account.statement.import.mutasi.ai.job — configurator group full access -->
+    <record
+        id="account_statement_import_mutasi_ai_job_group_access"
+        model="ir.model.access"
+    >
+        <field name="name">account.statement.import.mutasi.ai.job - group</field>
+        <field name="model_id" ref="model_account_statement_import_mutasi_ai_job" />
+        <field name="group_id" ref="account_statement_import_mutasi_ai_backend_group" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+</odoo>
