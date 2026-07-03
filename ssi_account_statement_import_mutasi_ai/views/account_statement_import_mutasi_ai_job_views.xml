@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="account_statement_import_mutasi_ai_job_view_search" model="ir.ui.view">
+    <field name="name">account.statement.import.mutasi.ai.job - search</field>
+    <field name="model">account.statement.import.mutasi.ai.job</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name" />
+            <field name="statement_filename" />
+            <field name="journal_id" />
+            <field name="backend_id" />
+            <filter
+                    name="dom_failed"
+                    string="Failed"
+                    domain="[('state', '=', 'failed')]"
+                />
+            <filter
+                    name="dom_need_review"
+                    string="Need Review"
+                    domain="[('state', '=', 'need_review')]"
+                />
+            <filter name="dom_done" string="Done" domain="[('state', '=', 'done')]" />
+            <group name="group_by">
+                <filter
+                        name="grp_state"
+                        string="Status"
+                        context="{'group_by': 'state'}"
+                    />
+                <filter
+                        name="grp_journal"
+                        string="Journal"
+                        context="{'group_by': 'journal_id'}"
+                    />
+            </group>
+        </search>
+    </field>
+</record>
+
+<record id="account_statement_import_mutasi_ai_job_view_tree" model="ir.ui.view">
+    <field name="name">account.statement.import.mutasi.ai.job - tree</field>
+    <field name="model">account.statement.import.mutasi.ai.job</field>
+    <field name="arch" type="xml">
+        <tree
+                decoration-danger="state == 'failed'"
+                decoration-warning="state == 'need_review'"
+                decoration-success="state == 'done'"
+                decoration-muted="state in ('draft', 'queued')"
+            >
+            <field name="name" />
+            <field name="statement_filename" />
+            <field name="journal_id" />
+            <field name="backend_id" />
+            <field name="external_status" optional="hide" />
+            <field name="state" widget="badge" />
+            <field name="create_date" optional="show" />
+        </tree>
+    </field>
+</record>
+
+<record id="account_statement_import_mutasi_ai_job_view_form" model="ir.ui.view">
+    <field name="name">account.statement.import.mutasi.ai.job - form</field>
+    <field name="model">account.statement.import.mutasi.ai.job</field>
+    <field name="arch" type="xml">
+        <form create="false" edit="false">
+            <header>
+                <button
+                        name="action_retry"
+                        type="object"
+                        string="Retry"
+                        class="btn-primary"
+                        attrs="{'invisible': [('state', 'not in', ('failed', 'need_review'))]}"
+                    />
+                <button
+                        name="action_open_statements"
+                        type="object"
+                        string="Open Statements"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('statement_ids', '=', [])]}"
+                    />
+                <field name="state" widget="statusbar" />
+            </header>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="name" />
+                        <field name="statement_filename" />
+                        <field name="journal_id" />
+                        <field name="backend_id" />
+                    </group>
+                    <group>
+                        <field name="external_id" />
+                        <field name="external_status" />
+                        <field name="statement_ids" widget="many2many_tags" />
+                    </group>
+                </group>
+                <notebook>
+                    <page name="error" string="Error">
+                        <field name="error_message" nolabel="1" />
+                    </page>
+                    <page name="response" string="Raw Response">
+                        <field name="response_json" nolabel="1" widget="text" />
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record
+        id="account_statement_import_mutasi_ai_job_action"
+        model="ir.actions.act_window"
+    >
+    <field name="name">Mutasi AI Import Jobs</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.statement.import.mutasi.ai.job</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="menu_account_statement_import_mutasi_ai_job"
+        name="Mutasi AI Import Jobs"
+        parent="ssi_financial_accounting.menu_bank_cash"
+        action="account_statement_import_mutasi_ai_job_action"
+        sequence="3"
+    />
+</odoo>

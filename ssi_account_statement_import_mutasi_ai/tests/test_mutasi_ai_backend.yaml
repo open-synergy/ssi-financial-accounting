@@ -1,0 +1,81 @@
+scenarios:
+  - name: "Create Mutasi AI Backend"
+    steps:
+      - step: "Create backend record"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.backend"
+        save_as: "backend"
+        values:
+          name: "Test Mutasi AI Backend"
+          code: "TEST-MUTASI-AI"
+          base_url: "https://carik.example.com"
+          bearer_token: "test-token"
+      - step: "Assert backend created with correct defaults"
+        action: "assert"
+        target: "backend"
+        asserts:
+          id:
+            type: "value"
+            operator: "is_truthy"
+          name:
+            type: "value"
+            expected: "Test Mutasi AI Backend"
+          base_url:
+            type: "value"
+            expected: "https://carik.example.com"
+          timeout_seconds:
+            type: "value"
+            expected: 600
+          verify_ssl:
+            type: "value"
+            expected: true
+
+  - name: "Edit Mutasi AI Backend"
+    steps:
+      - step: "Create backend to edit"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.backend"
+        save_as: "backend"
+        values:
+          name: "Original Backend"
+          code: "ORIG-MUTASI-AI"
+          base_url: "https://carik.example.com"
+          bearer_token: "test-token"
+      - step: "Update timeout and verify_ssl"
+        action: "write"
+        target: "backend"
+        values:
+          timeout_seconds: 300
+          verify_ssl: false
+      - step: "Assert changes saved"
+        action: "assert"
+        target: "backend"
+        asserts:
+          timeout_seconds:
+            type: "value"
+            expected: 300
+          verify_ssl:
+            type: "value"
+            expected: false
+
+  - name: "Delete Mutasi AI Backend"
+    steps:
+      - step: "Create backend to delete"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.backend"
+        save_as: "backend"
+        values:
+          name: "Backend To Delete"
+          code: "DEL-MUTASI-AI"
+          base_url: "https://carik.example.com"
+          bearer_token: "test-token"
+      - step: "Delete backend record"
+        action: "call"
+        target: "backend"
+        method: "unlink"
+      - step: "Assert record no longer searchable"
+        action: "search"
+        model: "account.statement.import.mutasi.ai.backend"
+        domain: [["code", "=", "DEL-MUTASI-AI"]]
+        save_as: "search_result"
+        expect_count: 0

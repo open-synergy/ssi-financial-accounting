@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="ir_sequence_account_statement_import_mutasi_ai_job" model="ir.sequence">
+        <field name="name">Mutasi AI Statement Import Job</field>
+        <field name="code">account.statement.import.mutasi.ai.job</field>
+        <field name="prefix">MUTASIAI/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+</odoo>
