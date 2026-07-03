@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo14-addon-ssi_account_move_py3o_report',
         'odoo14-addon-ssi_account_move_sequence',
         'odoo14-addon-ssi_account_statement_import',
+        'odoo14-addon-ssi_account_statement_import_mutasi_ai',
         'odoo14-addon-ssi_account_statement_import_pdf',
         'odoo14-addon-ssi_account_statement_import_pdf_image',
         'odoo14-addon-ssi_account_type_active',
