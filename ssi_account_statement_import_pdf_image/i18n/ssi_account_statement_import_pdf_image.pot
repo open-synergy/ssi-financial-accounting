@@ -88,13 +88,43 @@ msgid "Activity Type Icon"
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_pdf_image.selection__account_statement_import_pdf_image_mapping__preprocess_binarize__adaptive
+msgid "Adaptive"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_autocontrast
+msgid "Auto Contrast"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_deskew
+msgid ""
+"Automatically detect and correct the rotation angle of a slightly tilted "
+"scan before OCR. Only applied when 'Enable Image Preprocessing' is active."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_binarize
+msgid "Binarization"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__code
 msgid "Code"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_grayscale
+msgid ""
+"Convert the rendered page to a single-channel grayscale image before further"
+" preprocessing steps. Only applied when 'Enable Image Preprocessing' is "
+"active."
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
@@ -126,10 +156,29 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_deskew
+msgid "Deskew"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_journal__display_name
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import__display_name
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_enabled
+msgid "Enable Image Preprocessing"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_scale
+msgid ""
+"Factor used to resize the rendered page before other preprocessing steps, "
+"e.g. 2.0 doubles width and height. Values greater than 1.0 can help OCR read"
+" small text on low-resolution scans. Only applied when 'Enable Image "
+"Preprocessing' is active."
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
@@ -161,6 +210,16 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_pdf_image.selection__account_statement_import_pdf_image_mapping__preprocess_binarize__global
+msgid "Global threshold"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_grayscale
+msgid "Grayscale"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_journal__id
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import__id
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__id
@@ -186,6 +245,11 @@ msgstr ""
 #. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_has_error
 msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_pdf_image.account_statement_import_pdf_image_mapping_view_form
+msgid "Image Preprocessing"
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
@@ -248,6 +312,15 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_enabled
+msgid ""
+"Master toggle for image preprocessing before OCR. When disabled, each "
+"rendered page is passed to OCR as-is (existing behavior). Enable this for "
+"low-quality scans (e.g. photocopied passbooks) where OCR text comes out too "
+"noisy for parser_code to parse."
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_has_error
 msgid "Message Delivery error"
 msgstr ""
@@ -255,6 +328,18 @@ msgstr ""
 #. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_ids
 msgid "Messages"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_binarize
+msgid ""
+"Method used to convert the grayscale image into pure black-and-white pixels "
+"before OCR. 'Adaptive' is recommended for scans with uneven lighting or "
+"folds (e.g. passbook photos): 'None' = skip binarization, 'Global threshold'"
+" = single fixed threshold value ('Threshold' field below), 'Otsu' = "
+"automatic single threshold computed from the image histogram, 'Adaptive' = "
+"local threshold computed per image region. Only applied when 'Enable Image "
+"Preprocessing' is active."
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
@@ -280,6 +365,19 @@ msgstr ""
 #. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_type_id
 msgid "Next Activity Type"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_pdf_image.selection__account_statement_import_pdf_image_mapping__preprocess_binarize__none
+msgid "None"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_autocontrast
+msgid ""
+"Normalize pixel intensity to the full 0-255 range to improve contrast on "
+"faded or unevenly lit scans. Only applied when 'Enable Image Preprocessing' "
+"is active."
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
@@ -328,6 +426,11 @@ msgid "OCR Settings"
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_pdf_image.selection__account_statement_import_pdf_image_mapping__preprocess_binarize__otsu
+msgid "Otsu"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
 #: model:ir.model,name:ssi_account_statement_import_pdf_image.model_account_statement_import_pdf_image_mapping
 msgid "PDF Image Statement Import Mapping"
 msgstr ""
@@ -358,6 +461,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__parser_code
 #: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_pdf_image.account_statement_import_pdf_image_mapping_view_form
 msgid "Parser Code"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_threshold
+msgid ""
+"Pixel intensity threshold (0-255) used only when 'Binarization' is set to "
+"'Global threshold'. Pixels above this value become white, pixels at or below"
+" become black."
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
@@ -428,6 +539,11 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_threshold
+msgid "Threshold"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,help:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr ""
@@ -440,6 +556,11 @@ msgstr ""
 #. module: ssi_account_statement_import_pdf_image
 #: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__message_unread_counter
 msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: ssi_account_statement_import_pdf_image
+#: model:ir.model.fields,field_description:ssi_account_statement_import_pdf_image.field_account_statement_import_pdf_image_mapping__preprocess_scale
+msgid "Upscale Factor"
 msgstr ""
 
 #. module: ssi_account_statement_import_pdf_image
