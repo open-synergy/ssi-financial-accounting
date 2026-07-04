@@ -186,6 +186,11 @@ msgid "Backend configuration used to call the mutasi-ai service."
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model,name:ssi_account_statement_import_mutasi_ai.model_account_bank_statement
+msgid "Bank Statement"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_ids
 msgid "Bank Statements"
 msgstr ""
@@ -202,8 +207,8 @@ msgstr ""
 #: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import.py:0
 #, python-format
 msgid ""
-"Bank statement '%s' queued for AI extraction. You can follow its progress in"
-" the Mutasi AI Import Jobs menu."
+"Bank statement '%s' queued for AI extraction. It is processed in the "
+"background; you can follow its progress from the related bank statement."
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
@@ -274,6 +279,7 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_bank_statement__display_name
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_journal__display_name
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import__display_name
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__display_name
@@ -283,7 +289,6 @@ msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__done
-#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
 msgid "Done"
 msgstr ""
 
@@ -324,7 +329,6 @@ msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__failed
-#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
 msgid "Failed"
 msgstr ""
 
@@ -359,6 +363,7 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_bank_statement__id
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_journal__id
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import__id
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__id
@@ -422,11 +427,11 @@ msgstr ""
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model,name:ssi_account_statement_import_mutasi_ai.model_account_journal
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__journal_id
-#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
 msgid "Journal"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_bank_statement____last_update
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_journal____last_update
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import____last_update
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend____last_update
@@ -515,8 +520,8 @@ msgid "Mutasi AI Extraction ID"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
-#: model:ir.actions.act_window,name:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_action
-#: model:ir.ui.menu,name:ssi_account_statement_import_mutasi_ai.menu_account_statement_import_mutasi_ai_job
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_bank_statement__mutasi_ai_job_ids
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_bank_statement_mutasi_ai_job_form
 msgid "Mutasi AI Import Jobs"
 msgstr ""
 
@@ -551,6 +556,14 @@ msgid "Mutasi AI backend:"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_bank_statement__mutasi_ai_job_ids
+msgid ""
+"Mutasi AI extraction job(s) whose imported transactions landed on this bank "
+"statement. Read-only; jobs are created and processed from the bank statement"
+" import wizard."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
@@ -562,7 +575,6 @@ msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__need_review
-#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
 msgid "Need Review"
 msgstr ""
 
@@ -706,7 +718,6 @@ msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__state
-#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_search
 msgid "Status"
 msgstr ""
 
