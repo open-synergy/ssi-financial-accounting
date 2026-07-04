@@ -310,6 +310,14 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_id
+msgid ""
+"Existing bank statement the import was launched from (e.g. via its 'Import "
+"Statement' button), if any. When set, the extracted transactions are added "
+"to this statement instead of creating a new one."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__model
 msgid "Extraction Model"
 msgstr ""
@@ -709,6 +717,11 @@ msgid ""
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_id
+msgid "Target Statement"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
