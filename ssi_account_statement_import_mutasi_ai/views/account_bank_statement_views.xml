@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="account_bank_statement_mutasi_ai_job_form" model="ir.ui.view">
+    <field name="name">account.bank.statement.mutasi.ai.job.form</field>
+    <field name="model">account.bank.statement</field>
+    <field name="inherit_id" ref="account.view_bank_statement_form" />
+    <field name="arch" type="xml">
+        <xpath expr="//notebook" position="inside">
+            <page
+                    name="mutasi_ai_jobs"
+                    string="Mutasi AI Import Jobs"
+                    attrs="{'invisible': [('mutasi_ai_job_ids', '=', [])]}"
+                >
+                <field name="mutasi_ai_job_ids" readonly="1">
+                    <tree
+                            decoration-danger="state == 'failed'"
+                            decoration-warning="state == 'need_review'"
+                            decoration-success="state == 'done'"
+                            decoration-muted="state in ('draft', 'queued')"
+                        >
+                        <field name="name" />
+                        <field name="statement_filename" />
+                        <field name="backend_id" />
+                        <field name="external_status" optional="hide" />
+                        <field name="state" widget="badge" />
+                        <field name="create_date" optional="show" />
+                    </tree>
+                </field>
+            </page>
+        </xpath>
+    </field>
+</record>
+</odoo>

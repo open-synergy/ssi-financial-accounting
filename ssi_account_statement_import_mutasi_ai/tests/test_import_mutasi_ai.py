@@ -205,6 +205,31 @@ class TestImportMutasiAi(TransactionCase):
             [("statement_id", "=", existing_statement.id)]
         )
         self.assertEqual(len(lines), 2)
+        self.assertIn(
+            job,
+            existing_statement.mutasi_ai_job_ids,
+            "the updated bank statement must expose the import job "
+            "via mutasi_ai_job_ids",
+        )
+
+    def test_run_links_job_to_created_statement(self):
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        job = self._make_job(unique_suffix="link")
+        with patch(
+            _CALL_SERVICE_PATH,
+            return_value=_sample_response(
+                unique_suffix="link", currency_code=self.company_currency
+            ),
+        ):
+            job._run()
+        self.assertTrue(job.statement_ids)
+        self.assertIn(
+            job,
+            job.statement_ids.mutasi_ai_job_ids,
+            "the created bank statement must expose its import job "
+            "via mutasi_ai_job_ids",
+        )
 
     def test_run_dedup_second_run_need_review(self):
         if not self.bank_journal:
@@ -284,6 +309,23 @@ class TestImportMutasiAi(TransactionCase):
             statement_count_before,
             statement_count_after,
             "enqueue path must not create a statement synchronously",
+        )
+
+    def test_enqueue_returns_close_action(self):
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(b"dummy pdf content"),
+                "statement_filename": "close_action_test.pdf",
+                "mutasi_ai_backend_id": self.backend.id,
+            }
+        )
+        action = wizard.import_file_button()
+        self.assertEqual(action["tag"], "display_notification")
+        self.assertEqual(action["params"]["type"], "success")
+        self.assertEqual(
+            action["params"]["next"]["type"],
+            "ir.actions.act_window_close",
+            "the import wizard must close after a successful enqueue",
         )
 
     def test_enqueue_from_existing_statement_captures_statement_id(self):

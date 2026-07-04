@@ -29,6 +29,7 @@
         "views/account_statement_import_mutasi_ai_job_views.xml",
         "views/account_statement_import_views.xml",
         "views/account_journal_views.xml",
+        "views/account_bank_statement_views.xml",
     ],
     "installable": True,
     "application": False,
