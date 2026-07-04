@@ -88,6 +88,7 @@
                         <field name="name" />
                         <field name="statement_filename" />
                         <field name="journal_id" />
+                        <field name="statement_id" />
                         <field name="backend_id" />
                     </group>
                     <group>

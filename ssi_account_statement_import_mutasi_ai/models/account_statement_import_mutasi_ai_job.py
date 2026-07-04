@@ -59,6 +59,15 @@ class AccountStatementImportMutasiAiJob(models.Model):
         "attached to; when empty, the journal is resolved from the "
         "account number returned by mutasi-ai.",
     )
+    statement_id = fields.Many2one(
+        string="Target Statement",
+        comodel_name="account.bank.statement",
+        readonly=True,
+        help="Existing bank statement the import was launched from (e.g. "
+        "via its 'Import Statement' button), if any. When set, the "
+        "extracted transactions are added to this statement instead of "
+        "creating a new one.",
+    )
     backend_id = fields.Many2one(
         string="Mutasi AI Backend",
         comodel_name="account.statement.import.mutasi.ai.backend",
@@ -207,6 +216,13 @@ Solution: Wait for the current job to finish, or check its result
             import_context = {}
             if self.journal_id:
                 import_context["journal_id"] = self.journal_id.id
+            if self.statement_id:
+                # Mirrors the context the base wizard normally receives when
+                # opened from an existing statement's "Import Statement"
+                # button, so `import_single_statement` updates it instead
+                # of creating a new one.
+                import_context["active_model"] = "account.bank.statement"
+                import_context["active_ids"] = [self.statement_id.id]
             wizard = (
                 self.env["account.statement.import"]
                 .sudo()

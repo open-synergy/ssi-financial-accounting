@@ -86,9 +86,15 @@ class AccountStatementImport(models.TransientModel):
     def _prepare_mutasi_ai_job(self, attachment):
         self.ensure_one()
         journal_id = self.env.context.get("journal_id")
+        statement_id = False
+        if self.env.context.get("active_model") == "account.bank.statement":
+            active_ids = self.env.context.get("active_ids") or []
+            if active_ids:
+                statement_id = active_ids[0]
         return {
             "attachment_id": attachment.id,
             "statement_filename": self.statement_filename,
             "journal_id": journal_id,
+            "statement_id": statement_id,
             "backend_id": self.mutasi_ai_backend_id.id,
         }

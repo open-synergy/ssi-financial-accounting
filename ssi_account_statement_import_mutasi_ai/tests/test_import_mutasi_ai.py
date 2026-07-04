@@ -170,6 +170,42 @@ class TestImportMutasiAi(TransactionCase):
         )
         self.assertEqual(len(lines), 2)
 
+    def test_run_with_statement_id_updates_existing_statement(self):
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        existing_statement = self.env["account.bank.statement"].create(
+            {
+                "journal_id": self.bank_journal.id,
+                "date": "2026-01-31",
+            }
+        )
+        statement_count_before = self.env["account.bank.statement"].search_count([])
+        job = self._make_job(unique_suffix="update")
+        job.write({"statement_id": existing_statement.id})
+        with patch(
+            _CALL_SERVICE_PATH,
+            return_value=_sample_response(
+                unique_suffix="update", currency_code=self.company_currency
+            ),
+        ):
+            job._run()
+        self.assertEqual(job.state, "done")
+        self.assertEqual(
+            job.statement_ids,
+            existing_statement,
+            "job must report the existing statement it updated, not a new one",
+        )
+        statement_count_after = self.env["account.bank.statement"].search_count([])
+        self.assertEqual(
+            statement_count_before,
+            statement_count_after,
+            "importing into an existing statement must not create a new statement",
+        )
+        lines = self.env["account.bank.statement.line"].search(
+            [("statement_id", "=", existing_statement.id)]
+        )
+        self.assertEqual(len(lines), 2)
+
     def test_run_dedup_second_run_need_review(self):
         if not self.bank_journal:
             self.skipTest("No bank journal found in test environment")
@@ -249,6 +285,53 @@ class TestImportMutasiAi(TransactionCase):
             statement_count_after,
             "enqueue path must not create a statement synchronously",
         )
+
+    def test_enqueue_from_existing_statement_captures_statement_id(self):
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        existing_statement = self.env["account.bank.statement"].create(
+            {
+                "journal_id": self.bank_journal.id,
+                "date": "2026-01-31",
+            }
+        )
+        wizard = (
+            self.env["account.statement.import"]
+            .with_context(
+                active_model="account.bank.statement",
+                active_ids=[existing_statement.id],
+            )
+            .create(
+                {
+                    "statement_file": base64.b64encode(b"dummy pdf content"),
+                    "statement_filename": "enqueue_from_statement_test.pdf",
+                    "mutasi_ai_backend_id": self.backend.id,
+                }
+            )
+        )
+        wizard.import_file_button()
+
+        job = self.env[_JOB_MODEL].search(
+            [("statement_filename", "=", "enqueue_from_statement_test.pdf")]
+        )
+        self.assertEqual(len(job), 1)
+        self.assertEqual(job.statement_id, existing_statement)
+
+    def test_enqueue_without_active_statement_leaves_statement_id_empty(self):
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(b"dummy pdf content"),
+                "statement_filename": "enqueue_no_statement_test.pdf",
+                "mutasi_ai_backend_id": self.backend.id,
+            }
+        )
+        wizard.import_file_button()
+
+        job = self.env[_JOB_MODEL].search(
+            [("statement_filename", "=", "enqueue_no_statement_test.pdf")]
+        )
+        self.assertEqual(len(job), 1)
+        self.assertFalse(job.statement_id)
 
     def test_preselect_backend_from_journal_default(self):
         if not self.bank_journal:
