@@ -10,8 +10,9 @@ Import bank statements using the mutasi-ai AI extraction service. Each
 mutasi-ai backend holds the service's base URL and bearer token. Files
 uploaded through the standard Import Statement wizard are queued via
 ``queue_job`` and processed in the background, since a single extraction
-can take several minutes. Progress, errors, and links to the resulting
-bank statements can be monitored from the Mutasi AI Import Jobs menu.
+can take several minutes. Progress, errors, and the resulting
+transactions can be monitored from the related bank statement, which
+lists its Mutasi AI import jobs in a read-only tab.
 
 
 Bug Tracker

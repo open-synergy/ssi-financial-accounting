@@ -5,3 +5,4 @@ from . import account_statement_import_mutasi_ai_backend
 from . import account_statement_import_mutasi_ai_job
 from . import account_statement_import
 from . import account_journal
+from . import account_bank_statement

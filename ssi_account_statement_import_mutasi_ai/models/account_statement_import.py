@@ -66,12 +66,14 @@ class AccountStatementImport(models.TransientModel):
             "params": {
                 "title": _("Mutasi AI"),
                 "message": _(
-                    "Bank statement '%s' queued for AI extraction. You can "
-                    "follow its progress in the Mutasi AI Import Jobs menu."
+                    "Bank statement '%s' queued for AI extraction. It is "
+                    "processed in the background; you can follow its progress "
+                    "from the related bank statement."
                 )
                 % (self.statement_filename or ""),
-                "type": "info",
+                "type": "success",
                 "sticky": False,
+                "next": {"type": "ir.actions.act_window_close"},
             },
         }
 
