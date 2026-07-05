@@ -5,9 +5,13 @@
 <odoo>
 <record id="account_payment_rule_ou" model="ir.rule">
     <field name="model_id" ref="account.model_account_payment" />
-    <field name="groups" eval="[(4, ref('journal_entry_ou_group'))]" />
+    <field
+            name="groups"
+            eval="[(4, ref('customer_payment_ou_group')), (4, ref('vendor_payment_ou_group'))]"
+        />
     <field name="domain_force">
-        [('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]
+        ['|', ('operating_unit_id','=',False),
+        ('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]
     </field>
     <field name="name">account.payment - ou</field>
     <field eval="1" name="perm_unlink" />

@@ -2,7 +2,7 @@
 # Copyright 2024 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -12,6 +12,11 @@ class AccountMove(models.Model):
         "account.move",
         "mixin.single_operating_unit",
     ]
+
+    operating_unit_id = fields.Many2one(
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+    )
 
     @api.onchange("invoice_line_ids")
     def _onchange_invoice_line_ids(self):
@@ -27,16 +32,20 @@ class AccountMove(models.Model):
             not self.journal_id
             or self.operating_unit_id not in self.journal_id.operating_unit_ids
         ):
-            journal = self.env["account.journal"].search(
-                [("type", "=", self.journal_id.type)]
-            )
-            jf = journal.filtered(
-                lambda aj: self.operating_unit_id in aj.operating_unit_ids
-            )
-            if not jf:
-                self.journal_id = journal[0]
-            else:
-                self.journal_id = jf[0]
+            # self.journal_id may be empty (e.g. new move not yet linked to a
+            # journal) — searching with type=False would return an empty
+            # recordset and journal[0] below would raise IndexError. Only
+            # look for a replacement journal when there is a current one to
+            # match against.
+            if self.journal_id:
+                journal = self.env["account.journal"].search(
+                    [("type", "=", self.journal_id.type)]
+                )
+                if journal:
+                    jf = journal.filtered(
+                        lambda aj: self.operating_unit_id in aj.operating_unit_ids
+                    )
+                    self.journal_id = jf[0] if jf else journal[0]
             for line in self.line_ids:
                 line.operating_unit_id = self.operating_unit_id
 
