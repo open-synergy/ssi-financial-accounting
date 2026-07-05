@@ -36,7 +36,14 @@ class TestSsiFinancialAccountingOperatingUnit(YamlTransactionCase):
         )
 
     def _create_ou_scoped_user(self, login, group_xmlids, operating_units):
-        group_ids = [self.env.ref("base.group_user").id]
+        # account.group_account_readonly grants the base ACL (ir.model.access)
+        # to read account.move/account.bank.statement/account.payment; without
+        # it the OU-scoped group alone only affects the ir.rule (row-level)
+        # layer and every read is rejected before the rule is even evaluated.
+        group_ids = [
+            self.env.ref("base.group_user").id,
+            self.env.ref("account.group_account_readonly").id,
+        ]
         for xmlid in group_xmlids:
             group_ids.append(self.env.ref(xmlid).id)
         return self.env["res.users"].create(
