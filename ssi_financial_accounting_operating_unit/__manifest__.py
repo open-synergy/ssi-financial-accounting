@@ -12,10 +12,12 @@
     "depends": [
         "ssi_financial_accounting",
         "ssi_operating_unit_mixin",
+        "account_statement_import",
     ],
     "data": [
         "security/res_group/journal_entry.xml",
         "security/res_group/bank_statement.xml",
+        "security/res_group/account_payment.xml",
         "security/ir_rule/account_journal.xml",
         "security/ir_rule/account_move.xml",
         "security/ir_rule/account_move_line.xml",

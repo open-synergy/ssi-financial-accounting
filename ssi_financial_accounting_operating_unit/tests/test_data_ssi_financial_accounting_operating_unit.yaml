@@ -1,0 +1,86 @@
+scenarios:
+  - name: "Create account move without operating unit stays draft"
+    steps:
+      - step: "Create general journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "journal"
+        values:
+          name: "Test General Journal OU"
+          code: "TSTGOU"
+          type: "general"
+
+      - step: "Create move without operating unit"
+        action: "create"
+        model: "account.move"
+        save_as: "move"
+        values:
+          move_type: "entry"
+          journal_id: "EVAL: registry['journal'].id"
+          operating_unit_id: false
+
+      - step: "Assert move is draft and has no operating unit"
+        action: "assert"
+        target: "move"
+        asserts:
+          state:
+            type: "value"
+            expected: "draft"
+          operating_unit_id:
+            type: "value"
+            operator: "is_falsy"
+
+  - name: "Bank statement line inherits operating unit from parent statement"
+    steps:
+      - step: "Create partner for operating unit"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        values:
+          name: "Test OU Partner (YAML)"
+
+      - step: "Create operating unit"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou"
+        values:
+          name: "Test OU (YAML)"
+          code: "TESTOUY"
+          partner_id: "EVAL: registry['partner'].id"
+
+      - step: "Create bank journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "bank_journal"
+        values:
+          name: "Test Bank Journal (YAML)"
+          code: "TSTBKY"
+          type: "bank"
+
+      - step: "Create bank statement with operating unit"
+        action: "create"
+        model: "account.bank.statement"
+        save_as: "statement"
+        values:
+          name: "Test Statement (YAML)"
+          journal_id: "EVAL: registry['bank_journal'].id"
+          operating_unit_id: "EVAL: registry['ou'].id"
+
+      - step: "Create bank statement line"
+        action: "create"
+        model: "account.bank.statement.line"
+        save_as: "line"
+        values:
+          statement_id: "EVAL: registry['statement'].id"
+          payment_ref: "Test Line (YAML)"
+          amount: 100.0
+          date: 2026-07-06
+
+      - step: "Verify line inherited the statement operating unit"
+        action: "search"
+        model: "account.bank.statement.line"
+        domain:
+          - ["id", "=", "EVAL: registry['line'].id"]
+          - ["operating_unit_id", "=", "EVAL: registry['ou'].id"]
+        save_as: "matched"
+        expect_count: 1
