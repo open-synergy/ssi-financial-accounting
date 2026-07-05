@@ -35,17 +35,38 @@ class TestSsiFinancialAccountingOperatingUnit(YamlTransactionCase):
             }
         )
 
-    def _create_ou_scoped_user(self, login, group_xmlids, operating_units):
-        # account.group_account_readonly grants the base ACL (ir.model.access)
-        # to read account.move/account.bank.statement/account.payment; without
-        # it the OU-scoped group alone only affects the ir.rule (row-level)
-        # layer and every read is rejected before the rule is even evaluated.
-        group_ids = [
-            self.env.ref("base.group_user").id,
-            self.env.ref("account.group_account_readonly").id,
-        ]
+    def _create_ou_scoped_user(
+        self, login, group_xmlids, operating_units, model_names=None
+    ):
+        group_ids = [self.env.ref("base.group_user").id]
         for xmlid in group_xmlids:
             group_ids.append(self.env.ref(xmlid).id)
+        if model_names:
+            # ir.rule is only reached after ir.model.access (ACL) passes, so
+            # the OU group alone isn't enough to read the model at all. Grant
+            # read ACL straight to the OU-scoped group(s) instead of a stock
+            # accounting group (group_account_invoice/group_account_readonly):
+            # both of those carry an unrestricted "(1,'=',1)" ir.rule for
+            # account.move/account.move.line (odoo/addons/account/security/
+            # account_security.xml), which would OR-combine with our
+            # restrictive rule and defeat the isolation being tested here —
+            # and, in production, means any user holding those stock groups
+            # bypasses OU isolation on account.move entirely regardless of
+            # this module.
+            for xmlid in group_xmlids:
+                group = self.env.ref(xmlid)
+                for model_name in model_names:
+                    self.env["ir.model.access"].create(
+                        {
+                            "name": "test_ou_read_%s_%s" % (model_name, group.id),
+                            "model_id": self.env["ir.model"]._get(model_name).id,
+                            "group_id": group.id,
+                            "perm_read": True,
+                            "perm_write": False,
+                            "perm_create": False,
+                            "perm_unlink": False,
+                        }
+                    )
         return self.env["res.users"].create(
             {
                 "name": login,
@@ -372,6 +393,7 @@ class TestSsiFinancialAccountingOperatingUnit(YamlTransactionCase):
             "test_rule_move_user",
             ["ssi_financial_accounting_operating_unit.journal_entry_ou_group"],
             ou_a,
+            model_names=["account.move"],
         )
         visible = (
             self.env["account.move"]
@@ -404,6 +426,7 @@ class TestSsiFinancialAccountingOperatingUnit(YamlTransactionCase):
             "test_rule_statement_user",
             ["ssi_financial_accounting_operating_unit.bank_statement_ou_group"],
             ou_a,
+            model_names=["account.bank.statement"],
         )
         visible = (
             self.env["account.bank.statement"]
