@@ -520,11 +520,19 @@ class TestSsiFinancialAccountingOperatingUnit(YamlTransactionCase):
         )
 
         def _create_posted_move(operating_unit):
+            # mixin.single_operating_unit's operating_unit_id has its own
+            # default (res.users.operating_unit_default_get()), which fills
+            # the line whenever the key is absent from vals — the
+            # account.move.line create() override only force-propagates the
+            # move's OU when it is truthy, so operating_unit_id=False must be
+            # passed explicitly here to keep the "no OU" line actually
+            # OU-less instead of falling back to that default.
+            ou_id = operating_unit.id if operating_unit else False
             move = self.env["account.move"].create(
                 {
                     "move_type": "entry",
                     "journal_id": sales_journal.id,
-                    "operating_unit_id": operating_unit.id if operating_unit else False,
+                    "operating_unit_id": ou_id,
                     "line_ids": [
                         (
                             0,
@@ -533,6 +541,7 @@ class TestSsiFinancialAccountingOperatingUnit(YamlTransactionCase):
                                 "account_id": receivable_account.id,
                                 "debit": 100.0,
                                 "credit": 0.0,
+                                "operating_unit_id": ou_id,
                             },
                         ),
                         (
@@ -542,6 +551,7 @@ class TestSsiFinancialAccountingOperatingUnit(YamlTransactionCase):
                                 "account_id": offset_account.id,
                                 "debit": 0.0,
                                 "credit": 100.0,
+                                "operating_unit_id": ou_id,
                             },
                         ),
                     ],
