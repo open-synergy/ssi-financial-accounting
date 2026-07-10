@@ -13,6 +13,7 @@
         "ssi_financial_accounting",
         "ssi_operating_unit_mixin",
         "account_statement_import",
+        "account_reconciliation_widget",
     ],
     "data": [
         "security/res_group/journal_entry.xml",

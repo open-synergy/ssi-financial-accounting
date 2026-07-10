@@ -9,4 +9,5 @@ from . import (
     account_bank_statement,
     account_bank_statement_line,
     account_statement_import,
+    account_reconciliation_widget,
 )
