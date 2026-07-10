@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ssi_financial_accounting_operating_unit
+#: model:ir.model,name:ssi_financial_accounting_operating_unit.model_account_reconciliation_widget
+msgid "Account Reconciliation widget"
+msgstr ""
+
+#. module: ssi_financial_accounting_operating_unit
 #: model:ir.model,name:ssi_financial_accounting_operating_unit.model_account_bank_statement
 msgid "Bank Statement"
 msgstr ""
@@ -45,6 +50,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_journal__display_name
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_move__display_name
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_reconciliation_widget__display_name
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_statement_import__display_name
 msgid "Display Name"
 msgstr ""
@@ -55,6 +61,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_journal__id
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_move__id
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_move_line__id
+#: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_reconciliation_widget__id
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_statement_import__id
 msgid "ID"
 msgstr ""
@@ -85,6 +92,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_journal____last_update
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_move____last_update
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_reconciliation_widget____last_update
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_statement_import____last_update
 msgid "Last Modified on"
 msgstr ""
