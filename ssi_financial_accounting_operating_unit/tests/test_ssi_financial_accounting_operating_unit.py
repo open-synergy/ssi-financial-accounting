@@ -4,6 +4,7 @@
 
 from odoo_yaml_test import YamlTransactionCase
 
+from odoo import fields
 from odoo.exceptions import UserError
 from odoo.tests import Form, tagged
 
@@ -475,6 +476,129 @@ class TestSsiFinancialAccountingOperatingUnit(YamlTransactionCase):
         stmts_vals = [{"transactions": [{"payment_ref": "Test Import Line"}]}]
         result = wizard._complete_stmts_vals(stmts_vals, journal, "1234567890")
         self.assertEqual(result[0]["operating_unit_id"], ou_b.id)
+
+    # ------------------------------------------------------------------
+    # BL-0080 — bank statement reconciliation widget OU filtering.
+    #
+    # `_domain_move_lines_for_reconciliation` builds a domain later fed to
+    # `_where_calc().get_sql()`, which bypasses `_apply_ir_rules` entirely.
+    # These are plain Python (not YAML) because they assert on the domain
+    # builder's return value under a specific user context, which the YAML
+    # DSL cannot express.
+    # ------------------------------------------------------------------
+
+    def _create_reconciliation_widget_fixture(self):
+        ou_a = self._create_operating_unit("Test Reconcile Widget OU A", "TESTRWA")
+        ou_b = self._create_operating_unit("Test Reconcile Widget OU B", "TESTRWB")
+        receivable_account = self.env["account.account"].create(
+            {
+                "name": "Test Reconcile Widget Receivable",
+                "code": "TSTRWREC",
+                "user_type_id": self.env.ref("account.data_account_type_receivable").id,
+                "reconcile": True,
+            }
+        )
+        offset_account = self.env["account.account"].search(
+            [("id", "!=", receivable_account.id), ("deprecated", "=", False)], limit=1
+        )
+        sales_journal = self.env["account.journal"].create(
+            {"name": "Test Reconcile Widget Sales", "code": "TSTRWSJ", "type": "sale"}
+        )
+        bank_journal = self.env["account.journal"].create(
+            {"name": "Test Reconcile Widget Bank", "code": "TSTRWBJ", "type": "bank"}
+        )
+        statement = self.env["account.bank.statement"].create(
+            {"name": "Test Reconcile Widget Stmt", "journal_id": bank_journal.id}
+        )
+        st_line = self.env["account.bank.statement.line"].create(
+            {
+                "statement_id": statement.id,
+                "payment_ref": "Test Reconcile Widget Line",
+                "amount": 100.0,
+                "date": fields.Date.today(),
+            }
+        )
+
+        def _create_posted_move(operating_unit):
+            move = self.env["account.move"].create(
+                {
+                    "move_type": "entry",
+                    "journal_id": sales_journal.id,
+                    "operating_unit_id": operating_unit.id if operating_unit else False,
+                    "line_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "account_id": receivable_account.id,
+                                "debit": 100.0,
+                                "credit": 0.0,
+                            },
+                        ),
+                        (
+                            0,
+                            0,
+                            {
+                                "account_id": offset_account.id,
+                                "debit": 0.0,
+                                "credit": 100.0,
+                            },
+                        ),
+                    ],
+                }
+            )
+            move.action_post()
+            return move.line_ids.filtered(
+                lambda line: line.account_id == receivable_account
+            )
+
+        line_ou_a = _create_posted_move(ou_a)
+        line_ou_b = _create_posted_move(ou_b)
+        line_no_ou = _create_posted_move(False)
+
+        user_a = self._create_ou_scoped_user(
+            "test_reconcile_widget_user_a",
+            ["ssi_financial_accounting_operating_unit.journal_entry_ou_group"],
+            ou_a,
+            model_names=["account.move.line"],
+        )
+        return {
+            "st_line": st_line,
+            "receivable_account": receivable_account,
+            "line_ou_a": line_ou_a,
+            "line_ou_b": line_ou_b,
+            "line_no_ou": line_no_ou,
+            "user_a": user_a,
+        }
+
+    def test_reconciliation_widget_domain_hides_other_ou_and_keeps_own(self):
+        fixture = self._create_reconciliation_widget_fixture()
+        widget = self.env["account.reconciliation.widget"].with_user(fixture["user_a"])
+        domain = widget._domain_move_lines_for_reconciliation(
+            fixture["st_line"], [fixture["receivable_account"].id], False
+        )
+        amls = self.env["account.move.line"].sudo().search(domain)
+        self.assertIn(fixture["line_ou_a"], amls)
+        self.assertNotIn(fixture["line_ou_b"], amls)
+
+    def test_reconciliation_widget_domain_keeps_lines_without_ou(self):
+        fixture = self._create_reconciliation_widget_fixture()
+        widget = self.env["account.reconciliation.widget"].with_user(fixture["user_a"])
+        domain = widget._domain_move_lines_for_reconciliation(
+            fixture["st_line"], [fixture["receivable_account"].id], False
+        )
+        amls = self.env["account.move.line"].sudo().search(domain)
+        self.assertIn(fixture["line_no_ou"], amls)
+
+    def test_reconciliation_widget_domain_superuser_sees_all_ou(self):
+        fixture = self._create_reconciliation_widget_fixture()
+        widget = self.env["account.reconciliation.widget"].sudo()
+        domain = widget._domain_move_lines_for_reconciliation(
+            fixture["st_line"], [fixture["receivable_account"].id], False
+        )
+        amls = self.env["account.move.line"].sudo().search(domain)
+        self.assertIn(fixture["line_ou_a"], amls)
+        self.assertIn(fixture["line_ou_b"], amls)
 
     def test_complete_stmts_vals_multiple_operating_units_no_default_match(self):
         ou_a = self._create_operating_unit("Test Import NoMatch OU A", "TESTIMPNA")
