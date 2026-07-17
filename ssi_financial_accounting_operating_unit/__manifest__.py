@@ -19,6 +19,7 @@
         "security/res_group/journal_entry.xml",
         "security/res_group/bank_statement.xml",
         "security/res_group/account_payment.xml",
+        "security/res_group/vendor_bill.xml",
         "security/ir_rule/account_journal.xml",
         "security/ir_rule/account_move.xml",
         "security/ir_rule/account_move_line.xml",
