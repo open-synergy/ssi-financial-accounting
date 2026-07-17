@@ -105,6 +105,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_move_line__operating_unit_id
 #: model:ir.model.fields,field_description:ssi_financial_accounting_operating_unit.field_account_payment__operating_unit_id
 #: model:res.groups,name:ssi_financial_accounting_operating_unit.bank_statement_ou_group
+#: model:res.groups,name:ssi_financial_accounting_operating_unit.bill_ou_group
 #: model:res.groups,name:ssi_financial_accounting_operating_unit.customer_payment_ou_group
 #: model:res.groups,name:ssi_financial_accounting_operating_unit.journal_entry_ou_group
 #: model:res.groups,name:ssi_financial_accounting_operating_unit.vendor_payment_ou_group
