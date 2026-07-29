@@ -62,11 +62,29 @@ class MassReconcileAdvancedPartner(models.TransientModel):
         """Yield only partner_id as opposite matcher."""
         yield ("partner_id", move_line["partner_id"])
 
+    @staticmethod
+    def _group_lines_sort_key(move_line):
+        """Sort key applied to a reconcile group's lines before reconciling.
+
+        `reconcile_group_ids` is a Python `set`, so iterating it yields an
+        arbitrary order unrelated to invoice date or number. Odoo core's
+        `account.move.line.reconcile()` preserves whatever order it is
+        given (it filters the recordset into debit/credit sub-lists
+        without re-sorting), so sorting here by date (oldest first) is
+        what makes an available credit apply against the oldest open
+        invoice first (FIFO) instead of whichever invoice happened to
+        land first in the unordered set.
+        """
+        return (move_line["date"], move_line["id"])
+
     def _rec_group(self, reconcile_groups, lines_by_id):
         """Override to also track partially reconciled lines.
 
         The base implementation only tracks fully reconciled lines.
-        This version also includes partial reconciliations.
+        This version also includes partial reconciliations, and sorts
+        each group's lines oldest-first (see `_group_lines_sort_key`)
+        before reconciling so partial payments settle the oldest open
+        invoice of the partner first.
         """
         reconciled_ids = []
         for group_count, reconcile_group_ids in enumerate(reconcile_groups, start=1):
@@ -76,7 +94,10 @@ class MassReconcileAdvancedPartner(models.TransientModel):
                 len(reconcile_groups),
                 reconcile_group_ids,
             )
-            group_lines = [lines_by_id[lid] for lid in reconcile_group_ids]
+            group_lines = sorted(
+                (lines_by_id[lid] for lid in reconcile_group_ids),
+                key=self._group_lines_sort_key,
+            )
             reconciled, full = self._reconcile_lines(group_lines, allow_partial=True)
             if reconciled:
                 reconciled_ids += reconcile_group_ids

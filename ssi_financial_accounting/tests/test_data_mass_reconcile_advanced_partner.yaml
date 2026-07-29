@@ -1,0 +1,190 @@
+scenarios:
+  - name: "Mass Reconcile Advanced Partner - FIFO ordering"
+    steps:
+      - step: "Create test partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        values:
+          name: "Test FIFO Reconcile Partner"
+
+      - step: "Create dedicated test receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "receivable_account"
+        values:
+          name: "Test FIFO Receivable"
+          code: "TESTFIFOAR"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Find an existing non-receivable account to balance entries against"
+        action: "search"
+        model: "account.account"
+        save_as: "offset_account"
+        domain:
+          - ["id", "!=", "EVAL: registry['receivable_account'].id"]
+          - ["deprecated", "=", false]
+        limit: 1
+
+      - step: "Create test journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "journal"
+        values:
+          name: "Test FIFO Journal"
+          code: "TSTFIFOJ"
+          type: "general"
+
+      # Newer invoice-like line, deliberately created BEFORE the older one:
+      # any code relying on creation/insertion order (e.g. the unordered
+      # Python `set` used to build a reconcile group) instead of date would
+      # still pick this line, making the final asserts fail without the fix.
+      #
+      # Both lines are created together via inline `line_ids` commands (not
+      # as two separate account.move.line creates) because Odoo rejects an
+      # unbalanced journal entry the moment a line is created standalone.
+      - step: "Create journal entry (with lines) for the newer invoice-like line"
+        action: "create"
+        model: "account.move"
+        save_as: "move_new"
+        values:
+          move_type: "entry"
+          journal_id: "EVAL: registry['journal'].id"
+          date: "EVAL: date.today()"
+          line_ids:
+            - - 0
+              - 0
+              - account_id: "EVAL: registry['receivable_account'].id"
+                partner_id: "EVAL: registry['partner'].id"
+                debit: 50.0
+                credit: 0.0
+            - - 0
+              - 0
+              - account_id: "EVAL: registry['offset_account'].id"
+                debit: 0.0
+                credit: 50.0
+
+      - step: "Post the newer move"
+        action: "call"
+        target: "move_new"
+        method: "action_post"
+        asserts:
+          state:
+            type: "value"
+            expected: "posted"
+
+      - step: "Find the newer move's receivable line"
+        action: "search"
+        model: "account.move.line"
+        save_as: "line_new"
+        domain:
+          - ["move_id", "=", "EVAL: registry['move_new'].id"]
+          - ["account_id", "=", "EVAL: registry['receivable_account'].id"]
+        limit: 1
+
+      - step: "Create journal entry (with lines) for the older invoice-like line"
+        action: "create"
+        model: "account.move"
+        save_as: "move_old"
+        values:
+          move_type: "entry"
+          journal_id: "EVAL: registry['journal'].id"
+          date: "EVAL: date.today() - timedelta(days=10)"
+          line_ids:
+            - - 0
+              - 0
+              - account_id: "EVAL: registry['receivable_account'].id"
+                partner_id: "EVAL: registry['partner'].id"
+                debit: 50.0
+                credit: 0.0
+            - - 0
+              - 0
+              - account_id: "EVAL: registry['offset_account'].id"
+                debit: 0.0
+                credit: 50.0
+
+      - step: "Post the older move"
+        action: "call"
+        target: "move_old"
+        method: "action_post"
+        asserts:
+          state:
+            type: "value"
+            expected: "posted"
+
+      - step: "Find the older move's receivable line"
+        action: "search"
+        model: "account.move.line"
+        save_as: "line_old"
+        domain:
+          - ["move_id", "=", "EVAL: registry['move_old'].id"]
+          - ["account_id", "=", "EVAL: registry['receivable_account'].id"]
+        limit: 1
+
+      - step:
+          "Create journal entry (with lines) for the partial credit (payment-like line)"
+        action: "create"
+        model: "account.move"
+        save_as: "move_payment"
+        values:
+          move_type: "entry"
+          journal_id: "EVAL: registry['journal'].id"
+          date: "EVAL: date.today()"
+          line_ids:
+            - - 0
+              - 0
+              - account_id: "EVAL: registry['receivable_account'].id"
+                partner_id: "EVAL: registry['partner'].id"
+                debit: 0.0
+                credit: 30.0
+            - - 0
+              - 0
+              - account_id: "EVAL: registry['offset_account'].id"
+                debit: 30.0
+                credit: 0.0
+
+      - step: "Post the payment move"
+        action: "call"
+        target: "move_payment"
+        method: "action_post"
+        asserts:
+          state:
+            type: "value"
+            expected: "posted"
+
+      - step: "Create mass reconcile task on the test receivable account"
+        action: "create"
+        model: "account.mass.reconcile"
+        save_as: "mass_rec"
+        values:
+          name: "test_advanced_partner_fifo"
+          account: "EVAL: registry['receivable_account'].id"
+
+      - step: "Attach the Advanced Partner Only (Partial) reconcile method"
+        action: "create"
+        model: "account.mass.reconcile.method"
+        values:
+          name: "mass.reconcile.advanced.partner"
+          task_id: "EVAL: registry['mass_rec'].id"
+
+      - step: "Run the mass reconcile"
+        action: "call"
+        target: "mass_rec"
+        method: "run_reconcile"
+
+      - step: "Assert the oldest invoice-like line was settled first (FIFO)"
+        action: "assert"
+        target: "line_old"
+        asserts:
+          amount_residual:
+            type: "value"
+            expected: 20.0
+
+      - step: "Assert the newer invoice-like line was left untouched"
+        action: "assert"
+        target: "line_new"
+        asserts:
+          amount_residual:
+            type: "value"
+            expected: 50.0
