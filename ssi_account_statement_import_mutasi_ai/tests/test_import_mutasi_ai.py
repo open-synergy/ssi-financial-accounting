@@ -21,7 +21,29 @@ _REQUESTS_GET_PATH = (
 )
 
 
-def _sample_response(status="ok", unique_suffix="a", currency_code="IDR"):
+def _sample_response(
+    status="ok",
+    unique_suffix="a",
+    currency_code="IDR",
+    balance_start=1000000.0,
+    balance_end_real=1300000.0,
+):
+    """Build a fake mutasi-ai ``StatementExtractionRead`` JSON response.
+
+    :param status: top-level ``status`` field (``ok``/``need_review``/
+        ``failed``)
+    :param unique_suffix: appended to ``id`` and every transaction's
+        ``unique_import_id`` so distinct calls do not collide
+    :param currency_code: ``result.currency_code``
+    :param balance_start: ``result.statements[0].balance_start``; pass
+        ``None`` to simulate the service omitting the opening balance
+    :param balance_end_real: ``result.statements[0].balance_end_real``;
+        pass ``None`` to simulate the service omitting the closing
+        balance
+    :return: a JSON-serializable dict shaped like the real service
+        response
+    :rtype: dict
+    """
     return {
         "id": "stmt_test_%s" % unique_suffix,
         "status": status,
@@ -37,8 +59,8 @@ def _sample_response(status="ok", unique_suffix="a", currency_code="IDR"):
                 {
                     "name": "STMT-1",
                     "date": "2026-01-31",
-                    "balance_start": 1000000.0,
-                    "balance_end_real": 1300000.0,
+                    "balance_start": balance_start,
+                    "balance_end_real": balance_end_real,
                     "transactions": [
                         {
                             "date": "2026-01-05",
@@ -147,6 +169,51 @@ class TestImportMutasiAi(TransactionCase):
         with self.assertRaises(UserError):
             self.backend._transform_result(response, "statement.pdf")
 
+    def test_transform_result_omits_null_balance_keys(self):
+        """Omit ``balance_start``/``balance_end_real`` when null.
+
+        Positive scenario — trigger P1 (L-01/L-02: what is asserted is
+        the bare tuple returned by ``_transform_result``, not a record
+        field YAML's ``assert`` could ``getattr``).
+        """
+        response = _sample_response(balance_start=None, balance_end_real=None)
+        _currency, _account, statements = self.backend._transform_result(
+            response, "statement.pdf"
+        )
+        self.assertNotIn("balance_start", statements[0])
+        self.assertNotIn("balance_end_real", statements[0])
+
+    def test_transform_result_keeps_numeric_balance_keys(self):
+        """Keep numeric ``balance_start``/``balance_end_real`` as float.
+
+        Positive scenario — trigger P1 (L-01/L-02: same reasoning as
+        above, the return value is a bare tuple).
+        """
+        response = _sample_response(balance_start=1000000.0, balance_end_real=1300000.0)
+        _currency, _account, statements = self.backend._transform_result(
+            response, "statement.pdf"
+        )
+        self.assertIsInstance(statements[0]["balance_start"], float)
+        self.assertEqual(statements[0]["balance_start"], 1000000.0)
+        self.assertIsInstance(statements[0]["balance_end_real"], float)
+        self.assertEqual(statements[0]["balance_end_real"], 1300000.0)
+
+    def test_transform_result_transaction_without_amount_raises(self):
+        """Reject a transaction whose ``amount`` is null.
+
+        Negative scenario — trigger P1 (L-01/L-02: this exercises the
+        return-value/exception contract of a pure method, which YAML's
+        record-bound ``assert`` cannot observe).
+        """
+        response = _sample_response()
+        response["result"]["statements"][0]["transactions"][0]["amount"] = None
+        with self.assertRaises(UserError) as cm:
+            self.backend._transform_result(response, "statement.pdf")
+        self.assertIn(
+            "mutasi-ai response has a transaction without amount",
+            str(cm.exception),
+        )
+
     # ------------------------------------------------------------------
     # Job _run — mocked HTTP call
     # ------------------------------------------------------------------
@@ -252,6 +319,101 @@ class TestImportMutasiAi(TransactionCase):
             [("payment_ref", "=", "TRANSFER MASUK"), ("amount", "=", 500000.0)]
         )
         self.assertEqual(len(lines), 1, "deduplication failed: expected exactly 1 line")
+
+    def test_run_dedup_second_run_need_review_null_balance(self):
+        """Re-importing an all-duplicate null-balance file is need_review.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; no mock support in YAML).
+        Null-balance variant of ``test_run_dedup_second_run_need_review``
+        reproducing the reported bug: before the fix, the second run
+        raised ``TypeError`` (``NoneType`` ``+=`` ``float``) instead of
+        finishing as ``need_review``.
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        response = _sample_response(
+            unique_suffix="nullbal-dedup",
+            currency_code=self.company_currency,
+            balance_start=None,
+            balance_end_real=None,
+        )
+        job1 = self._make_job(unique_suffix="nullbal-dedup")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job1._run()
+        self.assertEqual(job1.state, "done")
+
+        job2 = self._make_job(unique_suffix="nullbal-dedup")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job2._run()
+        # All transactions already imported -> no new statement,
+        # need_review, and no TypeError even though balances are null.
+        self.assertEqual(job2.state, "need_review")
+        self.assertFalse(job2.statement_ids)
+        lines = self.env["account.bank.statement.line"].search(
+            [("payment_ref", "=", "TRANSFER MASUK"), ("amount", "=", 500000.0)]
+        )
+        self.assertEqual(len(lines), 1, "deduplication failed: expected exactly 1 line")
+
+    def test_run_second_run_null_balance_adds_new_transaction(self):
+        """A second null-balance run with one new line still succeeds.
+
+        Positive scenario — trigger P6 (L-15: end-to-end job run
+        requires patching ``_call_service``). With balance keys
+        omitted (null in the source response), re-importing a file
+        that has one additional transaction must create a statement
+        containing only that new line, without duplicating or
+        raising on the already-imported one.
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        response = _sample_response(
+            unique_suffix="nullbal-add",
+            currency_code=self.company_currency,
+            balance_start=None,
+            balance_end_real=None,
+        )
+        job1 = self._make_job(unique_suffix="nullbal-add")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job1._run()
+        self.assertEqual(job1.state, "done")
+
+        response2 = _sample_response(
+            unique_suffix="nullbal-add",
+            currency_code=self.company_currency,
+            balance_start=None,
+            balance_end_real=None,
+        )
+        response2["result"]["statements"][0]["transactions"].append(
+            {
+                "date": "2026-01-15",
+                "amount": 750000.0,
+                "payment_ref": "TRANSFER BARU",
+                "unique_import_id": "mutasi-ai-tx-nullbal-add-new",
+                "account_number": None,
+                "partner_name": "Citra",
+                "ref": None,
+            }
+        )
+        job2 = self._make_job(unique_suffix="nullbal-add")
+        with patch(_CALL_SERVICE_PATH, return_value=response2):
+            job2._run()
+
+        self.assertEqual(job2.state, "done")
+        self.assertTrue(job2.statement_ids)
+        new_lines = self.env["account.bank.statement.line"].search(
+            [("statement_id", "in", job2.statement_ids.ids)]
+        )
+        self.assertEqual(len(new_lines), 1)
+        self.assertEqual(new_lines.payment_ref, "TRANSFER BARU")
+        existing_lines = self.env["account.bank.statement.line"].search(
+            [("payment_ref", "=", "TRANSFER MASUK"), ("amount", "=", 500000.0)]
+        )
+        self.assertEqual(
+            len(existing_lines),
+            1,
+            "already-imported transaction must not be duplicated",
+        )
 
     def test_run_need_review_status(self):
         if not self.bank_journal:
