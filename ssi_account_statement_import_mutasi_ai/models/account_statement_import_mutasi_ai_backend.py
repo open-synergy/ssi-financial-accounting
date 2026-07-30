@@ -164,18 +164,66 @@ Solution: Check the mutasi-ai service logs for the actual error
             )
             raise UserError(error_message) from exc
 
+    def _prepare_bank_statement_vals(
+        self, source_statement, transactions, statement_date
+    ):
+        """Build one statement dict of the OCA import triplet.
+
+        Extension point: override to add fields to the statement dict
+        without touching ``_transform_result``.
+
+        ``balance_start``/``balance_end_real`` are **omitted** (not
+        defaulted to ``0.0``) when the mutasi-ai response does not
+        provide a numeric value for them. OCA
+        ``account.statement.import._create_bank_statements`` treats an
+        absent key as "unknown balance"; a present key that is
+        ``None``, on the other hand, makes it execute
+        ``st_vals["balance_start"] += float(lvals["amount"])`` on a
+        duplicate transaction, raising
+        ``TypeError: unsupported operand type(s) for +=: 'NoneType'
+        and 'float'``. Defaulting to ``0.0`` would avoid the crash but
+        silently assert a (likely wrong) opening/closing balance, so
+        it is not used either.
+
+        :param source_statement: one raw statement dict from the
+            mutasi-ai response (``result.statements[i]``)
+        :param transactions: already-normalized transaction dicts for
+            this statement, as built by ``_transform_result``
+        :param statement_date: resolved statement date (falls back to
+            the first transaction's date when the statement has none)
+        :return: one ``account.statement.import`` statement dict
+        :rtype: dict
+        """
+        statement_vals = {
+            "name": source_statement.get("name"),
+            "date": statement_date,
+            "transactions": transactions,
+        }
+        balance_start = source_statement.get("balance_start")
+        if balance_start is not None:
+            statement_vals["balance_start"] = float(balance_start)
+        balance_end_real = source_statement.get("balance_end_real")
+        if balance_end_real is not None:
+            statement_vals["balance_end_real"] = float(balance_end_real)
+        return statement_vals
+
     def _transform_result(self, result_json, filename):
         """Convert a mutasi-ai ``StatementExtractionRead`` JSON body into
         the OCA ``account.statement.import`` triplet.
 
         This is the pure seam for testing: no HTTP call, just a dict-in
-        dict-out transformation.
+        dict-out transformation. Statement dicts are built via
+        ``_prepare_bank_statement_vals`` (see its docstring for the
+        ``balance_start``/``balance_end_real`` handling).
 
         :param result_json: parsed JSON body returned by ``_call_service``
         :param filename: original filename, used to build a fallback
             ``unique_import_id`` when the service omits one
         :return: ``(currency_code, account_number, statements)`` triplet
         :rtype: tuple
+        :raises UserError: if the extraction failed, no currency can be
+            resolved, a transaction has no ``amount``, or the response
+            contains no statements
         """
         self.ensure_one()
         if result_json.get("status") == "failed":
@@ -222,6 +270,19 @@ Solution: Set a Fallback Currency on the mutasi-ai backend configuration
             for tx_idx, source_tx in enumerate(
                 source_statement.get("transactions") or []
             ):
+                if source_tx.get("amount") is None:
+                    error_message = (
+                        _(
+                            """
+Context: Extract bank statement via mutasi-ai service
+Database ID: %s
+Problem: mutasi-ai response has a transaction without amount
+Solution: Check the source file quality (scan/photo legibility) and retry
+"""
+                        )
+                        % (self.id,)
+                    )
+                    raise UserError(error_message)
                 unique_import_id = source_tx.get(
                     "unique_import_id"
                 ) or "mutasi-ai-%s-%s-%s" % (filename, st_idx, tx_idx)
@@ -239,13 +300,9 @@ Solution: Set a Fallback Currency on the mutasi-ai backend configuration
                 transactions[0]["date"] if transactions else False
             )
             statements.append(
-                {
-                    "name": source_statement.get("name"),
-                    "date": statement_date,
-                    "balance_start": source_statement.get("balance_start"),
-                    "balance_end_real": source_statement.get("balance_end_real"),
-                    "transactions": transactions,
-                }
+                self._prepare_bank_statement_vals(
+                    source_statement, transactions, statement_date
+                )
             )
 
         if not statements:
