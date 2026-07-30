@@ -42,6 +42,17 @@ msgid ""
 "\n"
 "Context: Extract bank statement via mutasi-ai service\n"
 "Database ID: %s\n"
+"Problem: mutasi-ai response has a transaction without amount\n"
+"Solution: Check the source file quality (scan/photo legibility) and retry\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Extract bank statement via mutasi-ai service\n"
+"Database ID: %s\n"
 "Problem: mutasi-ai response has no currency_code and no Fallback Currency is configured on this backend\n"
 "Solution: Set a Fallback Currency on the mutasi-ai backend configuration\n"
 msgstr ""
