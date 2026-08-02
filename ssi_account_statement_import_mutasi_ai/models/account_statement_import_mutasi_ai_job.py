@@ -137,6 +137,15 @@ class AccountStatementImportMutasiAiJob(models.Model):
         copy=False,
         help="Bank statement(s) created from this job's extracted " "transactions.",
     )
+    notification_message = fields.Text(
+        string="Import Notification",
+        readonly=True,
+        copy=False,
+        help="Feedback returned by the import wizard about the outcome "
+        "of this job, e.g. how many transactions were ignored because "
+        "they had already been imported. Empty when the wizard reported "
+        "nothing noteworthy.",
+    )
 
     @api.model
     def create(self, vals):
@@ -195,6 +204,51 @@ Solution: Wait for the current job to finish, or check its result
         action["domain"] = [("id", "in", self.statement_ids.ids)]
         return action
 
+    def _prepare_notification_message(self, result):
+        """Build the user-facing summary of an ``import_single_statement``
+        call.
+
+        Extension point: override in a glue module to change how the
+        wizard's ``result`` dict is rendered on the job.
+
+        Normally joins the ``message`` of every dict in
+        ``result["notifications"]`` (one per line), e.g. how many
+        transactions were ignored as duplicates. ``result["details"]``
+        (the ignored line ids) is intentionally not stored.
+
+        ``_create_bank_statements``/``_update_bank_statements`` (in
+        ``ssi_account_statement_import``/upstream OCA
+        ``account_statement_import``) return early, before building
+        ``notifications``, whenever *every* transaction in the file was
+        already imported (``result["statement_ids"]`` stays empty).
+        Without a fallback that specific case would leave this field
+        empty even though it is the one situation users most need an
+        explanation for, so a generic duplicate-file message is
+        synthesized when both ``notifications`` and ``statement_ids``
+        are empty.
+
+        :param result: the ``result`` dict built by
+            ``account.statement.import.import_single_statement``
+            (keys ``statement_ids`` and ``notifications``)
+        :return: the notification text, or ``False`` when there is
+            nothing to report
+        """
+        notifications = result.get("notifications") or []
+        if notifications:
+            messages = [
+                notification["message"]
+                for notification in notifications
+                if notification.get("message")
+            ]
+            return "\n".join(messages) if messages else False
+        if not result.get("statement_ids"):
+            return _(
+                "All transactions in this file had already been "
+                "imported previously (duplicates), so no new bank "
+                "statement was created."
+            )
+        return False
+
     def _run(self):
         """Call the mutasi-ai service and import the resulting transactions.
 
@@ -249,6 +303,7 @@ Solution: Wait for the current job to finish, or check its result
                     "response_json": json.dumps(response_json),
                     "statement_ids": [(6, 0, result["statement_ids"])],
                     "error_message": False,
+                    "notification_message": self._prepare_notification_message(result),
                 }
             )
         except Exception as exc:  # noqa: BLE001 - job must never propagate
