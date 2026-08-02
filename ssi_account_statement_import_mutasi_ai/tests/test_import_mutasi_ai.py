@@ -440,6 +440,116 @@ class TestImportMutasiAi(TransactionCase):
         self.assertIn("boom", job.error_message)
         self.assertFalse(job.statement_ids)
 
+    # ------------------------------------------------------------------
+    # notification_message — mocked HTTP call
+    # ------------------------------------------------------------------
+
+    def test_notification_message_false_when_all_new(self):
+        """No notification when the whole file is newly imported.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support).
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        job = self._make_job(unique_suffix="notif-new")
+        with patch(
+            _CALL_SERVICE_PATH,
+            return_value=_sample_response(
+                unique_suffix="notif-new", currency_code=self.company_currency
+            ),
+        ):
+            job._run()
+        self.assertEqual(job.state, "done")
+        self.assertFalse(job.notification_message)
+
+    def test_notification_message_all_duplicate_second_run(self):
+        """Re-importing an all-duplicate file reports it on the job.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). Mirrors
+        ``test_run_dedup_second_run_need_review`` but also asserts the
+        new ``notification_message`` field, populated here by the
+        fallback message ``_prepare_notification_message`` synthesizes
+        when the wizard's own ``result["notifications"]`` stays empty
+        (``_create_bank_statements``/``_update_bank_statements`` return
+        before building it when every transaction was a duplicate).
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        response = _sample_response(
+            unique_suffix="notif-dup", currency_code=self.company_currency
+        )
+        job1 = self._make_job(unique_suffix="notif-dup")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job1._run()
+        self.assertEqual(job1.state, "done")
+
+        job2 = self._make_job(unique_suffix="notif-dup")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job2._run()
+        self.assertEqual(job2.state, "need_review")
+        self.assertTrue(job2.notification_message)
+        self.assertIn("already been imported", job2.notification_message)
+
+    def test_notification_message_partial_duplicate_second_run(self):
+        """A partially-duplicate re-import reports the ignored lines.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). With one new transaction added on top of
+        an already-imported file, the job finishes ``done`` and
+        ``notification_message`` carries the wizard's own "already
+        been imported" message instead of the all-duplicate fallback.
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        response = _sample_response(
+            unique_suffix="notif-partial", currency_code=self.company_currency
+        )
+        job1 = self._make_job(unique_suffix="notif-partial")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job1._run()
+        self.assertEqual(job1.state, "done")
+
+        response2 = _sample_response(
+            unique_suffix="notif-partial", currency_code=self.company_currency
+        )
+        response2["result"]["statements"][0]["transactions"].append(
+            {
+                "date": "2026-01-15",
+                "amount": 750000.0,
+                "payment_ref": "TRANSFER BARU",
+                "unique_import_id": "mutasi-ai-tx-notif-partial-new",
+                "account_number": None,
+                "partner_name": "Citra",
+                "ref": None,
+            }
+        )
+        job2 = self._make_job(unique_suffix="notif-partial")
+        with patch(_CALL_SERVICE_PATH, return_value=response2):
+            job2._run()
+        self.assertEqual(job2.state, "done")
+        self.assertTrue(job2.notification_message)
+        self.assertIn("already been imported", job2.notification_message)
+
+    def test_notification_message_false_on_failure(self):
+        """A failed job leaves ``notification_message`` untouched.
+
+        Negative scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). ``_run``'s ``except`` branch must not set
+        ``notification_message``, so it stays at its default (empty)
+        value.
+        """
+        job = self._make_job(unique_suffix="notif-error")
+        with patch(_CALL_SERVICE_PATH, side_effect=UserError("boom")):
+            job._run()
+        self.assertEqual(job.state, "failed")
+        self.assertFalse(job.notification_message)
+
     def test_retry_only_allowed_from_failed_or_need_review(self):
         job = self._make_job(unique_suffix="retryguard")
         with self.assertRaises(UserError):
