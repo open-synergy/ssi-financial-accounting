@@ -80,9 +80,9 @@ class AccountStatementImportMutasiAiJob(models.Model):
         selection=[
             ("draft", "Draft"),
             ("queued", "Queued"),
-            ("processing", "Processing"),
             ("done", "Done"),
             ("need_review", "Need Review"),
+            ("already_imported", "Already Imported"),
             ("failed", "Failed"),
         ],
         default="draft",
@@ -93,9 +93,11 @@ class AccountStatementImportMutasiAiJob(models.Model):
             "Job status: "
             "Draft = not yet queued, "
             "Queued = waiting for a queue_job worker, "
-            "Processing = currently calling the mutasi-ai service, "
             "Done = statement imported successfully, "
             "Need Review = imported but mutasi-ai flagged low confidence, "
+            "Already Imported = every transaction in the file had "
+            "already been imported previously, so no new statement was "
+            "created, "
             "Failed = the service call or import raised an error."
         ),
     )
@@ -258,7 +260,6 @@ Solution: Wait for the current job to finish, or check its result
         relying on queue_job's own retry/failure handling.
         """
         self.ensure_one()
-        self.write({"state": "processing"})
         try:
             data_file = base64.b64decode(self.attachment_id.datas or b"")
             filename = self.statement_filename or self.attachment_id.name or "statement"
@@ -291,9 +292,14 @@ Solution: Wait for the current job to finish, or check its result
             result = {"statement_ids": [], "notifications": []}
             wizard.import_single_statement(triplet, result)
 
-            state = "need_review" if external_status == "need_review" else "done"
             if not result["statement_ids"]:
-                state = "need_review"
+                # Every transaction in the file was already imported, so
+                # there is nothing left to review; this overrides
+                # ``external_status`` even when the service itself
+                # flagged the file as "need_review".
+                state = "already_imported"
+            else:
+                state = "need_review" if external_status == "need_review" else "done"
 
             self.write(
                 {

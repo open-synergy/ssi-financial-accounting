@@ -298,7 +298,18 @@ class TestImportMutasiAi(TransactionCase):
             "via mutasi_ai_job_ids",
         )
 
-    def test_run_dedup_second_run_need_review(self):
+    def test_run_dedup_second_run_already_imported(self):
+        """Re-importing an all-duplicate file is ``already_imported``.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). Feeding the exact same response twice
+        means every transaction on the second run is a duplicate, so
+        ``statement_ids`` stays empty and the job must land on
+        ``already_imported`` (not ``need_review``, which is reserved
+        for a low-confidence extraction that still produced new
+        transactions), with ``notification_message`` explaining why.
+        """
         if not self.bank_journal:
             self.skipTest("No bank journal found in test environment")
         response = _sample_response(
@@ -312,23 +323,26 @@ class TestImportMutasiAi(TransactionCase):
         job2 = self._make_job(unique_suffix="dedup")
         with patch(_CALL_SERVICE_PATH, return_value=response):
             job2._run()
-        # All transactions already imported -> no new statement, need_review.
-        self.assertEqual(job2.state, "need_review")
+        # All transactions already imported -> no new statement,
+        # already_imported.
+        self.assertEqual(job2.state, "already_imported")
         self.assertFalse(job2.statement_ids)
+        self.assertTrue(job2.notification_message)
         lines = self.env["account.bank.statement.line"].search(
             [("payment_ref", "=", "TRANSFER MASUK"), ("amount", "=", 500000.0)]
         )
         self.assertEqual(len(lines), 1, "deduplication failed: expected exactly 1 line")
 
-    def test_run_dedup_second_run_need_review_null_balance(self):
-        """Re-importing an all-duplicate null-balance file is need_review.
+    def test_run_dedup_second_run_already_imported_null_balance(self):
+        """Re-importing an all-duplicate null-balance file is already_imported.
 
         Positive scenario — trigger P6 (L-15: an end-to-end job run
         requires patching ``_call_service``; no mock support in YAML).
-        Null-balance variant of ``test_run_dedup_second_run_need_review``
-        reproducing the reported bug: before the fix, the second run
-        raised ``TypeError`` (``NoneType`` ``+=`` ``float``) instead of
-        finishing as ``need_review``.
+        Null-balance variant of
+        ``test_run_dedup_second_run_already_imported`` reproducing the
+        reported bug: before the fix, the second run raised
+        ``TypeError`` (``NoneType`` ``+=`` ``float``) instead of
+        finishing as ``already_imported``.
         """
         if not self.bank_journal:
             self.skipTest("No bank journal found in test environment")
@@ -347,13 +361,46 @@ class TestImportMutasiAi(TransactionCase):
         with patch(_CALL_SERVICE_PATH, return_value=response):
             job2._run()
         # All transactions already imported -> no new statement,
-        # need_review, and no TypeError even though balances are null.
-        self.assertEqual(job2.state, "need_review")
+        # already_imported, and no TypeError even though balances are
+        # null.
+        self.assertEqual(job2.state, "already_imported")
         self.assertFalse(job2.statement_ids)
         lines = self.env["account.bank.statement.line"].search(
             [("payment_ref", "=", "TRANSFER MASUK"), ("amount", "=", 500000.0)]
         )
         self.assertEqual(len(lines), 1, "deduplication failed: expected exactly 1 line")
+
+    def test_run_dedup_full_duplicate_need_review_status_wins(self):
+        """A fully-duplicate need_review response is still already_imported.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; no mock support in YAML).
+        The duplicate-file rule (``statement_ids`` empty ->
+        ``already_imported``) must win over ``external_status`` even
+        when the mutasi-ai service itself flags the (fully duplicate)
+        file as ``need_review``.
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        response = _sample_response(
+            unique_suffix="dedup-needreview", currency_code=self.company_currency
+        )
+        job1 = self._make_job(unique_suffix="dedup-needreview")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job1._run()
+        self.assertEqual(job1.state, "done")
+
+        response2 = _sample_response(
+            status="need_review",
+            unique_suffix="dedup-needreview",
+            currency_code=self.company_currency,
+        )
+        job2 = self._make_job(unique_suffix="dedup-needreview")
+        with patch(_CALL_SERVICE_PATH, return_value=response2):
+            job2._run()
+        self.assertEqual(job2.state, "already_imported")
+        self.assertEqual(job2.external_status, "need_review")
+        self.assertFalse(job2.statement_ids)
 
     def test_run_second_run_null_balance_adds_new_transaction(self):
         """A second null-balance run with one new line still succeeds.
@@ -470,8 +517,8 @@ class TestImportMutasiAi(TransactionCase):
         Positive scenario — trigger P6 (L-15: an end-to-end job run
         requires patching ``_call_service``; ``odoo-yaml-test`` has no
         mock/patch support). Mirrors
-        ``test_run_dedup_second_run_need_review`` but also asserts the
-        new ``notification_message`` field, populated here by the
+        ``test_run_dedup_second_run_already_imported`` but also asserts
+        the new ``notification_message`` field, populated here by the
         fallback message ``_prepare_notification_message`` synthesizes
         when the wizard's own ``result["notifications"]`` stays empty
         (``_create_bank_statements``/``_update_bank_statements`` return
@@ -490,7 +537,7 @@ class TestImportMutasiAi(TransactionCase):
         job2 = self._make_job(unique_suffix="notif-dup")
         with patch(_CALL_SERVICE_PATH, return_value=response):
             job2._run()
-        self.assertEqual(job2.state, "need_review")
+        self.assertEqual(job2.state, "already_imported")
         self.assertTrue(job2.notification_message)
         self.assertIn("already been imported", job2.notification_message)
 

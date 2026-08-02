@@ -10,6 +10,7 @@
         <tree
                 decoration-danger="state == 'failed'"
                 decoration-warning="state == 'need_review'"
+                decoration-info="state == 'already_imported'"
                 decoration-success="state == 'done'"
                 decoration-muted="state in ('draft', 'queued')"
             >

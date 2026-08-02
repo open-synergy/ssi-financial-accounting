@@ -1,0 +1,68 @@
+scenarios:
+  - name: "Reject obsolete processing state"
+    steps:
+      - step: "Create statement attachment"
+        action: "create"
+        model: "ir.attachment"
+        save_as: "attachment"
+        values:
+          name: "statement.pdf"
+          datas: "ZHVtbXkgcGRmIGNvbnRlbnQ="
+          type: "binary"
+      - step: "Create mutasi-ai backend"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.backend"
+        save_as: "backend"
+        values:
+          name: "State Test Backend"
+          code: "STATE-TEST-BACKEND-1"
+          base_url: "https://carik.example.com"
+          bearer_token: "test-token"
+      - step: "Create job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+      - step: "Writing obsolete processing state must be rejected"
+        action: "write"
+        target: "job"
+        expect_error:
+          type: "ValueError"
+        values:
+          state: "processing"
+
+  - name: "Retry blocked once a job is already_imported"
+    steps:
+      - step: "Create statement attachment"
+        action: "create"
+        model: "ir.attachment"
+        save_as: "attachment"
+        values:
+          name: "statement.pdf"
+          datas: "ZHVtbXkgcGRmIGNvbnRlbnQ="
+          type: "binary"
+      - step: "Create mutasi-ai backend"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.backend"
+        save_as: "backend"
+        values:
+          name: "State Test Backend"
+          code: "STATE-TEST-BACKEND-2"
+          base_url: "https://carik.example.com"
+          bearer_token: "test-token"
+      - step: "Create job already flagged already_imported"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+          state: "already_imported"
+      - step: "Retry on an already_imported job must be rejected"
+        action: "call"
+        target: "job"
+        method: "action_retry"
+        expect_error:
+          type: "UserError"
