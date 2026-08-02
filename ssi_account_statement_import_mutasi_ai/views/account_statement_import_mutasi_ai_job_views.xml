@@ -59,6 +59,7 @@
                     <group>
                         <field name="external_id" />
                         <field name="external_status" />
+                        <field name="file_checksum" />
                         <field name="statement_ids" widget="many2many_tags" />
                     </group>
                 </group>
