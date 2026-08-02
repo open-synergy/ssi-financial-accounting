@@ -158,6 +158,107 @@ class TestImportMutasiAi(TransactionCase):
         )
         self.assertTrue(statements[0]["transactions"][0]["unique_import_id"])
 
+    def test_transform_result_fallback_uses_checksum_not_filename(self):
+        """A checksum-based fallback id contains the checksum, not the name.
+
+        Positive scenario — trigger P1 (L-01/L-02: what is asserted is
+        the bare tuple returned by ``_transform_result``, not a record
+        field YAML's ``assert`` could ``getattr``).
+        """
+        response = _sample_response()
+        response["result"]["statements"][0]["transactions"][0][
+            "unique_import_id"
+        ] = None
+        _currency, _account, statements = self.backend._transform_result(
+            response, "statement.pdf", file_checksum="abc123checksum"
+        )
+        fallback_id = statements[0]["transactions"][0]["unique_import_id"]
+        self.assertIn("abc123checksum", fallback_id)
+        self.assertNotIn("statement.pdf", fallback_id)
+
+    def test_transform_result_fallback_same_checksum_different_filenames(self):
+        """Different filenames with the same checksum collide on purpose.
+
+        Positive scenario — trigger P1 (L-01/L-02: same reasoning as
+        above, the return value is a bare tuple).
+        """
+        response_a = _sample_response()
+        response_a["result"]["statements"][0]["transactions"][0][
+            "unique_import_id"
+        ] = None
+        response_b = _sample_response()
+        response_b["result"]["statements"][0]["transactions"][0][
+            "unique_import_id"
+        ] = None
+        _c1, _a1, statements_a = self.backend._transform_result(
+            response_a, "january.pdf", file_checksum="same-checksum"
+        )
+        _c2, _a2, statements_b = self.backend._transform_result(
+            response_b, "february.pdf", file_checksum="same-checksum"
+        )
+        self.assertEqual(
+            statements_a[0]["transactions"][0]["unique_import_id"],
+            statements_b[0]["transactions"][0]["unique_import_id"],
+        )
+
+    def test_transform_result_fallback_same_filename_different_checksums(self):
+        """The same filename with different checksums does not collide.
+
+        Positive scenario — trigger P1 (L-01/L-02: same reasoning as
+        above, the return value is a bare tuple).
+        """
+        response_a = _sample_response()
+        response_a["result"]["statements"][0]["transactions"][0][
+            "unique_import_id"
+        ] = None
+        response_b = _sample_response()
+        response_b["result"]["statements"][0]["transactions"][0][
+            "unique_import_id"
+        ] = None
+        _c1, _a1, statements_a = self.backend._transform_result(
+            response_a, "statement.pdf", file_checksum="checksum-one"
+        )
+        _c2, _a2, statements_b = self.backend._transform_result(
+            response_b, "statement.pdf", file_checksum="checksum-two"
+        )
+        self.assertNotEqual(
+            statements_a[0]["transactions"][0]["unique_import_id"],
+            statements_b[0]["transactions"][0]["unique_import_id"],
+        )
+
+    def test_transform_result_fallback_without_checksum_uses_filename(self):
+        """Omitting ``file_checksum`` keeps the old filename-based id.
+
+        Positive scenario — trigger P1 (L-01/L-02: same reasoning as
+        above, the return value is a bare tuple).
+        """
+        response = _sample_response()
+        response["result"]["statements"][0]["transactions"][0][
+            "unique_import_id"
+        ] = None
+        _currency, _account, statements = self.backend._transform_result(
+            response, "statement.pdf"
+        )
+        fallback_id = statements[0]["transactions"][0]["unique_import_id"]
+        self.assertIn("statement.pdf", fallback_id)
+
+    def test_transform_result_keeps_service_provided_unique_import_id(self):
+        """A service-provided ``unique_import_id`` wins over the checksum.
+
+        Positive scenario — trigger P1 (L-01/L-02: same reasoning as
+        above, the return value is a bare tuple).
+        """
+        response = _sample_response()
+        provided_id = response["result"]["statements"][0]["transactions"][0][
+            "unique_import_id"
+        ]
+        _currency, _account, statements = self.backend._transform_result(
+            response, "statement.pdf", file_checksum="should-be-ignored"
+        )
+        actual_id = statements[0]["transactions"][0]["unique_import_id"]
+        self.assertEqual(actual_id, provided_id)
+        self.assertNotIn("should-be-ignored", actual_id)
+
     def test_transform_result_failed_status_raises(self):
         response = _sample_response(status="failed")
         response["error"] = "Could not read the file"
@@ -479,6 +580,36 @@ class TestImportMutasiAi(TransactionCase):
         self.assertEqual(job.state, "need_review")
         self.assertEqual(job.external_status, "need_review")
         self.assertTrue(job.statement_ids)
+
+    def test_run_uses_checksum_based_unique_import_id(self):
+        """A full job run stores a checksum-based ``unique_import_id``.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). ``_run`` must pass the job's own
+        ``file_checksum`` through to ``_transform_result``, so the
+        resulting statement line's ``unique_import_id`` is built from
+        the checksum rather than the filename.
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        response = _sample_response(
+            unique_suffix="checksum-run", currency_code=self.company_currency
+        )
+        response["result"]["statements"][0]["transactions"][0][
+            "unique_import_id"
+        ] = None
+        job = self._make_job(unique_suffix="checksum-run")
+        job.write({"file_checksum": "run-checksum-value"})
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job._run()
+        self.assertEqual(job.state, "done")
+        line = self.env["account.bank.statement.line"].search(
+            [("payment_ref", "=", "TRANSFER MASUK"), ("amount", "=", 500000.0)]
+        )
+        self.assertEqual(len(line), 1)
+        self.assertIn("run-checksum-value", line.unique_import_id)
+        self.assertNotIn("statement.pdf", line.unique_import_id)
 
     def test_run_error_path_sets_failed(self):
         job = self._make_job(unique_suffix="error")
