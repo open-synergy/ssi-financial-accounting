@@ -2,6 +2,7 @@
 # Copyright 2026 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import base64
+import hashlib
 from unittest.mock import Mock, patch
 
 from odoo.exceptions import AccessError, UserError
@@ -705,6 +706,170 @@ class TestImportMutasiAi(TransactionCase):
             )
         )
         self.assertEqual(form.mutasi_ai_backend_id, self.backend)
+
+    # ------------------------------------------------------------------
+    # file_checksum duplicate guard — pure Python (base64 fixtures)
+    # ------------------------------------------------------------------
+
+    def _make_job_with_checksum(self, file_checksum, state, filename="dup.pdf"):
+        """Create a job directly with a fixed ``file_checksum``/``state``.
+
+        Bypasses the wizard so the duplicate-guard tests can set up a
+        prior job in an arbitrary state without going through
+        ``_run()``.
+
+        :param file_checksum: value to store on ``file_checksum``
+        :type file_checksum: str
+        :param state: value to store on ``state``
+        :type state: str
+        :param filename: filename recorded on the job/attachment
+        :type filename: str
+        :return: the created job record
+        :rtype: recordset of ``account.statement.import.mutasi.ai.job``
+        """
+        attachment = self._make_attachment(filename)
+        return self.env[_JOB_MODEL].create(
+            {
+                "attachment_id": attachment.id,
+                "statement_filename": filename,
+                "backend_id": self.backend.id,
+                "file_checksum": file_checksum,
+                "state": state,
+            }
+        )
+
+    def test_enqueue_sets_file_checksum(self):
+        """Enqueueing a new file stores its SHA-256 hex digest.
+
+        Positive scenario — trigger P10 (L-09/L-10/L-11: the wizard's
+        ``statement_file`` is a binary field, so the fixture needs
+        ``base64``, which the YAML ``EVAL:`` whitelist does not allow).
+        """
+        content = b"file checksum positive test content"
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(content),
+                "statement_filename": "checksum_new.pdf",
+                "mutasi_ai_backend_id": self.backend.id,
+            }
+        )
+        wizard.import_file_button()
+        job = self.env[_JOB_MODEL].search(
+            [("statement_filename", "=", "checksum_new.pdf")]
+        )
+        self.assertEqual(len(job), 1)
+        self.assertEqual(len(job.file_checksum), 64)
+        self.assertTrue(all(c in "0123456789abcdef" for c in job.file_checksum))
+
+    def test_enqueue_file_checksum_matches_sha256_of_content(self):
+        """The stored checksum equals SHA-256 of the decoded file.
+
+        Positive scenario — trigger P10 (L-09/L-10/L-11: same reasoning
+        as above; this also computes the expected digest with
+        ``hashlib``, unavailable to YAML ``EVAL:``). Confirms the value
+        is exactly the ``Idempotency-Key`` ``_call_service`` would send
+        for the same content.
+        """
+        content = b"file checksum equality test content"
+        expected = hashlib.sha256(content).hexdigest()
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(content),
+                "statement_filename": "checksum_equal.pdf",
+                "mutasi_ai_backend_id": self.backend.id,
+            }
+        )
+        wizard.import_file_button()
+        job = self.env[_JOB_MODEL].search(
+            [("statement_filename", "=", "checksum_equal.pdf")]
+        )
+        self.assertEqual(job.file_checksum, expected)
+
+    def test_enqueue_duplicate_of_done_job_raises_and_creates_nothing(self):
+        """Re-uploading a file already ``done`` is rejected.
+
+        Negative scenario — trigger P10 (L-09/L-10/L-11: fixture needs
+        ``base64``). No new ``ir.attachment`` nor job record may be
+        created when the guard rejects the upload.
+        """
+        content = b"file checksum duplicate done test content"
+        checksum = hashlib.sha256(content).hexdigest()
+        previous_job = self._make_job_with_checksum(
+            checksum, "done", filename="dup_done_prev.pdf"
+        )
+        job_count_before = self.env[_JOB_MODEL].search_count([])
+        attachment_count_before = self.env["ir.attachment"].search_count([])
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(content),
+                "statement_filename": "dup_done_new.pdf",
+                "mutasi_ai_backend_id": self.backend.id,
+            }
+        )
+        with self.assertRaises(UserError) as cm:
+            wizard.import_file_button()
+        self.assertIn(previous_job.name, str(cm.exception))
+        self.assertEqual(self.env[_JOB_MODEL].search_count([]), job_count_before)
+        self.assertEqual(
+            self.env["ir.attachment"].search_count([]), attachment_count_before
+        )
+
+    def test_enqueue_duplicate_of_failed_job_is_allowed(self):
+        """Re-uploading a file whose prior job ``failed`` is allowed.
+
+        Positive scenario — trigger P10 (L-09/L-10/L-11: fixture needs
+        ``base64``). A ``failed`` job must not block a retry-by-upload,
+        so a new job is created instead of raising.
+        """
+        content = b"file checksum duplicate failed test content"
+        checksum = hashlib.sha256(content).hexdigest()
+        self._make_job_with_checksum(checksum, "failed", filename="dup_failed_prev.pdf")
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(content),
+                "statement_filename": "dup_failed_new.pdf",
+                "mutasi_ai_backend_id": self.backend.id,
+            }
+        )
+        wizard.import_file_button()
+        new_job = self.env[_JOB_MODEL].search(
+            [("statement_filename", "=", "dup_failed_new.pdf")]
+        )
+        self.assertEqual(len(new_job), 1)
+        self.assertEqual(new_job.file_checksum, checksum)
+
+    def test_enqueue_different_content_gets_different_checksums(self):
+        """Two files with different content get different checksums.
+
+        Positive scenario — trigger P10 (L-09/L-10/L-11: fixture needs
+        ``base64``). Neither upload raises, and the two jobs end up
+        with distinct ``file_checksum`` values.
+        """
+        wizard_a = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(b"content variant A"),
+                "statement_filename": "distinct_a.pdf",
+                "mutasi_ai_backend_id": self.backend.id,
+            }
+        )
+        wizard_a.import_file_button()
+        wizard_b = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(b"content variant B"),
+                "statement_filename": "distinct_b.pdf",
+                "mutasi_ai_backend_id": self.backend.id,
+            }
+        )
+        wizard_b.import_file_button()
+        job_a = self.env[_JOB_MODEL].search(
+            [("statement_filename", "=", "distinct_a.pdf")]
+        )
+        job_b = self.env[_JOB_MODEL].search(
+            [("statement_filename", "=", "distinct_b.pdf")]
+        )
+        self.assertEqual(len(job_a), 1)
+        self.assertEqual(len(job_b), 1)
+        self.assertNotEqual(job_a.file_checksum, job_b.file_checksum)
 
     # ------------------------------------------------------------------
     # Test Connection — mocked HTTP

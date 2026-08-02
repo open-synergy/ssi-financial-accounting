@@ -49,6 +49,16 @@ class AccountStatementImportMutasiAiJob(models.Model):
         readonly=True,
         help="Original filename of the uploaded bank statement file.",
     )
+    file_checksum = fields.Char(
+        string="File Checksum",
+        readonly=True,
+        copy=False,
+        index=True,
+        help="SHA-256 hex digest of the decoded content of the uploaded "
+        "file. Used by the import wizard to reject re-uploading a file "
+        "that was already queued, processed, or successfully imported "
+        "by another job.",
+    )
     journal_id = fields.Many2one(
         string="Journal",
         comodel_name="account.journal",
