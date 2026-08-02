@@ -187,6 +187,14 @@ msgid "Activity Type Icon"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_job.py:0
+#, python-format
+msgid ""
+"All transactions in this file had already been imported previously "
+"(duplicates), so no new bank statement was created."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
@@ -349,6 +357,14 @@ msgid "Fallback Currency"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__notification_message
+msgid ""
+"Feedback returned by the import wizard about the outcome of this job, e.g. "
+"how many transactions were ignored because they had already been imported. "
+"Empty when the wizard reported nothing noteworthy."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_filename
 msgid "Filename"
 msgstr ""
@@ -413,6 +429,12 @@ msgstr ""
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model,name:ssi_account_statement_import_mutasi_ai.model_account_statement_import
 msgid "Import Bank Statement Files"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__notification_message
+#: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_form
+msgid "Import Notification"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
