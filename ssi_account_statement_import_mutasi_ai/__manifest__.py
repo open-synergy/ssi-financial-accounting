@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "SSI Mutasi AI Statement Import",
-    "version": "14.0.1.2.0",
+    "version": "14.0.1.3.0",
     "summary": "Import bank statements using the mutasi-ai AI extraction service, "
     "processed asynchronously via queue_job",
     "category": "Accounting",
