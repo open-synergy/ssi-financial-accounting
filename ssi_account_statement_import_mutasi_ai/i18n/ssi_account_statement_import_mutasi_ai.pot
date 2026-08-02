@@ -195,6 +195,11 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__already_imported
+msgid "Already Imported"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_backend__message_attachment_count
 msgid "Attachment Count"
 msgstr ""
@@ -452,9 +457,10 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__state
 msgid ""
 "Job status: Draft = not yet queued, Queued = waiting for a queue_job worker,"
-" Processing = currently calling the mutasi-ai service, Done = statement "
-"imported successfully, Need Review = imported but mutasi-ai flagged low "
-"confidence, Failed = the service call or import raised an error."
+" Done = statement imported successfully, Need Review = imported but mutasi-"
+"ai flagged low confidence, Already Imported = every transaction in the file "
+"had already been imported previously, so no new statement was created, "
+"Failed = the service call or import raised an error."
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
@@ -678,11 +684,6 @@ msgstr ""
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_filename
 msgid "Original filename of the uploaded bank statement file."
-msgstr ""
-
-#. module: ssi_account_statement_import_mutasi_ai
-#: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__processing
-msgid "Processing"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
