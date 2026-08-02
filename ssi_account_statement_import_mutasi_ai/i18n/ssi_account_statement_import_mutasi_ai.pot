@@ -14,6 +14,17 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import.py:0
+#, python-format
+msgid ""
+"\n"
+"Context: Enqueue mutasi-ai statement import\n"
+"Database ID: %s\n"
+"Problem: A file with the same content was already imported by job '%s'\n"
+"Solution: Check job '%s' instead of uploading the same file again\n"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: code:addons/ssi_account_statement_import_mutasi_ai/models/account_statement_import_mutasi_ai_backend.py:0
 #, python-format
 msgid ""
@@ -370,6 +381,11 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__file_checksum
+msgid "File Checksum"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_filename
 msgid "Filename"
 msgstr ""
@@ -722,6 +738,14 @@ msgstr ""
 #. module: ssi_account_statement_import_mutasi_ai
 #: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_form
 msgid "Retry"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__file_checksum
+msgid ""
+"SHA-256 hex digest of the decoded content of the uploaded file. Used by the "
+"import wizard to reject re-uploading a file that was already queued, "
+"processed, or successfully imported by another job."
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
