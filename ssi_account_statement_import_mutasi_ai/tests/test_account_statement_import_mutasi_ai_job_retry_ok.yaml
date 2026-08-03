@@ -1,0 +1,240 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create statement attachment"
+      action: "create"
+      model: "ir.attachment"
+      save_as: "attachment"
+      values:
+        name: "statement.pdf"
+        datas: "ZHVtbXkgcGRmIGNvbnRlbnQ="
+        type: "binary"
+    - step: "Create mutasi-ai backend"
+      action: "create"
+      model: "account.statement.import.mutasi.ai.backend"
+      save_as: "backend"
+      values:
+        name: "Retry Ok Test Backend"
+        code: "EVAL: 'RETRY-OK-BACKEND-%d' % registry['attachment'].id"
+        base_url: "https://carik.example.com"
+        bearer_token: "test-token"
+        timeout_seconds: 600
+
+scenarios:
+  - name: "retry_ok is true for a failed job"
+    steps:
+      - step: "Create failed job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+          state: "failed"
+      - step: "Assert retry_ok is true"
+        action: "assert"
+        target: "job"
+        asserts:
+          retry_ok:
+            type: "value"
+            expected: true
+
+  - name: "retry_ok is true for a need_review job"
+    steps:
+      - step: "Create need_review job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+          state: "need_review"
+      - step: "Assert retry_ok is true"
+        action: "assert"
+        target: "job"
+        asserts:
+          retry_ok:
+            type: "value"
+            expected: true
+
+  - name: "retry_ok is true for already_imported is false"
+    steps:
+      - step: "Create already_imported job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+          state: "already_imported"
+      - step: "Assert retry_ok is false"
+        action: "assert"
+        target: "job"
+        asserts:
+          retry_ok:
+            type: "value"
+            expected: false
+
+  - name: "retry_ok is true for a queued job without a queue_job_id"
+    steps:
+      - step: "Create queued job without a paired queue.job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+          state: "queued"
+      - step: "Assert retry_ok is true"
+        action: "assert"
+        target: "job"
+        asserts:
+          retry_ok:
+            type: "value"
+            expected: true
+          queue_job_id:
+            type: "value"
+            operator: "is_falsy"
+
+  - name: "retry_ok is true for a queued job whose queue.job is done"
+    steps:
+      - step: "Create job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+      - step: "Enqueue the job, creating a real paired queue.job"
+        action: "call"
+        target: "job"
+        method: "action_enqueue"
+      - step: "Locate the paired queue.job record"
+        action: "search"
+        model: "queue.job"
+        domain: [["id", "=", "REC: job.queue_job_id.id"]]
+        save_as: "qjob"
+      - step: "Force the paired queue.job to done"
+        action: "write"
+        target: "qjob"
+        values:
+          state: "done"
+      - step: "Assert retry_ok is true"
+        action: "assert"
+        target: "job"
+        asserts:
+          state:
+            type: "value"
+            expected: "queued"
+          retry_ok:
+            type: "value"
+            expected: true
+
+  - name:
+      "retry_ok is true for a queued job whose started queue.job is past the timeout"
+    steps:
+      - step: "Create job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+      - step: "Enqueue the job, creating a real paired queue.job"
+        action: "call"
+        target: "job"
+        method: "action_enqueue"
+      - step: "Locate the paired queue.job record"
+        action: "search"
+        model: "queue.job"
+        domain: [["id", "=", "REC: job.queue_job_id.id"]]
+        save_as: "qjob"
+      - step: "Mark the paired queue.job started long ago"
+        action: "write"
+        target: "qjob"
+        values:
+          state: "started"
+          date_started: "EVAL: datetime.now() - timedelta(days=1)"
+      - step: "Assert retry_ok is true"
+        action: "assert"
+        target: "job"
+        asserts:
+          retry_ok:
+            type: "value"
+            expected: true
+
+  - name: "retry_ok is false for a queued job whose started queue.job is fresh"
+    steps:
+      - step: "Create job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+      - step: "Enqueue the job, creating a real paired queue.job"
+        action: "call"
+        target: "job"
+        method: "action_enqueue"
+      - step: "Locate the paired queue.job record"
+        action: "search"
+        model: "queue.job"
+        domain: [["id", "=", "REC: job.queue_job_id.id"]]
+        save_as: "qjob"
+      - step: "Mark the paired queue.job started just now"
+        action: "write"
+        target: "qjob"
+        values:
+          state: "started"
+          date_started: "EVAL: datetime.now()"
+      - step: "Assert retry_ok is false"
+        action: "assert"
+        target: "job"
+        asserts:
+          retry_ok:
+            type: "value"
+            expected: false
+
+  - name: "action_retry recovers an orphaned queued job"
+    steps:
+      - step: "Create an orphaned queued job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+          state: "queued"
+      - step: "Retry the orphaned job"
+        action: "call"
+        target: "job"
+        method: "action_retry"
+      - step: "Assert the job is queued again with no error"
+        action: "assert"
+        target: "job"
+        asserts:
+          state:
+            type: "value"
+            expected: "queued"
+          error_message:
+            type: "value"
+            operator: "is_falsy"
+
+  - name: "action_retry is rejected on a done job"
+    steps:
+      - step: "Create a done job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+          state: "done"
+      - step: "Retry on a done job must be rejected"
+        action: "call"
+        target: "job"
+        method: "action_retry"
+        expect_error:
+          type: "UserError"

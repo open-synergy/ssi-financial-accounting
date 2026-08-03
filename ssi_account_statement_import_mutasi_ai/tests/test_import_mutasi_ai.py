@@ -826,6 +826,22 @@ class TestImportMutasiAi(TransactionCase):
         self.assertEqual(len(job), 1)
         self.assertFalse(job.statement_id)
 
+    def test_enqueue_links_queue_job_id(self):
+        """``_enqueue()`` stores the ``queue.job`` it just created.
+
+        Positive scenario — trigger P1 (L-01: the interesting value is
+        the intermediate ``Job`` returned by ``with_delay()._run()``,
+        exposed on the record only via ``queue_job_id`` after
+        ``_enqueue()`` writes it; YAML's ``call`` action discards
+        method return values, so only calling ``_enqueue()`` directly
+        in Python can pin the model/method it links to).
+        """
+        job = self._make_job(unique_suffix="link-queue-job")
+        job._enqueue()
+        self.assertTrue(job.queue_job_id)
+        self.assertEqual(job.queue_job_id.model_name, _JOB_MODEL)
+        self.assertEqual(job.queue_job_id.method_name, "_run")
+
     def test_preselect_backend_from_journal_default(self):
         if not self.bank_journal:
             self.skipTest("No bank journal found in test environment")
