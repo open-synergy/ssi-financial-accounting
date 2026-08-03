@@ -191,7 +191,7 @@ class AccountStatementImportMutasiAiJob(models.Model):
         "queue_job_id.state",
         "queue_job_id.date_started",
         "queue_job_id.date_enqueued",
-        "queue_job_id.create_date",
+        "queue_job_id.date_created",
         "backend_id.timeout_seconds",
     )
     def _compute_retry_ok(self):
@@ -239,7 +239,7 @@ class AccountStatementImportMutasiAiJob(models.Model):
             started_at = (
                 queue_job.date_started
                 or queue_job.date_enqueued
-                or queue_job.create_date
+                or queue_job.date_created
             )
             if not started_at:
                 return False
