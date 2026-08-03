@@ -17,7 +17,7 @@ setup:
       save_as: "backend"
       values:
         name: "Retry Ok Test Backend"
-        code: "RETRY-OK-BACKEND"
+        code: "EVAL: 'RETRY-OK-BACKEND-%d' % registry['attachment'].id"
         base_url: "https://carik.example.com"
         bearer_token: "test-token"
         timeout_seconds: 600
