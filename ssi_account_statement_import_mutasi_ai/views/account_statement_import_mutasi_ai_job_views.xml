@@ -80,4 +80,23 @@
         </form>
     </field>
 </record>
+
+<record
+        id="account_statement_import_mutasi_ai_job_action"
+        model="ir.actions.act_window"
+    >
+    <field name="name">Mutasi AI Import Jobs</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.statement.import.mutasi.ai.job</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="menu_account_statement_import_mutasi_ai_job"
+        name="Mutasi AI Import Jobs"
+        parent="ssi_financial_accounting.menu_bank_cash"
+        action="account_statement_import_mutasi_ai_job_action"
+        groups="ssi_financial_accounting.bank_statement_user_group"
+        sequence="3"
+    />
 </odoo>

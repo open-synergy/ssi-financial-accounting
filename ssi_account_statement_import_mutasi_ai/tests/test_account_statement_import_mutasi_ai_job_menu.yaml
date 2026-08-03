@@ -1,0 +1,73 @@
+scenarios:
+  - name: "Job window action has the expected res_model and view_mode"
+    steps:
+      - step: "Get job window action"
+        action: "ref"
+        xml_id: "ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_action"
+        save_as: "job_action"
+      - step: "Assert res_model and view_mode"
+        action: "assert"
+        target: "job_action"
+        asserts:
+          res_model:
+            type: "value"
+            expected: "account.statement.import.mutasi.ai.job"
+          view_mode:
+            type: "value"
+            expected: "tree,form"
+
+  - name: "Job menuitem points to the job window action"
+    steps:
+      - step: "Get job window action"
+        action: "ref"
+        xml_id: "ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_action"
+        save_as: "job_action"
+      - step: "Get job menuitem"
+        action: "ref"
+        xml_id: "ssi_account_statement_import_mutasi_ai.menu_account_statement_import_mutasi_ai_job"
+        save_as: "job_menu"
+      - step: "Assert menuitem action"
+        action: "assert"
+        target: "job_menu"
+        asserts:
+          action:
+            type: "m2o"
+            expected: "REC: job_action"
+
+  - name: "Job menuitem is placed under Bank & Cash"
+    steps:
+      - step: "Get job menuitem"
+        action: "ref"
+        xml_id: "ssi_account_statement_import_mutasi_ai.menu_account_statement_import_mutasi_ai_job"
+        save_as: "job_menu"
+      - step: "Get Bank & Cash menu"
+        action: "ref"
+        xml_id: "ssi_financial_accounting.menu_bank_cash"
+        save_as: "bank_cash_menu"
+      - step: "Assert menuitem parent"
+        action: "assert"
+        target: "job_menu"
+        asserts:
+          parent_id:
+            type: "m2o"
+            expected: "REC: bank_cash_menu"
+
+  - name: "Job menuitem is restricted to the bank statement user group"
+    steps:
+      - step: "Get job menuitem"
+        action: "ref"
+        xml_id: "ssi_account_statement_import_mutasi_ai.menu_account_statement_import_mutasi_ai_job"
+        save_as: "job_menu"
+      - step: "Get bank statement user group"
+        action: "ref"
+        xml_id: "ssi_financial_accounting.bank_statement_user_group"
+        save_as: "bank_statement_user_group"
+      - step: "Assert menuitem groups_id contains the bank statement group"
+        action: "assert"
+        target: "job_menu"
+        asserts:
+          groups_id:
+            type: "m2m"
+            check: "contains"
+            expected_records:
+              - "REC: bank_statement_user_group"
