@@ -36,7 +36,7 @@
                         type="object"
                         string="Retry"
                         class="btn-primary"
-                        attrs="{'invisible': [('state', 'not in', ('failed', 'need_review'))]}"
+                        attrs="{'invisible': [('retry_ok', '=', False)]}"
                     />
                 <button
                         name="action_open_statements"
@@ -48,6 +48,7 @@
                 <field name="state" widget="statusbar" />
             </header>
             <sheet>
+                <field name="retry_ok" invisible="1" />
                 <group>
                     <group>
                         <field name="name" />
@@ -55,6 +56,7 @@
                         <field name="journal_id" />
                         <field name="statement_id" />
                         <field name="backend_id" />
+                        <field name="queue_job_id" />
                     </group>
                     <group>
                         <field name="external_id" />

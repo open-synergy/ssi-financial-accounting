@@ -4,11 +4,17 @@
 import base64
 import json
 import logging
+from datetime import timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
+
+# Extra grace period, on top of the backend's own `timeout_seconds`, before
+# a `queued` job whose `queue_job_id` is still `started` is considered
+# orphaned by a dead worker (see `_compute_retry_ok`).
+_STUCK_JOB_MARGIN = timedelta(seconds=300)
 
 
 class AccountStatementImportMutasiAiJob(models.Model):
@@ -158,6 +164,88 @@ class AccountStatementImportMutasiAiJob(models.Model):
         "they had already been imported. Empty when the wizard reported "
         "nothing noteworthy.",
     )
+    queue_job_id = fields.Many2one(
+        string="Queue Job",
+        comodel_name="queue.job",
+        readonly=True,
+        copy=False,
+        ondelete="set null",
+        help="Background queue_job record running this job's ``_run()``. "
+        "Set when the job is enqueued via ``_enqueue()``. Used to tell "
+        "whether a 'Queued' job whose worker died is safe to retry.",
+    )
+    retry_ok = fields.Boolean(
+        string="Retry Allowed",
+        compute="_compute_retry_ok",
+        compute_sudo=True,
+        help="Technical field telling whether the Retry button/action "
+        "may run right now. True for 'Failed' and 'Need Review' jobs, "
+        "and for 'Queued' jobs whose background queue_job is missing, "
+        "already finished, or has been running past the backend's "
+        "configured timeout — all signs that the worker that was "
+        "supposed to process it has died, leaving the job stuck.",
+    )
+
+    @api.depends(
+        "state",
+        "queue_job_id.state",
+        "queue_job_id.date_started",
+        "queue_job_id.date_enqueued",
+        "queue_job_id.create_date",
+        "backend_id.timeout_seconds",
+    )
+    def _compute_retry_ok(self):
+        """Decide whether the Retry action is currently allowed.
+
+        See the module's backlog issue #114 for the four rules this
+        implements: a job can be retried when it is ``failed`` or
+        ``need_review``, or when it is ``queued`` but its paired
+        ``queue_job_id`` shows the background worker is no longer (or
+        never was) actually running it.
+        """
+        now = fields.Datetime.now()
+        for record in self:
+            result = False
+            if record.state in ("failed", "need_review"):
+                result = True
+            elif record.state == "queued":
+                result = record._queued_retry_ok(now)
+            record.retry_ok = result
+
+    def _queued_retry_ok(self, now):
+        """Return whether a ``queued`` job's background job looks dead.
+
+        :param now: current datetime, injected so the whole record set
+            computed together compares against the same instant
+        :type now: datetime.datetime
+        :return: ``True`` when ``queue_job_id`` is empty, already
+            finished (``done``/``failed``/``cancelled``), or still
+            "running" (``wait_dependencies``/``pending``/``enqueued``/
+            ``started``) well past ``backend_id.timeout_seconds``
+        :rtype: bool
+        """
+        self.ensure_one()
+        queue_job = self.queue_job_id
+        if not queue_job:
+            return True
+        if queue_job.state in ("done", "failed", "cancelled"):
+            return True
+        if queue_job.state in (
+            "wait_dependencies",
+            "pending",
+            "enqueued",
+            "started",
+        ):
+            started_at = (
+                queue_job.date_started
+                or queue_job.date_enqueued
+                or queue_job.create_date
+            )
+            if not started_at:
+                return False
+            timeout = timedelta(seconds=self.backend_id.timeout_seconds)
+            return now - started_at > timeout + _STUCK_JOB_MARGIN
+        return False
 
     @api.model
     def create(self, vals):
@@ -175,26 +263,39 @@ class AccountStatementImportMutasiAiJob(models.Model):
             record._enqueue()
 
     def _enqueue(self):
+        """Move this job to ``queued`` and delay its ``_run()``.
+
+        Stores the resulting ``queue.job`` record on ``queue_job_id``
+        (via ``Job.db_record()``) so ``_compute_retry_ok`` can later
+        tell whether the background worker is still alive.
+        """
         self.ensure_one()
         self.write({"state": "queued", "error_message": False})
-        self.with_delay(
+        delayable_job = self.with_delay(
             description=_("Import bank statement via mutasi-ai: %s")
             % (self.statement_filename or self.name)
         )._run()
+        self.write({"queue_job_id": delayable_job.db_record().id})
 
     def action_retry(self):
         for record in self.sudo():
             record._retry()
 
     def _retry(self):
+        """Re-enqueue this job, raising when ``retry_ok`` is false.
+
+        :raises UserError: when ``retry_ok`` is false, i.e. the job is
+            neither ``failed``/``need_review`` nor a ``queued`` job
+            whose background ``queue_job_id`` looks dead
+        """
         self.ensure_one()
-        if self.state not in ("failed", "need_review"):
+        if not self.retry_ok:
             error_message = (
                 _(
                     """
 Context: Retry mutasi-ai statement import job
 Database ID: %s
-Problem: Job is in state '%s', only 'Failed' or 'Need Review' jobs can be retried
+Problem: Job is in state '%s' and cannot be retried right now
 Solution: Wait for the current job to finish, or check its result
 """
                 )
