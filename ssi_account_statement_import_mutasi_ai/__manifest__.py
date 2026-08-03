@@ -25,6 +25,8 @@
         "security/ir_model_access/account_statement_import_mutasi_ai_backend.xml",
         "security/ir_model_access/account_statement_import_mutasi_ai_job.xml",
         "data/ir_sequence.xml",
+        "data/queue_job_channel_data.xml",
+        "data/queue_job_function_data.xml",
         "views/account_statement_import_mutasi_ai_backend_views.xml",
         "views/account_statement_import_mutasi_ai_job_views.xml",
         "views/account_statement_import_views.xml",

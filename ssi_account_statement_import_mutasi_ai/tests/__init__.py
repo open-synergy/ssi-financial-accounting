@@ -7,3 +7,4 @@ from . import test_account_statement_import_mutasi_ai_job_state
 from . import test_account_statement_import_mutasi_ai_job_retry_ok
 from . import test_account_statement_import_mutasi_ai_job_menu
 from . import test_account_statement_import_mutasi_ai_job_statement_link
+from . import test_account_statement_import_mutasi_ai_job_queue_channel

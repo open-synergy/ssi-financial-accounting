@@ -1,0 +1,86 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create statement attachment"
+      action: "create"
+      model: "ir.attachment"
+      save_as: "attachment"
+      values:
+        name: "statement.pdf"
+        datas: "ZHVtbXkgcGRmIGNvbnRlbnQ="
+        type: "binary"
+    - step: "Create mutasi-ai backend"
+      action: "create"
+      model: "account.statement.import.mutasi.ai.backend"
+      save_as: "backend"
+      values:
+        name: "Queue Channel Test Backend"
+        code: "EVAL: 'QCHANNEL-BACKEND-%d' % registry['attachment'].id"
+        base_url: "https://carik.example.com"
+        bearer_token: "test-token"
+        timeout_seconds: 600
+
+scenarios:
+  - name: "action_enqueue routes the job to the root.mutasi_ai channel"
+    steps:
+      - step: "Create job"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+      - step: "Enqueue the job, creating a real paired queue.job"
+        action: "call"
+        target: "job"
+        method: "action_enqueue"
+      - step: "Assert the paired queue.job runs on root.mutasi_ai"
+        action: "assert"
+        target: "job"
+        asserts:
+          queue_job_id.channel:
+            type: "value"
+            expected: "root.mutasi_ai"
+
+  - name: "channel_mutasi_ai is a child of root named mutasi_ai"
+    steps:
+      - step: "Look up the channel_mutasi_ai record"
+        action: "ref"
+        xml_id: "ssi_account_statement_import_mutasi_ai.channel_mutasi_ai"
+        save_as: "channel"
+      - step: "Assert channel name, parent and complete name"
+        action: "assert"
+        target: "channel"
+        asserts:
+          name:
+            type: "value"
+            expected: "mutasi_ai"
+          parent_id.name:
+            type: "value"
+            expected: "root"
+          complete_name:
+            type: "value"
+            expected: "root.mutasi_ai"
+
+  - name:
+      "job_function binds account.statement.import.mutasi.ai.job._run to the channel"
+    steps:
+      - step: "Look up the job_function record"
+        action: "ref"
+        xml_id: "ssi_account_statement_import_mutasi_ai.job_function_account_statement_import_mutasi_ai_job_run"
+        save_as: "job_function"
+      - step: "Assert model, method and channel of the job function"
+        action: "assert"
+        target: "job_function"
+        asserts:
+          model_id.model:
+            type: "value"
+            expected: "account.statement.import.mutasi.ai.job"
+          method:
+            type: "value"
+            expected: "_run"
+          channel:
+            type: "value"
+            expected: "root.mutasi_ai"
