@@ -583,7 +583,9 @@ msgid "Mutasi AI Extraction ID"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.actions.act_window,name:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_action
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_bank_statement__mutasi_ai_job_ids
+#: model:ir.ui.menu,name:ssi_account_statement_import_mutasi_ai.menu_account_statement_import_mutasi_ai_job
 #: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_bank_statement_mutasi_ai_job_form
 msgid "Mutasi AI Import Jobs"
 msgstr ""
