@@ -207,7 +207,7 @@ Solution: Check the mutasi-ai service logs for the actual error
             statement_vals["balance_end_real"] = float(balance_end_real)
         return statement_vals
 
-    def _transform_result(self, result_json, filename):
+    def _transform_result(self, result_json, filename, file_checksum=None):
         """Convert a mutasi-ai ``StatementExtractionRead`` JSON body into
         the OCA ``account.statement.import`` triplet.
 
@@ -216,9 +216,23 @@ Solution: Check the mutasi-ai service logs for the actual error
         ``_prepare_bank_statement_vals`` (see its docstring for the
         ``balance_start``/``balance_end_real`` handling).
 
+        The fallback ``unique_import_id`` (used when the service omits
+        one) is keyed on ``file_checksum`` rather than ``filename``
+        when a checksum is given, so two differently-named files with
+        identical content collide on purpose (real duplicates) while
+        the same filename re-uploaded with different content does not
+        collide by accident. When ``file_checksum`` is empty/omitted,
+        the id falls back to the previous filename-based pattern, so
+        callers that do not have a checksum keep working unchanged.
+
         :param result_json: parsed JSON body returned by ``_call_service``
-        :param filename: original filename, used to build a fallback
-            ``unique_import_id`` when the service omits one
+        :param filename: original filename, used in error messages and
+            as the fallback ``unique_import_id`` basis when
+            ``file_checksum`` is empty/omitted
+        :param file_checksum: SHA-256 hex digest of the uploaded file
+            content, used as the fallback ``unique_import_id`` basis
+            when given
+        :type file_checksum: str or None
         :return: ``(currency_code, account_number, statements)`` triplet
         :rtype: tuple
         :raises UserError: if the extraction failed, no currency can be
@@ -283,9 +297,21 @@ Solution: Check the source file quality (scan/photo legibility) and retry
                         % (self.id,)
                     )
                     raise UserError(error_message)
-                unique_import_id = source_tx.get(
-                    "unique_import_id"
-                ) or "mutasi-ai-%s-%s-%s" % (filename, st_idx, tx_idx)
+                if file_checksum:
+                    fallback_unique_import_id = "mutasi-ai-%s-%s-%s" % (
+                        file_checksum,
+                        st_idx,
+                        tx_idx,
+                    )
+                else:
+                    fallback_unique_import_id = "mutasi-ai-%s-%s-%s" % (
+                        filename,
+                        st_idx,
+                        tx_idx,
+                    )
+                unique_import_id = (
+                    source_tx.get("unique_import_id") or fallback_unique_import_id
+                )
                 transactions.append(
                     {
                         "payment_ref": source_tx.get("payment_ref") or "/",

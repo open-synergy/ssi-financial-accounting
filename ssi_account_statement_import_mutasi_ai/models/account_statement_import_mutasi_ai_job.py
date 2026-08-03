@@ -276,7 +276,9 @@ Solution: Wait for the current job to finish, or check its result
 
             response_json = self.backend_id._call_service(data_file, filename)
             external_status = response_json.get("status")
-            triplet = self.backend_id._transform_result(response_json, filename)
+            triplet = self.backend_id._transform_result(
+                response_json, filename, file_checksum=self.file_checksum
+            )
 
             import_context = {}
             if self.journal_id:
