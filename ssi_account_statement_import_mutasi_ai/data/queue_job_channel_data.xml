@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <!-- Dedicated queue_job channel for the mutasi-ai extraction job, so a
+         long-running extraction call (up to
+         CLAUDE_EXTRACTION_TIMEOUT_SECONDS, ~10 minutes) does not monopolize
+         the shared "root" channel used by every other queue_job in the
+         instance. See ssi-financial-accounting#122 for context. -->
+    <record id="channel_mutasi_ai" model="queue.job.channel">
+        <field name="name">mutasi_ai</field>
+        <field name="parent_id" ref="queue_job.channel_root" />
+    </record>
+</odoo>

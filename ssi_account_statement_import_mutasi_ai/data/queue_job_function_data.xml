@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <!-- Binds account.statement.import.mutasi.ai.job._run() to the
+         dedicated "root.mutasi_ai" channel above. retry_pattern is
+         intentionally left unset: _run() never re-raises (see its
+         docstring), so queue_job's retry mechanism is never triggered for
+         this job. -->
+    <record
+        id="job_function_account_statement_import_mutasi_ai_job_run"
+        model="queue.job.function"
+    >
+        <field name="model_id" ref="model_account_statement_import_mutasi_ai_job" />
+        <field name="method">_run</field>
+        <field name="channel_id" ref="channel_mutasi_ai" />
+    </record>
+</odoo>
