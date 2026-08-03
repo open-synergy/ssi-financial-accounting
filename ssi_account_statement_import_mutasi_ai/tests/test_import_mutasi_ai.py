@@ -400,6 +400,150 @@ class TestImportMutasiAi(TransactionCase):
             "via mutasi_ai_job_ids",
         )
 
+    def test_run_dedup_with_target_statement_stays_linked(self):
+        """A fully-duplicate run against an explicit target stays linked.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). Regression coverage for backlog issue
+        #112: when every transaction in the file is a duplicate,
+        ``result["statement_ids"]`` comes back empty, and a
+        replace-all write would have severed the link ``create()``
+        already made between the job and its explicit
+        ``statement_id`` target — hiding the job from the very
+        statement the user is watching it on.
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        response = _sample_response(
+            unique_suffix="target-dedup", currency_code=self.company_currency
+        )
+        job1 = self._make_job(unique_suffix="target-dedup")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job1._run()
+        self.assertEqual(job1.state, "done")
+        target_statement = job1.statement_ids
+
+        attachment = self._make_attachment("target_dedup.pdf")
+        job2 = self.env[_JOB_MODEL].create(
+            {
+                "attachment_id": attachment.id,
+                "statement_filename": "target_dedup.pdf",
+                "backend_id": self.backend.id,
+                "statement_id": target_statement.id,
+                "journal_id": self.bank_journal.id,
+            }
+        )
+        self.assertIn(
+            job2,
+            target_statement.mutasi_ai_job_ids,
+            "create() must link job2 to its target statement before "
+            "_run() ever executes",
+        )
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job2._run()
+        self.assertEqual(job2.state, "already_imported")
+        self.assertEqual(
+            job2.statement_ids,
+            target_statement,
+            "a fully-duplicate run's empty result must leave the link "
+            "made at create() untouched, not wipe it",
+        )
+        self.assertIn(
+            job2,
+            target_statement.mutasi_ai_job_ids,
+            "the link made at create() must survive a fully-duplicate "
+            "_run(), not be wiped by a replace-all write",
+        )
+
+    def test_run_failure_with_target_statement_stays_linked(self):
+        """A failed run leaves the job linked to its target statement.
+
+        Negative scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). Regression coverage for backlog issue
+        #112: the ``except`` branch of ``_run()`` must not touch
+        ``statement_ids``, so a job that targeted an existing
+        statement and then failed is still visible on that statement.
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        existing_statement = self.env["account.bank.statement"].create(
+            {
+                "journal_id": self.bank_journal.id,
+                "date": "2026-01-31",
+            }
+        )
+        attachment = self._make_attachment("target_failure.pdf")
+        job = self.env[_JOB_MODEL].create(
+            {
+                "attachment_id": attachment.id,
+                "statement_filename": "target_failure.pdf",
+                "backend_id": self.backend.id,
+                "statement_id": existing_statement.id,
+            }
+        )
+        self.assertIn(job, existing_statement.mutasi_ai_job_ids)
+        with patch(_CALL_SERVICE_PATH, side_effect=UserError("boom")):
+            job._run()
+        self.assertEqual(job.state, "failed")
+        self.assertIn(
+            job,
+            existing_statement.mutasi_ai_job_ids,
+            "a failed _run() must not sever the link made at create()",
+        )
+
+    def test_run_success_with_target_statement_links_exactly_once(self):
+        """A successful run against a pre-linked target adds no duplicate.
+
+        Positive scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). Regression coverage for backlog issue
+        #112: ``create()`` already links the job to its explicit
+        ``statement_id`` target, so ``_run()``'s own link (``4``)
+        command for the same id must not create a duplicate relation
+        row.
+        """
+        if not self.bank_journal:
+            self.skipTest("No bank journal found in test environment")
+        existing_statement = self.env["account.bank.statement"].create(
+            {
+                "journal_id": self.bank_journal.id,
+                "date": "2026-01-31",
+            }
+        )
+        attachment = self._make_attachment("target_success.pdf")
+        job = self.env[_JOB_MODEL].create(
+            {
+                "attachment_id": attachment.id,
+                "statement_filename": "target_success.pdf",
+                "backend_id": self.backend.id,
+                "statement_id": existing_statement.id,
+                "journal_id": self.bank_journal.id,
+            }
+        )
+        with patch(
+            _CALL_SERVICE_PATH,
+            return_value=_sample_response(
+                unique_suffix="target-success", currency_code=self.company_currency
+            ),
+        ):
+            job._run()
+        self.assertEqual(job.state, "done")
+        self.assertEqual(job.statement_ids, existing_statement)
+        self.env.cr.execute(
+            "SELECT COUNT(*) FROM "
+            "account_statement_import_mutasi_ai_job_statement_rel "
+            "WHERE job_id = %s AND statement_id = %s",
+            (job.id, existing_statement.id),
+        )
+        self.assertEqual(
+            self.env.cr.fetchone()[0],
+            1,
+            "the target statement must be linked exactly once, with "
+            "no duplicate relation row",
+        )
+
     def test_run_dedup_second_run_already_imported(self):
         """Re-importing an all-duplicate file is ``already_imported``.
 

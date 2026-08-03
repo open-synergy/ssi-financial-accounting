@@ -1,0 +1,86 @@
+scenarios:
+  - name: "Job created with statement_id is linked to that statement"
+    steps:
+      - step: "Search for an existing bank journal"
+        action: "search"
+        model: "account.journal"
+        save_as: "bank_journal"
+        domain:
+          - ["type", "in", ["cash", "bank"]]
+        limit: 1
+      - step: "Create the target bank statement"
+        action: "create"
+        model: "account.bank.statement"
+        save_as: "target_statement"
+        values:
+          journal_id: "REC: bank_journal.id"
+          date: "2026-01-31"
+      - step: "Create statement attachment"
+        action: "create"
+        model: "ir.attachment"
+        save_as: "attachment"
+        values:
+          name: "statement.pdf"
+          datas: "ZHVtbXkgcGRmIGNvbnRlbnQ="
+          type: "binary"
+      - step: "Create mutasi-ai backend"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.backend"
+        save_as: "backend"
+        values:
+          name: "Statement Link Test Backend"
+          code: "STMT-LINK-BACKEND-1"
+          base_url: "https://carik.example.com"
+          bearer_token: "test-token"
+      - step: "Create job targeting the existing statement"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+          statement_id: "REC: target_statement.id"
+      - step: "Assert the job is already linked before _run() ever runs"
+        action: "assert"
+        target: "target_statement"
+        asserts:
+          mutasi_ai_job_ids:
+            type: "m2m"
+            check: "exact"
+            expected_records:
+              - "REC: job"
+
+  - name: "Job created without statement_id is not linked anywhere"
+    steps:
+      - step: "Create statement attachment"
+        action: "create"
+        model: "ir.attachment"
+        save_as: "attachment"
+        values:
+          name: "statement.pdf"
+          datas: "ZHVtbXkgcGRmIGNvbnRlbnQ="
+          type: "binary"
+      - step: "Create mutasi-ai backend"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.backend"
+        save_as: "backend"
+        values:
+          name: "Statement Link Test Backend"
+          code: "STMT-LINK-BACKEND-2"
+          base_url: "https://carik.example.com"
+          bearer_token: "test-token"
+      - step: "Create job without a target statement"
+        action: "create"
+        model: "account.statement.import.mutasi.ai.job"
+        save_as: "job"
+        values:
+          attachment_id: "REC: attachment.id"
+          backend_id: "REC: backend.id"
+      - step: "Assert the job is not linked to any statement"
+        action: "assert"
+        target: "job"
+        asserts:
+          statement_ids:
+            type: "m2m"
+            check: "count"
+            expected_count: 0
