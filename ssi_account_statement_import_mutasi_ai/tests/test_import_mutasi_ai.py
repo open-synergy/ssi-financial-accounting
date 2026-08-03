@@ -443,9 +443,11 @@ class TestImportMutasiAi(TransactionCase):
         with patch(_CALL_SERVICE_PATH, return_value=response):
             job2._run()
         self.assertEqual(job2.state, "already_imported")
-        self.assertFalse(
+        self.assertEqual(
             job2.statement_ids,
-            "a fully-duplicate run reports no statement in the result",
+            target_statement,
+            "a fully-duplicate run's empty result must leave the link "
+            "made at create() untouched, not wipe it",
         )
         self.assertIn(
             job2,
