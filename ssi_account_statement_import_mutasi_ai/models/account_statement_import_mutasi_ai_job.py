@@ -414,9 +414,14 @@ Solution: Wait for the current job to finish, or check its result
                 # Mirrors the context the base wizard normally receives when
                 # opened from an existing statement's "Import Statement"
                 # button, so `import_single_statement` updates it instead
-                # of creating a new one.
+                # of creating a new one. `journal_id` is set from the
+                # target statement's own journal (like
+                # `AccountBankStatement.action_import_statement` does) so
+                # `_match_journal` resolves it even when the file's
+                # account number doesn't match any journal's bank account.
                 import_context["active_model"] = "account.bank.statement"
                 import_context["active_ids"] = [self.statement_id.id]
+                import_context["journal_id"] = self.statement_id.journal_id.id
             wizard = (
                 self.env["account.statement.import"]
                 .sudo()
