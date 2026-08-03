@@ -249,6 +249,21 @@ class AccountStatementImportMutasiAiJob(models.Model):
 
     @api.model
     def create(self, vals):
+        """Create a job, linking it to its target statement immediately.
+
+        Assigns a sequence-based ``name`` when the caller did not
+        supply one. When ``vals`` carries a ``statement_id`` (the job
+        targets an existing bank statement), that statement is also
+        linked on ``statement_ids`` right away, so the statement's
+        ``mutasi_ai_job_ids`` shows the job from the moment it is
+        created — before ``_run()`` (queued/processing/failed jobs are
+        otherwise invisible on the statement they target).
+
+        :param vals: field values for the new record
+        :type vals: dict
+        :return: the newly created job record
+        :rtype: recordset of ``account.statement.import.mutasi.ai.job``
+        """
         if vals.get("name", "New") in (False, "New"):
             vals["name"] = (
                 self.env["ir.sequence"].next_by_code(
@@ -256,6 +271,10 @@ class AccountStatementImportMutasiAiJob(models.Model):
                 )
                 or "New"
             )
+        if vals.get("statement_id"):
+            vals["statement_ids"] = (vals.get("statement_ids") or []) + [
+                (4, vals["statement_id"])
+            ]
         return super().create(vals)
 
     def action_enqueue(self):
@@ -369,6 +388,13 @@ Solution: Wait for the current job to finish, or check its result
         failure is caught and recorded on ``state`` / ``error_message`` so
         the job can be inspected and retried from the UI, instead of
         relying on queue_job's own retry/failure handling.
+
+        ``statement_ids`` is updated with link (``4``) commands for
+        every id in ``result["statement_ids"]`` rather than a
+        replace-all (``6``) command, so a run whose file is fully
+        duplicate (``result["statement_ids"]`` empty) never severs the
+        link this job's ``create()`` already made to its target
+        ``statement_id``.
         """
         self.ensure_one()
         try:
@@ -420,7 +446,9 @@ Solution: Wait for the current job to finish, or check its result
                     "external_id": response_json.get("id"),
                     "external_status": external_status,
                     "response_json": json.dumps(response_json),
-                    "statement_ids": [(6, 0, result["statement_ids"])],
+                    "statement_ids": [
+                        (4, statement_id) for statement_id in result["statement_ids"]
+                    ],
                     "error_message": False,
                     "notification_message": self._prepare_notification_message(result),
                 }
