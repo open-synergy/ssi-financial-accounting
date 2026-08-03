@@ -5,3 +5,4 @@ from . import test_mutasi_ai_backend
 from . import test_import_mutasi_ai
 from . import test_account_statement_import_mutasi_ai_job_state
 from . import test_account_statement_import_mutasi_ai_job_retry_ok
+from . import test_account_statement_import_mutasi_ai_job_menu
