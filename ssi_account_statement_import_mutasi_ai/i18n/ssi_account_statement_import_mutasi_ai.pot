@@ -75,7 +75,7 @@ msgid ""
 "\n"
 "Context: Retry mutasi-ai statement import job\n"
 "Database ID: %s\n"
-"Problem: Job is in state '%s', only 'Failed' or 'Need Review' jobs can be retried\n"
+"Problem: Job is in state '%s' and cannot be retried right now\n"
 "Solution: Wait for the current job to finish, or check its result\n"
 msgstr ""
 
@@ -218,6 +218,14 @@ msgstr ""
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__backend_id
 msgid "Backend configuration used to call the mutasi-ai service."
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__queue_job_id
+msgid ""
+"Background queue_job record running this job's ``_run()``. Set when the job "
+"is enqueued via ``_enqueue()``. Used to tell whether a 'Queued' job whose "
+"worker died is safe to retry."
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
@@ -703,6 +711,11 @@ msgid "Original filename of the uploaded bank statement file."
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__queue_job_id
+msgid "Queue Job"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields.selection,name:ssi_account_statement_import_mutasi_ai.selection__account_statement_import_mutasi_ai_job__state__queued
 msgid "Queued"
 msgstr ""
@@ -738,6 +751,11 @@ msgstr ""
 #. module: ssi_account_statement_import_mutasi_ai
 #: model_terms:ir.ui.view,arch_db:ssi_account_statement_import_mutasi_ai.account_statement_import_mutasi_ai_job_view_form
 msgid "Retry"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__retry_ok
+msgid "Retry Allowed"
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
@@ -791,6 +809,16 @@ msgstr ""
 #. module: ssi_account_statement_import_mutasi_ai
 #: model:ir.model.fields,field_description:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__statement_id
 msgid "Target Statement"
+msgstr ""
+
+#. module: ssi_account_statement_import_mutasi_ai
+#: model:ir.model.fields,help:ssi_account_statement_import_mutasi_ai.field_account_statement_import_mutasi_ai_job__retry_ok
+msgid ""
+"Technical field telling whether the Retry button/action may run right now. "
+"True for 'Failed' and 'Need Review' jobs, and for 'Queued' jobs whose "
+"background queue_job is missing, already finished, or has been running past "
+"the backend's configured timeout — all signs that the worker that was "
+"supposed to process it has died, leaving the job stuck."
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
