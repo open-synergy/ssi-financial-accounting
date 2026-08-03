@@ -431,6 +431,7 @@ class TestImportMutasiAi(TransactionCase):
                 "statement_filename": "target_dedup.pdf",
                 "backend_id": self.backend.id,
                 "statement_id": target_statement.id,
+                "journal_id": self.bank_journal.id,
             }
         )
         self.assertIn(
@@ -516,6 +517,7 @@ class TestImportMutasiAi(TransactionCase):
                 "statement_filename": "target_success.pdf",
                 "backend_id": self.backend.id,
                 "statement_id": existing_statement.id,
+                "journal_id": self.bank_journal.id,
             }
         )
         with patch(
