@@ -116,9 +116,19 @@ odoo.define(
                     content: "Click Reload Template Policy",
                     trigger: "button[name='action_reload_policy_template']",
                 },
+                // Action_reload_policy_template is a type="object" button
+                // in the sheet, so _onButtonClicked saves the (still new)
+                // record with stayInEdit: true -- the form stays in edit
+                // mode, and the button itself is never touched by
+                // disableButtons (that only covers .o_statusbar_buttons /
+                // .oe_button_box, per form_renderer.js). The real "call has
+                // completed" signal is the toolbar Save button, which
+                // FormController._disableButtons *does* disable for the
+                // duration of the async save+action call and re-enables
+                // once it settles.
                 {
                     content: "Reload Template Policy call has completed",
-                    trigger: "button[name='action_reload_policy_template']:enabled",
+                    trigger: ".o_form_buttons_edit .o_form_button_save:not([disabled])",
                     run: function () {
                         // Assertion only.
                     },
@@ -339,6 +349,12 @@ odoo.define(
                             ".o_statusbar_buttons button:contains(Take Money In/Out)",
                         extra_trigger: ".o_form_view",
                     },
+                    // 14.0: JANGAN prefiks `.modal` -- web_tour/
+                    // tour_manager.js sudah mencari trigger DI DALAM modal
+                    // lewat $modal_displayed.find(...) begitu modal
+                    // terbuka (patterns-dialogs-and-wizards.md §H);
+                    // ".modal ..." menuntut modal bersarang yang tak ada
+                    // dan timeout, tergerbangi validate-tour.sh §4.
                     {
                         content: "The Take Money In/Out wizard is displayed",
                         trigger: ".o_form_view",
@@ -347,16 +363,24 @@ odoo.define(
                         },
                     },
 
-                    // Flow 4 -- fill Reason and Amount. Char/Float root
-                    // elements are the <input> itself (no " input" suffix).
+                    // Flow 4 -- fill Reason and Amount. Char (FieldChar)
+                    // and Float (NumericField) both use tagName: 'span' as
+                    // their root element (web/static/src/js/fields/
+                    // basic_fields.js), so .o_field_widget[name=...] is
+                    // the <span> wrapper, NOT the <input> -- the " input"
+                    // suffix is required, same as balance_end_real in the
+                    // create tour. "text ..." run on the <span> wrapper
+                    // falls back to $element.focusIn(), which is only
+                    // defined by web_editor's rte.js and is absent from
+                    // this bundle, raising a TypeError.
                     {
                         content: "Fill in the Reason",
-                        trigger: ".o_field_widget[name='name']",
+                        trigger: ".o_field_widget[name='name'] input",
                         run: "text Tour Cash In",
                     },
                     {
                         content: "Fill in the Amount",
-                        trigger: ".o_field_widget[name='amount']",
+                        trigger: ".o_field_widget[name='amount'] input",
                         run: "text 50",
                     },
 
@@ -394,7 +418,24 @@ odoo.define(
                 openCashRegistersMenu(),
                 openRecordByJournal("Tour Cash Register Count"),
                 [
-                    // Flow 3 -- click the "-> Count" link next to Starting
+                    // Flow 3 -- Click Edit. The "-> Count" button carries
+                    // class="oe_edit_only" (account/views/
+                    // account_bank_statement_views.xml), so it is hidden
+                    // while the form is in readonly mode.
+                    {
+                        content: "Click Edit",
+                        trigger: ".o_form_button_edit",
+                        extra_trigger: ".o_form_view.o_form_readonly",
+                    },
+                    {
+                        content: "Form is open in edit mode",
+                        trigger: ".o_form_view.o_form_editable",
+                        run: function () {
+                            // Assertion only.
+                        },
+                    },
+
+                    // Flow 4 -- click the "-> Count" link next to Starting
                     // Balance. Both Count buttons share the same
                     // name="open_cashbox_id"; disambiguate structurally by
                     // the field it sits next to (view XML: both are
@@ -415,23 +456,30 @@ odoo.define(
                         },
                     },
 
-                    // Flow 4 -- add a denomination line and fill it in.
+                    // Flow 5 -- add a denomination line and fill it in.
+                    // coin_value (Float) and number (Integer) both extend
+                    // NumericField, tagName: 'span' (web/static/src/js/
+                    // fields/basic_fields.js), same as Amount in the Take
+                    // Money In/Out wizard -- the " input" suffix is
+                    // required, otherwise "text ..." falls back to
+                    // $element.focusIn(), which raises a TypeError.
                     {
                         content: "Add a cashbox line",
                         trigger: ".o_field_x2many .o_field_x2many_list_row_add a",
                     },
                     {
                         content: "Fill in the Coin/Bill Value",
-                        trigger: ".o_selected_row .o_field_widget[name='coin_value']",
+                        trigger:
+                            ".o_selected_row .o_field_widget[name='coin_value'] input",
                         run: "text 50000",
                     },
                     {
                         content: "Fill in the #Coins/Bills",
-                        trigger: ".o_selected_row .o_field_widget[name='number']",
+                        trigger: ".o_selected_row .o_field_widget[name='number'] input",
                         run: "text 2",
                     },
 
-                    // Flow 5 -- Confirm. The click on the footer button
+                    // Flow 6 -- Confirm. The click on the footer button
                     // moves focus away from the edited row, committing it
                     // before the save handler runs (patterns.md §C
                     // Jebakan 2).

@@ -14,13 +14,14 @@
 
 1. Open the **Financial Accounting > Bank & Cash > Cash Registers** menu.
 2. Open the register.
-3. Next to **Starting Balance** or **Ending Balance**, click **→ Count**.
-4. In the cash-count wizard, for each coin/note denomination counted, click **Add a
+3. Click **Edit**. The **→ Count** link is only shown while the form is in edit mode.
+4. Next to **Starting Balance** or **Ending Balance**, click **→ Count**.
+5. In the cash-count wizard, for each coin/note denomination counted, click **Add a
    line** and fill in:
    - **Coin/Bill Value**: the denomination's value (e.g. `50000`, `1000`, `500`).
    - **#Coins/Bills**: how many pieces of that denomination were counted. The
      **Subtotal** per line and the **Total** at the bottom are calculated automatically.
-5. Click **Confirm** to apply the counted total to the balance, or **Cancel** to
+6. Click **Confirm** to apply the counted total to the balance, or **Cancel** to
    discard.
 
 ## Post-Condition

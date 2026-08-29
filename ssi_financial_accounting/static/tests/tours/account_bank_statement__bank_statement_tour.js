@@ -114,9 +114,19 @@ odoo.define(
                     content: "Click Reload Template Policy",
                     trigger: "button[name='action_reload_policy_template']",
                 },
+                // Action_reload_policy_template is a type="object" button
+                // in the sheet, so _onButtonClicked saves the (still new)
+                // record with stayInEdit: true -- the form stays in edit
+                // mode, and the button itself is never touched by
+                // disableButtons (that only covers .o_statusbar_buttons /
+                // .oe_button_box, per form_renderer.js). The real "call has
+                // completed" signal is the toolbar Save button, which
+                // FormController._disableButtons *does* disable for the
+                // duration of the async save+action call and re-enables
+                // once it settles.
                 {
                     content: "Reload Template Policy call has completed",
-                    trigger: "button[name='action_reload_policy_template']:enabled",
+                    trigger: ".o_form_buttons_edit .o_form_button_save:not([disabled])",
                     run: function () {
                         // Assertion only.
                     },

@@ -64,26 +64,54 @@ class TestUiAccountBankStatementCashRegister(HttpSavepointCase):
             }
         )
 
+        # ``is_reconciled`` is a stored compute (account/models/
+        # account_bank_statement.py `_compute_is_reconciled`) with no
+        # inverse: writing it directly gets silently overwritten by the
+        # next recompute. To make the Validate fixture's line genuinely
+        # reconciled without exercising full manual reconciliation (out of
+        # scope for a UI tour), its counterpart move line is created
+        # against a real account instead of the journal's suspense
+        # account -- ``_seek_for_lines`` then buckets it as an "other"
+        # line, so ``_compute_is_reconciled`` takes the
+        # "no suspense line left" branch and sets ``is_reconciled = True``
+        # on its own.
+        cls.reconcile_account = cls.env["account.account"].create(
+            {
+                "name": "Tour Reconciled Counterpart",
+                "code": "TOURCRRC",
+                "user_type_id": cls.env.ref(
+                    "account.data_account_type_current_assets"
+                ).id,
+                "reconcile": True,
+            }
+        )
+
         cls.journal_validate = cls.env["account.journal"].create(
             {"name": "Tour Cash Register Validate", "type": "cash", "code": "TCRVA"}
         )
         cls.statement_validate = cls.env["account.bank.statement"].create(
             {"journal_id": cls.journal_validate.id}
         )
-        line_validate = cls.env["account.bank.statement.line"].create(
+        cls.env["account.bank.statement.line"].create(
             {
                 "statement_id": cls.statement_validate.id,
                 "payment_ref": "Tour Test Line",
                 "amount": 100.0,
+                "counterpart_account_id": cls.reconcile_account.id,
             }
         )
-        # Force the line to appear reconciled -- real reconciliation is out
-        # of scope for a UI tour. Ending Balance is aligned with the
-        # computed balance so the difference is zero: for a cash journal, a
-        # non-zero difference opens the closing-balance confirmation wizard
-        # instead of validating directly (see button_validate_or_action).
-        line_validate.is_reconciled = True
+        # Ending Balance is aligned with the computed balance so the
+        # difference is zero: for a cash journal, a non-zero difference
+        # opens the closing-balance confirmation wizard instead of
+        # validating directly (see button_validate_or_action).
         cls.statement_validate.write({"state": "posted", "balance_end_real": 100.0})
+        # Regression guard: if the fixture above stops producing a fully
+        # reconciled statement, `validate_ok` goes False and the
+        # ``test_validate`` tour times out on an invisible Validate button
+        # instead of failing here with a clear message.
+        assert (
+            cls.statement_validate.validate_ok
+        ), "Validate fixture is not reconciled: validate_ok is False"
 
         cls.journal_reset_new = cls.env["account.journal"].create(
             {"name": "Tour Cash Register Reset New", "type": "cash", "code": "TCRRN"}
