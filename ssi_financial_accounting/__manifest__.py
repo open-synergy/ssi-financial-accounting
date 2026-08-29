@@ -28,6 +28,7 @@
         "account_move_force_removal",
         "ssi_account_create_liquidity_journal",
         "account_mass_reconcile",
+        "web_tour",
     ],
     "data": [
         "security/ir_module_category_data.xml",
@@ -78,6 +79,7 @@
         "report/templates/general_ledger.xml",
         "views/mass_reconcile_views.xml",
         "menu.xml",
+        "views/assets.xml",
     ],
     "demo": [],
 }

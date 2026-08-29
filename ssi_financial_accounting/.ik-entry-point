@@ -1,0 +1,2 @@
+account.bank.statement:bank_statement -- menu Bank Statements + grup bank_statement_*; alur rekonsiliasi bank
+account.bank.statement:cash_register -- menu Cash Registers + grup cash_register_*; alur buka/tutup kas

@@ -4,3 +4,5 @@
 
 from . import test_ssi_financial_accounting  # noqa: F401
 from . import test_mass_reconcile_advanced_partner  # noqa: F401
+from . import test_ui_account_bank_statement__bank_statement  # noqa: F401
+from . import test_ui_account_bank_statement__cash_register  # noqa: F401

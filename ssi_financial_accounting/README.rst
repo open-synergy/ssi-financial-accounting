@@ -7,6 +7,36 @@ Financial Accounting
 ====================
 
 
+Work Instruction
+================
+
+Bank Statement
+--------------
+
+* `Create Bank Statement <docs/account_bank_statement__bank_statement/01-create.html>`_
+* `Edit Bank Statement <docs/account_bank_statement__bank_statement/02-edit.html>`_
+* `Delete Bank Statement <docs/account_bank_statement__bank_statement/03-delete.html>`_
+* `Post Bank Statement <docs/account_bank_statement__bank_statement/04-post.html>`_
+* `Validate Bank Statement <docs/account_bank_statement__bank_statement/05-validate.html>`_
+* `Reset to New — Bank Statement <docs/account_bank_statement__bank_statement/06-reset-to-new.html>`_
+* `Reset to Processing — Bank Statement <docs/account_bank_statement__bank_statement/07-reset-to-processing.html>`_
+* `Print Bank Statement <docs/account_bank_statement__bank_statement/08-print.html>`_
+
+Cash Register
+-------------
+
+* `Create Cash Register <docs/account_bank_statement__cash_register/01-create.html>`_
+* `Edit Cash Register <docs/account_bank_statement__cash_register/02-edit.html>`_
+* `Delete Cash Register <docs/account_bank_statement__cash_register/03-delete.html>`_
+* `Post Cash Register <docs/account_bank_statement__cash_register/04-post.html>`_
+* `Validate Cash Register <docs/account_bank_statement__cash_register/05-validate.html>`_
+* `Reset to New — Cash Register <docs/account_bank_statement__cash_register/06-reset-to-new.html>`_
+* `Reset to Processing — Cash Register <docs/account_bank_statement__cash_register/07-reset-to-processing.html>`_
+* `Print Cash Register <docs/account_bank_statement__cash_register/08-print.html>`_
+* `Take Money In/Out — Cash Register <docs/account_bank_statement__cash_register/09-take-money-in-out.html>`_
+* `Count — Cash Register <docs/account_bank_statement__cash_register/10-count.html>`_
+
+
 Installation
 ============
 
