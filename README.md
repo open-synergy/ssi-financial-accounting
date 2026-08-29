@@ -30,7 +30,7 @@ addon | version | maintainers | summary
 [ssi_account_statement_import_pdf_image](ssi_account_statement_import_pdf_image/) | 14.0.2.0.0 |  | Import bank statements from scanned/image-only PDF files using local OCR
 [ssi_account_type_active](ssi_account_type_active/) | 14.0.1.1.0 |  | Active Field on Account Type
 [ssi_bank_statement_work_log](ssi_bank_statement_work_log/) | 14.0.1.1.0 |  | Bank Statement / Cash Register - Work Log Integration
-[ssi_financial_accounting](ssi_financial_accounting/) | 14.0.9.0.1 |  | Financial Accounting
+[ssi_financial_accounting](ssi_financial_accounting/) | 14.0.9.1.0 |  | Financial Accounting
 [ssi_financial_accounting_operating_unit](ssi_financial_accounting_operating_unit/) | 14.0.1.4.0 |  | Financial Accounting + Operating Unit
 [ssi_journal_entry_work_log](ssi_journal_entry_work_log/) | 14.0.1.1.0 |  | Journal Entry - Work Log Integration
 
