@@ -479,18 +479,27 @@ odoo.define(
                     },
 
                     // Flow 5 -- add a denomination line and fill it in.
-                    // coin_value (Float) and number (Integer) both extend
-                    // NumericField, which renders its root element as the
-                    // <input> itself in edit mode (see the Reason/Amount
-                    // comment above) -- NO " input" suffix, otherwise the
-                    // selector never matches and the step times out.
+                    // The effective widget is decided by tree column
+                    // markup, not the Python field type alone (account/
+                    // views/account_bank_statement_views.xml,
+                    // view_account_bnk_stmt_cashbox): coin_value carries
+                    // widget="monetary" there even though its Python type
+                    // is Float, so it renders as FieldMonetary -- root
+                    // <div class="o_input"> with the <input> appended
+                    // (FieldMonetary.init sets tagName = 'div' AFTER
+                    // calling super) -- the " input" suffix IS required,
+                    // same as balance_end_real/Amount above. number has no
+                    // widget override, so it stays plain Integer
+                    // (NumericField) -- root element is the <input> itself
+                    // in edit mode, NO " input" suffix.
                     {
                         content: "Add a cashbox line",
                         trigger: ".o_field_x2many .o_field_x2many_list_row_add a",
                     },
                     {
                         content: "Fill in the Coin/Bill Value",
-                        trigger: ".o_selected_row .o_field_widget[name='coin_value']",
+                        trigger:
+                            ".o_selected_row .o_field_widget[name='coin_value'] input",
                         run: "text 50000",
                     },
                     {
