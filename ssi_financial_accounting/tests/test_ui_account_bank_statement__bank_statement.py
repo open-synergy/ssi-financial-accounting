@@ -86,14 +86,29 @@ class TestUiAccountBankStatementBankStatement(HttpSavepointCase):
                 "counterpart_account_id": cls.reconcile_account.id,
             }
         )
-        cls.statement_validate.write({"state": "posted"})
-        # Regression guard: if the fixture above stops producing a fully
+        # ``balance_end_real`` (account/models/account_bank_statement.py
+        # `_compute_ending_balance`) only depends on
+        # ``previous_statement_id``/its ``balance_end_real`` -- NOT on
+        # ``line_ids``/``line_ids.amount``. So it was already computed to 0
+        # when the statement was created (before the line above existed)
+        # and never recomputes afterwards. Without this write,
+        # ``button_validate`` -> ``_check_bank_balance_end_real_same_as_
+        # computed`` (core, bank journals only) raises "The ending balance
+        # is incorrect !" because ``balance_end`` (line-driven) is 100 while
+        # ``balance_end_real`` is still 0.
+        cls.statement_validate.write({"state": "posted", "balance_end_real": 100.0})
+        # Regression guards: if the fixture above stops producing a fully
         # reconciled statement, `validate_ok` goes False and the
         # ``test_validate`` tour times out on an invisible Validate button
-        # instead of failing here with a clear message.
+        # instead of failing here with a clear message; if the ending
+        # balance stops matching the computed one, `button_validate` raises
+        # a UserError instead of failing here with a clear message.
         assert (
             cls.statement_validate.validate_ok
         ), "Validate fixture is not reconciled: validate_ok is False"
+        assert cls.statement_validate.currency_id.is_zero(
+            cls.statement_validate.difference
+        ), "Validate fixture ending balance does not match the computed one"
 
         cls.journal_reset_new = cls.env["account.journal"].create(
             {"name": "Tour Bank Statement Reset New", "type": "bank", "code": "TBSRN"}

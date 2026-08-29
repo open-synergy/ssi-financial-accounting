@@ -349,38 +349,51 @@ odoo.define(
                             ".o_statusbar_buttons button:contains(Take Money In/Out)",
                         extra_trigger: ".o_form_view",
                     },
-                    // 14.0: JANGAN prefiks `.modal` -- web_tour/
-                    // tour_manager.js sudah mencari trigger DI DALAM modal
-                    // lewat $modal_displayed.find(...) begitu modal
-                    // terbuka (patterns-dialogs-and-wizards.md §H);
-                    // ".modal ..." menuntut modal bersarang yang tak ada
-                    // dan timeout, tergerbangi validate-tour.sh §4.
+                    // The wizard is a modal -- the trigger below must only
+                    // match once the modal is actually open, not the
+                    // background form that is already ".o_form_view"
+                    // before the button click resolves (odoo-development-
+                    // ui-test skill, patterns.md litmus test). This step is
+                    // the one that WAITS FOR the modal to appear, so
+                    // `in_modal: false` is required: with the 14.0 default
+                    // (`in_modal: true`), tour_manager.js searches
+                    // $modal_displayed.find(trigger) -- but $modal_displayed
+                    // IS ".modal", and .find() only sees descendants, so a
+                    // bare ".modal-title" trigger would never be reachable
+                    // before the modal exists to search inside of
+                    // (patterns-dialogs-and-wizards.md §H). validate-tour.sh
+                    // §4 excludes ".modal-title" selectors from the
+                    // no-".modal"-prefix gate for exactly this reason.
                     {
                         content: "The Take Money In/Out wizard is displayed",
-                        trigger: ".o_form_view",
+                        trigger: ".modal-title:contains(Take Money In/Out)",
+                        in_modal: false,
                         run: function () {
                             // Assertion only.
                         },
                     },
 
                     // Flow 4 -- fill Reason and Amount. Char (FieldChar)
-                    // and Float (NumericField) both use tagName: 'span' as
-                    // their root element (web/static/src/js/fields/
-                    // basic_fields.js), so .o_field_widget[name=...] is
-                    // the <span> wrapper, NOT the <input> -- the " input"
-                    // suffix is required, same as balance_end_real in the
-                    // create tour. "text ..." run on the <span> wrapper
-                    // falls back to $element.focusIn(), which is only
-                    // defined by web_editor's rte.js and is absent from
-                    // this bundle, raising a TypeError.
+                    // and Float (NumericField) both render their root
+                    // element as the <input> itself in edit mode
+                    // (InputField.init sets `this.tagName = 'input'`;
+                    // NumericField's own `tagName: 'span'` prototype value
+                    // is shadowed by that instance assignment --
+                    // web/static/src/js/fields/basic_fields.js). So
+                    // .o_field_widget[name=...] IS the <input> here -- NO
+                    // " input" suffix. Only Monetary (balance_end_real)
+                    // wraps the input in a <div>, because FieldMonetary's
+                    // own init overrides tagName to 'div' AFTER calling
+                    // super. A trailing " input" here would look for a
+                    // nested <input> that does not exist and time out.
                     {
                         content: "Fill in the Reason",
-                        trigger: ".o_field_widget[name='name'] input",
+                        trigger: ".o_field_widget[name='name']",
                         run: "text Tour Cash In",
                     },
                     {
                         content: "Fill in the Amount",
-                        trigger: ".o_field_widget[name='amount'] input",
+                        trigger: ".o_field_widget[name='amount']",
                         run: "text 50",
                     },
 
@@ -448,9 +461,18 @@ odoo.define(
                             "button[name='open_cashbox_id']",
                         extra_trigger: ".o_form_view",
                     },
+                    // Same litmus test as the Take Money In/Out wizard
+                    // above: ".o_form_view" alone also matches the
+                    // background form (already rendered before this modal
+                    // opens), so it is not a valid gate for "the modal
+                    // appeared". `in_modal: false` for the same reason as
+                    // above -- this step waits FOR the modal to exist, so
+                    // the 14.0 default in-modal scoping
+                    // ($modal_displayed.find(...)) cannot be used yet.
                     {
                         content: "The cash-count wizard is displayed",
-                        trigger: ".o_form_view",
+                        trigger: ".modal-title:contains(Cash Control)",
+                        in_modal: false,
                         run: function () {
                             // Assertion only.
                         },
@@ -458,24 +480,22 @@ odoo.define(
 
                     // Flow 5 -- add a denomination line and fill it in.
                     // coin_value (Float) and number (Integer) both extend
-                    // NumericField, tagName: 'span' (web/static/src/js/
-                    // fields/basic_fields.js), same as Amount in the Take
-                    // Money In/Out wizard -- the " input" suffix is
-                    // required, otherwise "text ..." falls back to
-                    // $element.focusIn(), which raises a TypeError.
+                    // NumericField, which renders its root element as the
+                    // <input> itself in edit mode (see the Reason/Amount
+                    // comment above) -- NO " input" suffix, otherwise the
+                    // selector never matches and the step times out.
                     {
                         content: "Add a cashbox line",
                         trigger: ".o_field_x2many .o_field_x2many_list_row_add a",
                     },
                     {
                         content: "Fill in the Coin/Bill Value",
-                        trigger:
-                            ".o_selected_row .o_field_widget[name='coin_value'] input",
+                        trigger: ".o_selected_row .o_field_widget[name='coin_value']",
                         run: "text 50000",
                     },
                     {
                         content: "Fill in the #Coins/Bills",
-                        trigger: ".o_selected_row .o_field_widget[name='number'] input",
+                        trigger: ".o_selected_row .o_field_widget[name='number']",
                         run: "text 2",
                     },
 
