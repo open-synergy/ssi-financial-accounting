@@ -763,6 +763,71 @@ class TestImportMutasiAi(TransactionCase):
         self.assertIn("boom", job.error_message)
         self.assertFalse(job.statement_ids)
 
+    def test_run_failed_response_keeps_response_json(self):
+        """A rejected ``status=failed`` response is kept on the job.
+
+        Negative scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support). Also checks that a backend created without
+        an explicit value defaults ``timeout_seconds`` to 660.
+        """
+        self.assertEqual(self.backend.timeout_seconds, 660)
+        job = self._make_job(unique_suffix="resp-failed")
+        response = _sample_response(status="failed", unique_suffix="resp-failed")
+        with patch(_CALL_SERVICE_PATH, return_value=response):
+            job._run()
+        self.assertEqual(job.state, "failed")
+        self.assertIn("stmt_test_resp-failed", job.response_json)
+        self.assertEqual(job.external_status, "failed")
+        self.assertEqual(job.external_id, "stmt_test_resp-failed")
+        self.assertTrue(job.error_message)
+
+    def test_run_import_error_keeps_response_json(self):
+        """A failure after a valid response keeps the response too.
+
+        Negative scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service`` and
+        ``import_single_statement``; ``odoo-yaml-test`` has no
+        mock/patch support).
+        """
+        job = self._make_job(unique_suffix="import-fail")
+        response = _sample_response(status="ok", unique_suffix="import-fail")
+        wizard_class = type(self.env["account.statement.import"])
+        with patch(_CALL_SERVICE_PATH, return_value=response), patch.object(
+            wizard_class,
+            "import_single_statement",
+            side_effect=UserError("import boom"),
+        ):
+            job._run()
+        self.assertEqual(job.state, "failed")
+        self.assertIn("stmt_test_import-fail", job.response_json)
+        self.assertEqual(job.external_id, "stmt_test_import-fail")
+        self.assertEqual(job.external_status, "ok")
+        self.assertIn("import boom", job.error_message)
+
+    def test_run_failure_before_response_clears_stale_response(self):
+        """A failure before any response clears a stale stored response.
+
+        Negative scenario — trigger P6 (L-15: an end-to-end job run
+        requires patching ``_call_service``; ``odoo-yaml-test`` has no
+        mock/patch support).
+        """
+        job = self._make_job(unique_suffix="stale")
+        job.write(
+            {
+                "response_json": '{"id": "old"}',
+                "external_id": "old",
+                "external_status": "ok",
+            }
+        )
+        with patch(_CALL_SERVICE_PATH, side_effect=UserError("timeout")):
+            job._run()
+        self.assertEqual(job.state, "failed")
+        self.assertFalse(job.response_json)
+        self.assertFalse(job.external_id)
+        self.assertFalse(job.external_status)
+        self.assertIn("timeout", job.error_message)
+
     # ------------------------------------------------------------------
     # notification_message — mocked HTTP call
     # ------------------------------------------------------------------

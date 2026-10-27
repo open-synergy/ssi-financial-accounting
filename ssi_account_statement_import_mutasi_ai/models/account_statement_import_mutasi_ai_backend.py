@@ -52,11 +52,14 @@ class AccountStatementImportMutasiAiBackend(models.Model):
     )
     timeout_seconds = fields.Integer(
         string="Timeout (seconds)",
-        default=600,
+        default=660,
         required=True,
         help="Maximum time to wait for the mutasi-ai extraction response. "
         "The service itself may take up to CLAUDE_EXTRACTION_TIMEOUT_SECONDS "
-        "(default 600s) to analyze a single file.",
+        "(default 600s) to analyze a single file. This value must be "
+        "greater than CLAUDE_EXTRACTION_TIMEOUT_SECONDS, otherwise Odoo "
+        "drops the connection just as the service finishes and the "
+        "extracted result is lost.",
     )
     verify_ssl = fields.Boolean(
         string="Verify SSL",
