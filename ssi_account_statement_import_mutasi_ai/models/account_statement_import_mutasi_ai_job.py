@@ -395,8 +395,15 @@ Solution: Wait for the current job to finish, or check its result
         duplicate (``result["statement_ids"]`` empty) never severs the
         link this job's ``create()`` already made to its target
         ``statement_id``.
+
+        On failure after the service already answered (``_call_service``
+        returned a dict), the response is kept in ``response_json``,
+        ``external_id`` and ``external_status`` next to ``error_message``.
+        On failure before any response, those three fields are explicitly
+        cleared so a retry never keeps a stale response.
         """
         self.ensure_one()
+        response_json = None
         try:
             data_file = base64.b64decode(self.attachment_id.datas or b"")
             filename = self.statement_filename or self.attachment_id.name or "statement"
@@ -458,9 +465,15 @@ Solution: Wait for the current job to finish, or check its result
                 "mutasi-ai import job %s failed",
                 self.id,
             )
+            received = isinstance(response_json, dict)
             self.write(
                 {
                     "state": "failed",
                     "error_message": str(exc),
+                    "response_json": json.dumps(response_json) if received else False,
+                    "external_id": response_json.get("id") if received else False,
+                    "external_status": (
+                        response_json.get("status") if received else False
+                    ),
                 }
             )
