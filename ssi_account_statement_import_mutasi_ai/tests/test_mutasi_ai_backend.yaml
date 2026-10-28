@@ -25,7 +25,7 @@ scenarios:
             expected: "https://carik.example.com"
           timeout_seconds:
             type: "value"
-            expected: 600
+            expected: 660
           verify_ssl:
             type: "value"
             expected: true
