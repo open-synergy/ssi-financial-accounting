@@ -546,7 +546,9 @@ msgstr ""
 msgid ""
 "Maximum time to wait for the mutasi-ai extraction response. The service "
 "itself may take up to CLAUDE_EXTRACTION_TIMEOUT_SECONDS (default 600s) to "
-"analyze a single file."
+"analyze a single file. This value must be greater than "
+"CLAUDE_EXTRACTION_TIMEOUT_SECONDS, otherwise Odoo drops the connection just "
+"as the service finishes and the extracted result is lost."
 msgstr ""
 
 #. module: ssi_account_statement_import_mutasi_ai
